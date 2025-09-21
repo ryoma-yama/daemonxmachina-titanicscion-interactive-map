@@ -8,9 +8,7 @@ Usage: python scripts/add_marker.py {map_id} {category} "{name}" {x} {y}
 
 import argparse
 import json
-import os
 import sys
-import re
 from pathlib import Path
 
 
