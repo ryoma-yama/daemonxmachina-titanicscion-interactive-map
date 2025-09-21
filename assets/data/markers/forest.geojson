@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          400,
+          300
+        ]
+      },
+      "properties": {
+        "id": "forest-001",
+        "name": "BGM Player",
+        "category": "bgm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          800,
+          600
+        ]
+      },
+      "properties": {
+        "id": "forest-002",
+        "name": "Rare Card",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          600,
+          900
+        ]
+      },
+      "properties": {
+        "id": "forest-003",
+        "name": "Treasure Chest",
+        "category": "chest"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          200,
+          800
+        ]
+      },
+      "properties": {
+        "id": "forest-004",
+        "name": "Enemy",
+        "category": "enemy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1000,
+          400
+        ]
+      },
+      "properties": {
+        "id": "forest-005",
+        "name": "Memory Log",
+        "category": "log"
+      }
+    }
+  ]
+}

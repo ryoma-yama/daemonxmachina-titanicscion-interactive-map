@@ -33,6 +33,30 @@
       font-weight: bold;
       z-index: 1000;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .map-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .map-selector label {
+      font-size: 14px;
+      color: #666;
+      font-weight: normal;
+    }
+
+    .map-selector select {
+      padding: 4px 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
     }
 
     /* Popup styling */
@@ -82,7 +106,17 @@
 </head>
 
 <body>
-  <div class="map-title">Forest Map - Daemon X Machina: Titanic Scion</div>
+  <div class="map-title">
+    <span id="map-title-text">Forest Map - Daemon X Machina: Titanic Scion</span>
+    <div class="map-selector">
+      <label for="map-select">Map:</label>
+      <select id="map-select">
+        <option value="forest">Forest</option>
+        <option value="desert">Desert</option>
+        <option value="mountains">Mountains</option>
+      </select>
+    </div>
+  </div>
   <div id="map"></div>
 
   <!-- Leaflet JavaScript -->

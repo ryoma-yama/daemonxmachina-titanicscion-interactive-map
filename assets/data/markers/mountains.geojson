@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          300,
+          200
+        ]
+      },
+      "properties": {
+        "id": "mountains-001",
+        "name": "Mountain BGM Player",
+        "category": "bgm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          750,
+          450
+        ]
+      },
+      "properties": {
+        "id": "mountains-002",
+        "name": "Peak Card",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          550,
+          800
+        ]
+      },
+      "properties": {
+        "id": "mountains-003",
+        "name": "High Altitude Chest",
+        "category": "chest"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          400,
+          650
+        ]
+      },
+      "properties": {
+        "id": "mountains-004",
+        "name": "Mountain Beast",
+        "category": "enemy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          850,
+          300
+        ]
+      },
+      "properties": {
+        "id": "mountains-005",
+        "name": "Summit Log",
+        "category": "log"
+      }
+    }
+  ]
+}

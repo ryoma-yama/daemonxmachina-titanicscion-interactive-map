@@ -6,13 +6,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          400,
-          300
+          350,
+          250
         ]
       },
       "properties": {
-        "id": 1,
-        "name": "BGM Player",
+        "id": "desert-001",
+        "name": "Desert BGM Player",
         "category": "bgm"
       }
     },
@@ -21,13 +21,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          800,
-          600
+          700,
+          500
         ]
       },
       "properties": {
-        "id": 2,
-        "name": "Rare Card",
+        "id": "desert-002",
+        "name": "Sand Card",
         "category": "card"
       }
     },
@@ -36,13 +36,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          600,
-          900
+          900,
+          700
         ]
       },
       "properties": {
-        "id": 3,
-        "name": "Treasure Chest",
+        "id": "desert-003",
+        "name": "Buried Chest",
         "category": "chest"
       }
     },
@@ -51,13 +51,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          200,
-          800
+          150,
+          600
         ]
       },
       "properties": {
-        "id": 4,
-        "name": "Enemy",
+        "id": "desert-004",
+        "name": "Desert Worm",
         "category": "enemy"
       }
     },
@@ -66,13 +66,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1000,
-          400
+          500,
+          350
         ]
       },
       "properties": {
-        "id": 5,
-        "name": "Memory Log",
+        "id": "desert-005",
+        "name": "Ancient Log",
         "category": "log"
       }
     }
