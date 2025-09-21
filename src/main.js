@@ -69,7 +69,7 @@ function validateGeoJSONFeature(feature) {
   }
 
   // Category validation
-  const validCategories = ['bgm', 'card', 'chest', 'enemy', 'log'];
+  const validCategories = Object.keys(colors);
   if (!validCategories.includes(props.category)) {
     return false;
   }
@@ -102,7 +102,7 @@ class CollectionManager {
    * Validate map ID
    */
   validateMapId(mapId) {
-    const validMapIds = ['forest', 'desert', 'mountains'];
+    const validMapIds = Object.keys(mapDefinitions);
     if (!validMapIds.includes(mapId)) {
       console.warn(`Invalid mapId: ${mapId}, defaulting to 'forest'`);
       return 'forest';
