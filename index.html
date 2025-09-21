@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
   <title>Daemon X Machina: Titanic Scion - Interactive Map</title>
 
   <!-- Leaflet CSS -->
@@ -15,6 +15,8 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
     }
 
     #map {
@@ -27,12 +29,14 @@
       top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px 20px;
-      border-radius: 5px;
+      background: rgba(28, 28, 28, 0.95);
+      color: #e0e0e0;
+      padding: 12px 24px;
+      border-radius: 8px;
       font-weight: bold;
       z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      border: 1px solid #404040;
       display: flex;
       align-items: center;
       gap: 15px;
@@ -46,41 +50,67 @@
 
     .map-selector label {
       font-size: 14px;
-      color: #666;
+      color: #b0b0b0;
       font-weight: normal;
     }
 
     .map-selector select {
-      padding: 4px 8px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
+      padding: 6px 10px;
+      border: 1px solid #555;
+      border-radius: 4px;
       font-size: 14px;
-      background: white;
+      background-color: #2a2a2a;
+      color: #e0e0e0;
       cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .map-selector select:hover {
+      border-color: #777;
+    }
+
+    .map-selector select:focus {
+      outline: none;
+      border-color: #0084ff;
+      box-shadow: 0 0 0 2px rgba(0, 132, 255, 0.3);
     }
 
     /* Popup styling */
+    .leaflet-popup-content-wrapper {
+      background-color: #2a2a2a !important;
+      color: #e0e0e0 !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+      border: 1px solid #404040 !important;
+    }
+
+    .leaflet-popup-tip {
+      background-color: #2a2a2a !important;
+      border: 1px solid #404040 !important;
+    }
+
     .marker-popup {
       font-family: Arial, sans-serif;
-      min-width: 200px;
+      min-width: 220px;
+      color: #e0e0e0;
     }
 
     .marker-popup h4 {
       margin: 0 0 8px 0;
-      color: #333;
+      color: #ffffff;
       font-size: 16px;
     }
 
     .marker-popup div {
       margin: 4px 0;
       font-size: 14px;
-      color: #666;
+      color: #b0b0b0;
     }
 
     .collection-status {
       margin-top: 12px;
       padding-top: 8px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid #404040;
     }
 
     .checkbox-label {
@@ -88,8 +118,13 @@
       align-items: center;
       cursor: pointer;
       font-weight: bold;
-      color: #333 !important;
+      color: #e0e0e0 !important;
       font-size: 14px !important;
+      transition: color 0.3s ease;
+    }
+
+    .checkbox-label:hover {
+      color: #ffffff !important;
     }
 
     .checkbox-label input[type="checkbox"] {
@@ -97,10 +132,11 @@
       width: 16px;
       height: 16px;
       cursor: pointer;
+      accent-color: #00AA00;
     }
 
     .checkbox-label input[type="checkbox"]:checked {
-      color: #00AA00;
+      accent-color: #00CC00;
     }
   </style>
 </head>
