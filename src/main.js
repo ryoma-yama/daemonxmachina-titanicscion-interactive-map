@@ -73,7 +73,7 @@ function createPopupContent(feature) {
     <div class="marker-popup">
       <h4>${feature.properties.name}</h4>
       <div>ID: ${feature.properties.id}</div>
-      <div>カテゴリ: ${feature.properties.category}</div>
+      <div>Category: ${feature.properties.category}</div>
       <div class="collection-status">
         <label for="${checkboxId}" class="checkbox-label">
           <input type="checkbox" id="${checkboxId}" 
