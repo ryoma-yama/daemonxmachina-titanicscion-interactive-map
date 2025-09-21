@@ -72,6 +72,10 @@ class MapManager {
     this.currentImageOverlay = null;
     this.currentMarkerLayer = null;
 
+    // Recording mode state
+    this.isRecordingMode = false;
+    this.RECORDING_MODE_KEY = 'KeyR'; // R key for Shift+R combination
+
     // Initialize map
     this.map = L.map('map', {
       crs: L.CRS.Simple,
@@ -92,6 +96,19 @@ class MapManager {
   }
 
   setupEventListeners() {
+    // Recording mode toggle (Shift+R)
+    document.addEventListener('keydown', (e) => {
+      // Skip if input element has focus
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+        return;
+      }
+
+      if (e.code === this.RECORDING_MODE_KEY && e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        e.preventDefault();
+        this.toggleRecordingMode();
+      }
+    });
+
     // Map navigation link click events
     document.addEventListener('click', (e) => {
       const link = e.target.closest('.map-link');
@@ -112,16 +129,50 @@ class MapManager {
       }
     });
 
-    // Debug: Output clicked position coordinates to console
+    // Map click handler (debug coordinates + recording mode)
     this.map.on('click', e => {
       const x = Math.round(e.latlng.lng); // horizontal
       const y = Math.round(e.latlng.lat); // vertical
-      console.log(`Clicked at: x=${x}, y=${y}`);
+
+      if (this.isRecordingMode) {
+        // Recording mode: Output JSON and copy to clipboard
+        const output = JSON.stringify({ mapId: this.currentMapId, x: x, y: y });
+        console.log(output);
+
+        // Copy to clipboard for use with add_marker.py script
+        // Format: python scripts/add_marker.py {map_id} {category} "{name}" {x} {y}
+        const clipboardText = `${this.currentMapId} <category> "<name>" ${x} ${y}`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(clipboardText)
+            .then(() => {
+              console.log(`Copied to clipboard: ${clipboardText}`);
+            })
+            .catch(() => {
+              // Silent fail - no fallback as per requirements
+            });
+        }
+      } else {
+        // Debug mode: Simple coordinate output
+        console.log(`Clicked at: x=${x}, y=${y}`);
+      }
     });
   }
 
   getCurrentCollectionManager() {
     return this.collectionManagers.get(this.currentMapId);
+  }
+
+  toggleRecordingMode() {
+    this.isRecordingMode = !this.isRecordingMode;
+    this.updateRecordingBadge();
+    console.log(`Recording mode: ${this.isRecordingMode ? 'ON' : 'OFF'}`);
+  }
+
+  updateRecordingBadge() {
+    const badge = document.getElementById('rec-badge');
+    if (badge) {
+      badge.style.display = this.isRecordingMode ? 'block' : 'none';
+    }
   }
 
   getMarkerSize() {
