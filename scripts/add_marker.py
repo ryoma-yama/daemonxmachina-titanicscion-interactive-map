@@ -15,6 +15,8 @@ from pathlib import Path
 
 
 # Valid categories based on existing project structure
+# NOTE: This list must be synchronized with the 'colors' object in src/icons.js
+# Any changes here should be reflected in the frontend icon system
 VALID_CATEGORIES = ['bgm', 'card', 'chest', 'enemy', 'log']
 
 # Default paths
@@ -34,21 +36,43 @@ Examples:
         """
     )
     
-    # Required arguments
-    parser.add_argument('map_id', help='Map identifier (e.g., forest, desert, mountains)')
-    parser.add_argument('category', choices=VALID_CATEGORIES, 
-                       help=f'Marker category. Valid options: {", ".join(VALID_CATEGORIES)}')
-    parser.add_argument('name', help='Marker name/title')
-    parser.add_argument('x', type=int, help='X coordinate (horizontal)')
-    parser.add_argument('y', type=int, help='Y coordinate (vertical)')
-    
-    # Optional arguments
+    # Optional arguments that can be used standalone
     parser.add_argument('--dry-run', action='store_true', 
                        help='Show what would be added without modifying files')
     parser.add_argument('--categories', action='store_true',
                        help='List valid categories and exit')
     
-    return parser.parse_args()
+    # Required arguments (only when not using --categories)
+    parser.add_argument('map_id', nargs='?', help='Map identifier. Available maps: forest, desert, mountains')
+    parser.add_argument('category', nargs='?', choices=VALID_CATEGORIES, 
+                       help=f'Marker category. Valid options: {", ".join(VALID_CATEGORIES)}')
+    parser.add_argument('name', nargs='?', help='Marker name/title')
+    parser.add_argument('x', nargs='?', type=int, help='X coordinate (horizontal)')
+    parser.add_argument('y', nargs='?', type=int, help='Y coordinate (vertical)')
+    
+    args = parser.parse_args()
+    
+    # Validate arguments based on usage
+    if args.categories:
+        return args
+    
+    # Check that all required arguments are provided when not using --categories
+    missing_args = []
+    if args.map_id is None:
+        missing_args.append('map_id')
+    if args.category is None:
+        missing_args.append('category')
+    if args.name is None:
+        missing_args.append('name')
+    if args.x is None:
+        missing_args.append('x')
+    if args.y is None:
+        missing_args.append('y')
+    
+    if missing_args:
+        parser.error(f"the following arguments are required: {', '.join(missing_args)}")
+    
+    return args
 
 
 def show_categories():
@@ -237,11 +261,11 @@ def display_marker_preview(marker_feature, file_path):
 
 def main():
     """Main function."""
-    # Handle --categories option before parsing all arguments
-    if '--categories' in sys.argv:
-        show_categories()
-    
     args = parse_arguments()
+    
+    # Handle --categories option
+    if args.categories:
+        show_categories()
     
     # Validate inputs
     validate_inputs(args)
