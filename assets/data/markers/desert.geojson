@@ -6,6 +6,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          929,
+          1129
+        ]
+      },
+      "properties": {
+        "id": "desert-0006",
+        "name": "Graffiti: 7",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          786,
+          987
+        ]
+      },
+      "properties": {
+        "id": "desert-0007",
+        "name": "3 Arrows",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           350,
           250
         ]

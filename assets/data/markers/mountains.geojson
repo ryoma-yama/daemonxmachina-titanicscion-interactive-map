@@ -6,6 +6,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          884,
+          480
+        ]
+      },
+      "properties": {
+        "id": "mountains-0006",
+        "name": "Graffiti: 3",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126,
+          309
+        ]
+      },
+      "properties": {
+        "id": "mountains-0007",
+        "name": "Pierced Heart",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           300,
           200
         ]

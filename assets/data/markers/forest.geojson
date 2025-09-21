@@ -6,6 +6,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          994,
+          868
+        ]
+      },
+      "properties": {
+        "id": "forest-0006",
+        "name": "Emblem: 14",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           400,
           300
         ]
