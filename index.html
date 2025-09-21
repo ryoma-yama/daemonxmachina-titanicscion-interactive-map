@@ -225,6 +225,30 @@
       border-radius: 3px;
       display: none;
     }
+
+    /* Footer styles */
+    .site-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.95);
+      color: #e0e0e0;
+      text-align: center;
+      font-size: 0.8em;
+      padding: 8px 16px;
+      border-top: 1px solid #404040;
+      z-index: 999;
+    }
+
+    .site-footer a {
+      color: #6bb6ff;
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
@@ -248,6 +272,14 @@
   <!-- Leaflet JavaScript -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    ©2025 Marvelous Inc. |
+    This is an unofficial, non-commercial fan project. |
+    Data based on Daemon X Machina: Titanic Scion (Game version 1.0.2) |
+    <a href="https://jp.daemonxmachina.com/titanicscion/news/article/32682" target="_blank">Guidelines (JP)</a>
+  </footer>
 
   <!-- Icon generation functionality -->
   <script src="src/icons.js"></script>
