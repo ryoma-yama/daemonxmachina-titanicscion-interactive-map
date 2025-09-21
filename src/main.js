@@ -44,7 +44,7 @@ class CollectionManager {
 // Initialize collection manager
 const collectionManager = new CollectionManager();
 
-// 地図の初期化
+// Map initialization
 const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: -2,
