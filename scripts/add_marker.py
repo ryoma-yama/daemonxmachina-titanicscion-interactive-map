@@ -169,7 +169,7 @@ def extract_existing_data(geojson_data):
 
 
 def generate_next_id(map_id, existing_ids):
-    """Generate next available ID in format {map_id}-{4-digit number}."""
+    """Generate next available ID in format {map_id}-{3-digit number}."""
     prefix = f"{map_id}-"
     max_number = 0
     
@@ -180,9 +180,9 @@ def generate_next_id(map_id, existing_ids):
             if suffix.isdigit():
                 max_number = max(max_number, int(suffix))
     
-    # Generate next ID
+    # Generate next ID with 3-digit format to match existing convention
     next_number = max_number + 1
-    return f"{prefix}{next_number:04d}"
+    return f"{prefix}{next_number:03d}"
 
 
 def check_duplicates(marker_id, x, y, name, existing_ids, existing_coords, existing_names):
