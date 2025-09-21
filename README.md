@@ -9,10 +9,6 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 - Screenshots, map images, and other in-game assets are used in accordance with the official guidelines.
 - Please check the official guidelines (Japanese): [Video / Streaming / Screenshot Guidelines](https://jp.daemonxmachina.com/titanicscion/news/article/32682) (Last checked: 2025-09-21)
 
-## Game Version
-This map is based on **Daemon X Machina: Titanic Scion (Game version 1.0.2)**. 
-Future updates will follow the latest available game version.
-
 ## Features
 - Interactive maps for Forest, Desert, and Mountains areas
 - Click markers to toggle collection status
@@ -69,7 +65,6 @@ Future updates will follow the latest available game version.
 
 ## Assets License
 - Music 186, File Alt 8 — Author: Dazzle UI, Licensed under CC BY 4.0
-- GitHub 80 — Author: Konstantin Filatov, Licensed under CC BY 4.0
 - Evil Skeleton Rpg, Card Casino Games, Chest Games Gaming — Licensed under CC0 (No attribution required)
 
 ## Contributing
