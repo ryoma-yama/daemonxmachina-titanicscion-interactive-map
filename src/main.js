@@ -51,14 +51,13 @@ const map = L.map('map', {
   maxZoom: 2
 });
 
-// 画像のサイズに基づいたboundsの設定
-// 画像サイズ: 1230x1230ピクセル
+// Bounds setting based on image size
 const bounds = [[0, 0], [1230, 1230]];
 
-// imageOverlayで森のマップを表示
+// Display forest map with imageOverlay
 L.imageOverlay('assets/maps/forest.jpg', bounds).addTo(map);
 
-// 地図の初期表示位置を画像の中央に設定
+// Set initial map view to center of image
 map.fitBounds(bounds);
 
 // Store marker references for updating
@@ -107,7 +106,7 @@ function toggleMarkerCollection(markerId) {
 // Make function globally accessible
 window.toggleMarkerCollection = toggleMarkerCollection;
 
-// GeoJSONからマーカーデータを読み込み、地図に表示
+// Load marker data from GeoJSON and display on map
 fetch('assets/data/markers.geojson')
   .then(response => response.json())
   .then(data => {
@@ -136,10 +135,10 @@ fetch('assets/data/markers.geojson')
     console.error('Error loading markers:', error);
   });
 
-// デバッグ用: マップをクリックした位置の座標をコンソールに出力
+// Debug: Output clicked position coordinates to console
 map.on('click', e => {
-  const x = Math.round(e.latlng.lng); // 横
-  const y = Math.round(e.latlng.lat); // 縦
+  const x = Math.round(e.latlng.lng); // horizontal
+  const y = Math.round(e.latlng.lat); // vertical
   console.log(`Clicked at: x=${x}, y=${y}`);
 });
 

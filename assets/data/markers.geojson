@@ -12,7 +12,7 @@
       },
       "properties": {
         "id": 1,
-        "name": "BGMプレイヤー",
+        "name": "BGM Player",
         "category": "bgm"
       }
     },
@@ -27,7 +27,7 @@
       },
       "properties": {
         "id": 2,
-        "name": "レアカード",
+        "name": "Rare Card",
         "category": "card"
       }
     },
@@ -42,7 +42,7 @@
       },
       "properties": {
         "id": 3,
-        "name": "宝箱",
+        "name": "Treasure Chest",
         "category": "chest"
       }
     },
@@ -57,7 +57,7 @@
       },
       "properties": {
         "id": 4,
-        "name": "エネミー",
+        "name": "Enemy",
         "category": "enemy"
       }
     },
@@ -72,7 +72,7 @@
       },
       "properties": {
         "id": 5,
-        "name": "メモリーログ",
+        "name": "Memory Log",
         "category": "log"
       }
     }
