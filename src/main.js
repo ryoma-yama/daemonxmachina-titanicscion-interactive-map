@@ -74,7 +74,7 @@ class MapManager {
 
     // Recording mode state
     this.isRecordingMode = false;
-    this.RECORDING_MODE_KEY = 'KeyR'; // Shift+R
+    this.RECORDING_MODE_KEY = 'KeyR'; // R key for Shift+R combination
 
     // Initialize map
     this.map = L.map('map', {
