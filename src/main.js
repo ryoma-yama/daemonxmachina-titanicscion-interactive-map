@@ -21,45 +21,195 @@ const mapDefinitions = {
   }
 };
 
+// Security utilities
+/**
+ * Validate marker ID format
+ */
+function validateMarkerId(markerId) {
+  if (typeof markerId !== 'string') {
+    return false;
+  }
+  // Allow only alphanumeric characters, hyphens, and underscores with length limit
+  const validPattern = /^[a-zA-Z0-9_-]{1,50}$/;
+  return validPattern.test(markerId);
+}
+
+/**
+ * Validate GeoJSON feature data
+ */
+function validateGeoJSONFeature(feature) {
+  // Basic structure check
+  if (!feature || typeof feature !== 'object') {
+    return false;
+  }
+
+  // Required properties existence check
+  if (!feature.properties || !feature.geometry) {
+    return false;
+  }
+
+  const props = feature.properties;
+
+  // Properties validation
+  if (!props.id || !props.name || !props.category) {
+    return false;
+  }
+
+  // ID validation
+  if (!validateMarkerId(props.id)) {
+    return false;
+  }
+
+  // Name validation (length limit, HTML tag exclusion)
+  if (typeof props.name !== 'string' ||
+    props.name.length === 0 ||
+    props.name.length > 100 ||
+    /<[^>]*>/g.test(props.name)) {
+    return false;
+  }
+
+  // Category validation
+  const validCategories = ['bgm', 'card', 'chest', 'enemy', 'log'];
+  if (!validCategories.includes(props.category)) {
+    return false;
+  }
+
+  // Coordinate validation
+  if (!feature.geometry.coordinates ||
+    !Array.isArray(feature.geometry.coordinates) ||
+    feature.geometry.coordinates.length !== 2) {
+    return false;
+  }
+
+  const [x, y] = feature.geometry.coordinates;
+  if (typeof x !== 'number' || typeof y !== 'number' ||
+    x < 0 || y < 0 || x > 2000 || y > 2000) {
+    return false;
+  }
+
+  return true;
+}
+
 // Collection state management
 class CollectionManager {
   constructor(mapId = 'forest') {
-    this.mapId = mapId;
-    this.storageKey = `collect-map:v1:${mapId}`;
+    this.mapId = this.validateMapId(mapId);
+    this.storageKey = `collect-map:v1:${this.mapId}`;
     this.collectedItems = this.loadFromStorage();
+  }
+
+  /**
+   * Validate map ID
+   */
+  validateMapId(mapId) {
+    const validMapIds = ['forest', 'desert', 'mountains'];
+    if (!validMapIds.includes(mapId)) {
+      console.warn(`Invalid mapId: ${mapId}, defaulting to 'forest'`);
+      return 'forest';
+    }
+    return mapId;
   }
 
   loadFromStorage() {
     try {
       const stored = localStorage.getItem(this.storageKey);
-      return stored ? JSON.parse(stored) : {};
+      if (!stored) {
+        return {};
+      }
+
+      const parsed = JSON.parse(stored);
+
+      // Type check: ensure it's an object and not null
+      if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+        console.warn('Invalid localStorage data format, resetting to empty object');
+        this.clearStorage();
+        return {};
+      }
+
+      // Properties validation
+      const validated = {};
+      for (const [key, value] of Object.entries(parsed)) {
+        // Marker ID validation and value type check
+        if (validateMarkerId(key) && typeof value === 'boolean') {
+          validated[key] = value;
+        } else {
+          console.warn(`Skipping invalid localStorage entry: ${key}=${value}`);
+        }
+      }
+
+      return validated;
     } catch (error) {
       console.error('Error loading collection data:', error);
+      this.clearStorage();
       return {};
     }
   }
 
   saveToStorage() {
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(this.collectedItems));
+      // Data size limit (under 5MB)
+      const jsonString = JSON.stringify(this.collectedItems);
+      if (jsonString.length > 5 * 1024 * 1024) {
+        console.error('Collection data too large for localStorage');
+        return false;
+      }
+
+      localStorage.setItem(this.storageKey, jsonString);
+      return true;
     } catch (error) {
       console.error('Error saving collection data:', error);
+      // In case of storage quota error, clear old data
+      if (error.name === 'QuotaExceededError') {
+        this.clearStorage();
+      }
+      return false;
+    }
+  }
+
+  /**
+   * Clear storage data
+   */
+  clearStorage() {
+    try {
+      localStorage.removeItem(this.storageKey);
+    } catch (error) {
+      console.error('Error clearing storage:', error);
     }
   }
 
   isCollected(markerId) {
+    if (!validateMarkerId(markerId)) {
+      return false;
+    }
     return Boolean(this.collectedItems[markerId]);
   }
 
   toggleCollection(markerId) {
+    if (!validateMarkerId(markerId)) {
+      console.error(`Invalid marker ID: ${markerId}`);
+      return false;
+    }
+
     this.collectedItems[markerId] = !this.isCollected(markerId);
-    this.saveToStorage();
+    const saved = this.saveToStorage();
+
+    if (!saved) {
+      // If save failed, revert memory changes
+      this.collectedItems[markerId] = !this.collectedItems[markerId];
+      return false;
+    }
+
     return this.collectedItems[markerId];
   }
 
   setCollected(markerId, isCollected) {
+    if (!validateMarkerId(markerId)) {
+      console.error(`Invalid marker ID: ${markerId}`);
+      return false;
+    }
+
     this.collectedItems[markerId] = Boolean(isCollected);
-    this.saveToStorage();
+    return this.saveToStorage();
   }
 }
 
@@ -125,6 +275,13 @@ class MapManager {
     document.addEventListener('change', (e) => {
       if (e.target.type === 'checkbox' && e.target.hasAttribute('data-marker-id')) {
         const markerId = e.target.getAttribute('data-marker-id');
+
+        // Re-validate marker ID
+        if (!validateMarkerId(markerId)) {
+          console.error(`Invalid marker ID in event: ${markerId}`);
+          return;
+        }
+
         this.toggleMarkerCollection(markerId);
       }
     });
@@ -252,11 +409,40 @@ class MapManager {
 
   loadMarkers(mapId, markersPath) {
     fetch(markersPath)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+      })
       .then(data => {
+        // Check basic GeoJSON structure
+        if (!data || typeof data !== 'object' ||
+          data.type !== 'FeatureCollection' ||
+          !Array.isArray(data.features)) {
+          throw new Error('Invalid GeoJSON structure');
+        }
+
+        // Validate each feature
+        const validFeatures = data.features.filter((feature, index) => {
+          const isValid = validateGeoJSONFeature(feature);
+          if (!isValid) {
+            console.warn(`Skipping invalid feature at index ${index}:`, feature);
+          }
+          return isValid;
+        });
+
+        console.log(`Loaded ${validFeatures.length} valid features out of ${data.features.length} total for ${mapId}`);
+
+        // Create marker layer with validated data
+        const validData = {
+          type: 'FeatureCollection',
+          features: validFeatures
+        };
+
         const collectionManager = this.getCurrentCollectionManager();
 
-        this.currentMarkerLayer = L.geoJSON(data, {
+        this.currentMarkerLayer = L.geoJSON(validData, {
           pointToLayer: (feature, latlng) => {
             const isCollected = collectionManager.isCollected(feature.properties.id);
             const markerSize = this.getMarkerSize();
@@ -304,6 +490,9 @@ class MapManager {
       })
       .catch(error => {
         console.error(`Error loading markers for ${mapId}:`, error);
+        // Fallback: Create empty marker layer
+        this.currentMarkerLayer = L.geoJSON({ type: 'FeatureCollection', features: [] });
+        this.currentMarkerLayer.addTo(this.map);
       });
   }
 
@@ -312,21 +501,47 @@ class MapManager {
     const isCollected = collectionManager.isCollected(feature.properties.id);
     const checkboxId = `checkbox-${feature.properties.id}`;
 
-    return `
-      <div class="marker-popup">
-        <h4>${feature.properties.name}</h4>
-        <div>ID: ${feature.properties.id}</div>
-        <div>Category: ${feature.properties.category}</div>
-        <div class="collection-status">
-          <label for="${checkboxId}" class="checkbox-label">
-            <input type="checkbox" id="${checkboxId}" 
-                   data-marker-id="${feature.properties.id}"
-                   ${isCollected ? 'checked' : ''}> 
-            Collected
-          </label>
-        </div>
-      </div>
-    `;
+    // Create popup content using safe DOM manipulation
+    const container = document.createElement('div');
+    container.className = 'marker-popup';
+
+    // Title
+    const title = document.createElement('h4');
+    title.textContent = feature.properties.name;
+    container.appendChild(title);
+
+    // ID display
+    const idDiv = document.createElement('div');
+    idDiv.textContent = `ID: ${feature.properties.id}`;
+    container.appendChild(idDiv);
+
+    // Category display
+    const categoryDiv = document.createElement('div');
+    categoryDiv.textContent = `Category: ${feature.properties.category}`;
+    container.appendChild(categoryDiv);
+
+    // Collection status section
+    const statusDiv = document.createElement('div');
+    statusDiv.className = 'collection-status';
+
+    const label = document.createElement('label');
+    label.htmlFor = checkboxId;
+    label.className = 'checkbox-label';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = checkboxId;
+    checkbox.setAttribute('data-marker-id', feature.properties.id);
+    checkbox.checked = isCollected;
+
+    const labelText = document.createTextNode(' Collected');
+
+    label.appendChild(checkbox);
+    label.appendChild(labelText);
+    statusDiv.appendChild(label);
+    container.appendChild(statusDiv);
+
+    return container.outerHTML;
   }
 
   toggleMarkerCollection(markerId) {
