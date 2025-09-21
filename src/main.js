@@ -98,6 +98,14 @@ class MapManager {
       this.switchToMap(e.target.value);
     });
 
+    // Event delegation for popup checkbox interactions
+    document.addEventListener('change', (e) => {
+      if (e.target.type === 'checkbox' && e.target.hasAttribute('data-marker-id')) {
+        const markerId = e.target.getAttribute('data-marker-id');
+        this.toggleMarkerCollection(markerId);
+      }
+    });
+
     // Debug: Output clicked position coordinates to console
     this.map.on('click', e => {
       const x = Math.round(e.latlng.lng); // horizontal
@@ -215,8 +223,8 @@ class MapManager {
         <div class="collection-status">
           <label for="${checkboxId}" class="checkbox-label">
             <input type="checkbox" id="${checkboxId}" 
-                   ${isCollected ? 'checked' : ''} 
-                   onchange="mapManager.toggleMarkerCollection('${feature.properties.id}')">
+                   data-marker-id="${feature.properties.id}"
+                   ${isCollected ? 'checked' : ''}> 
             Collected
           </label>
         </div>
@@ -245,8 +253,5 @@ class MapManager {
 
 // Initialize map manager
 const mapManager = new MapManager();
-
-// Make mapManager globally accessible for popup callbacks
-window.mapManager = mapManager;
 
 console.log('Multi-map system initialized successfully');
