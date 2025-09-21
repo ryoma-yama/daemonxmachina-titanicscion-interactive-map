@@ -1,0 +1,117 @@
+name: Data Contribution (Map Markers)
+description: Contribute new map marker data to the interactive map
+title: "[DATA] New marker contribution"
+labels: ["data-contribution"]
+assignees:
+  - ryoma-yama
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Data Contribution Guidelines
+        
+        Thank you for contributing to the Daemon X Machina: Titanic Scion Interactive Map! 
+        
+        **Before submitting:**
+        1. Please verify that the markers you're submitting don't already exist on the map
+        2. Use the **Recording mode** feature for accurate coordinates (press `Shift + R` in the app)
+        3. Test coordinates by visiting the map at the specified location
+        
+        **Recording Mode Instructions:**
+        - Open the interactive map in your browser
+        - Press `Shift + R` to enable Recording mode (red "REC" badge will appear)
+        - Click on map locations where markers should be placed
+        - Coordinates will be automatically copied to your clipboard in the correct format
+        - Paste the coordinates in the appropriate fields below
+
+  - type: dropdown
+    id: map_id
+    attributes:
+      label: Map ID
+      description: Which map area are you contributing markers for?
+      options:
+        - forest
+        - desert
+        - mountains
+    validations:
+      required: true
+
+  - type: textarea
+    id: marker_data
+    attributes:
+      label: Marker Data (Table Format)
+      description: |
+        Please provide marker information in table format. You can submit multiple markers at once.
+        
+        **Required fields:** x, y, name, category
+        **Optional fields:** notes
+        
+        **Available categories:** bgm, card, chest, enemy, log
+        
+        **Format example:**
+        ```
+        | x    | y    | name              | category | notes                    |
+        |------|------|-------------------|----------|--------------------------|
+        | 400  | 300  | BGM Player        | bgm      | Near forest entrance     |
+        | 150  | 450  | Treasure Chest    | chest    | Behind waterfall         |
+        | 600  | 200  | Data Log Terminal | log      | Inside building          |
+        ```
+        
+        **Coordinate Guidelines:**
+        - Use pixel coordinates (integers only)
+        - Origin (0,0) is at top-left corner
+        - Use Recording mode for accurate coordinates
+        - X = horizontal position, Y = vertical position
+      placeholder: |
+        | x    | y    | name              | category | notes                    |
+        |------|------|-------------------|----------|--------------------------|
+        | 400  | 300  | BGM Player        | bgm      | Near forest entrance     |
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References (Optional)
+      description: |
+        Any additional references, screenshots, or sources that helped you locate these markers.
+        This helps with verification and accuracy.
+      placeholder: |
+        - Screenshot: [link or description]
+        - Video timestamp: [link with timestamp]
+        - Community guide: [link]
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes (Optional)
+      description: Any other information about these markers or the surrounding area.
+      placeholder: |
+        - Special conditions for access
+        - Related quest information
+        - Visual landmarks nearby
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification Checklist
+      description: Please confirm you have completed these verification steps
+      options:
+        - label: I have verified these markers don't already exist on the map
+          required: true
+        - label: I have used Recording mode or verified coordinates manually
+          required: true
+        - label: I have tested the coordinates by visiting the map locations
+          required: true
+        - label: All marker names and categories are accurate
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **For contributors:** Your contribution will be manually reviewed and added to the map data files. 
+        Thank you for helping improve the interactive map experience for all players!
+        
+        **Note:** This form is for map marker data only. For bug reports or feature requests, please use the appropriate issue templates.
