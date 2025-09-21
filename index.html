@@ -39,48 +39,65 @@
       transform: translateX(-50%);
       background: rgba(28, 28, 28, 0.95);
       color: #e0e0e0;
-      padding: 12px 24px;
+      padding: 16px 24px;
       border-radius: 8px;
       font-weight: bold;
       z-index: 1000;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
       border: 1px solid #404040;
-      display: flex;
-      align-items: center;
-      gap: 15px;
+      text-align: center;
     }
 
-    .map-selector {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .map-info {
+      margin-bottom: 8px;
     }
 
-    .map-selector label {
-      font-size: 14px;
+    .map-info #map-title-text {
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .map-subtitle {
+      font-size: 12px;
       color: #b0b0b0;
       font-weight: normal;
     }
 
-    .map-selector select {
-      padding: 6px 10px;
-      border: 1px solid #555;
-      border-radius: 4px;
+    .map-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       font-size: 14px;
-      background-color: #2a2a2a;
-      color: #e0e0e0;
+    }
+
+    .map-link {
+      color: #0084ff;
+      text-decoration: none;
+      transition: color 0.3s ease;
       cursor: pointer;
-      transition: border-color 0.3s ease;
     }
 
-    .map-selector select:hover {
-      border-color: #777;
+    .map-link:hover {
+      color: #40a0ff;
+      text-decoration: underline;
     }
 
-    .map-selector select:focus {
-      outline: none;
-      border-color: #0084ff;
-      box-shadow: 0 0 0 2px rgba(0, 132, 255, 0.3);
+    .map-link.current {
+      color: #ffffff;
+      font-weight: bold;
+      cursor: default;
+      text-decoration: none;
+    }
+
+    .map-link.current:hover {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .map-separator {
+      color: #666;
+      user-select: none;
     }
 
     /* Popup styling */
@@ -195,14 +212,16 @@
 
 <body>
   <div class="map-title">
-    <span id="map-title-text">Forest Map - Daemon X Machina: Titanic Scion</span>
-    <div class="map-selector">
-      <label for="map-select">Map:</label>
-      <select id="map-select">
-        <option value="forest">Forest</option>
-        <option value="desert">Desert</option>
-        <option value="mountains">Mountains</option>
-      </select>
+    <div class="map-info">
+      <div id="map-title-text">Daemon X Machina: Titanic Scion</div>
+      <div class="map-subtitle">Interactive Map</div>
+    </div>
+    <div class="map-navigation">
+      <a href="#" class="map-link" data-map="forest">Forest</a>
+      <span class="map-separator">|</span>
+      <a href="#" class="map-link" data-map="desert">Desert</a>
+      <span class="map-separator">|</span>
+      <a href="#" class="map-link" data-map="mountains">Mountains</a>
     </div>
   </div>
   <div id="map"></div>

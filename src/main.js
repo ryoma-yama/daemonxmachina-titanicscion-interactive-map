@@ -92,10 +92,13 @@ class MapManager {
   }
 
   setupEventListeners() {
-    // Map selector change event
-    const mapSelect = document.getElementById('map-select');
-    mapSelect.addEventListener('change', (e) => {
-      this.switchToMap(e.target.value);
+    // Map navigation link click events
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('map-link') && !e.target.classList.contains('current')) {
+        e.preventDefault();
+        const mapId = e.target.getAttribute('data-map');
+        this.switchToMap(mapId);
+      }
     });
 
     // Event delegation for popup checkbox interactions
@@ -119,9 +122,16 @@ class MapManager {
   }
 
   updateMapTitle(mapId) {
-    const titleElement = document.getElementById('map-title-text');
-    const mapDef = mapDefinitions[mapId];
-    titleElement.textContent = `${mapDef.name} - Daemon X Machina: Titanic Scion`;
+    // Update navigation links - remove current class from all links and add to active one
+    const mapLinks = document.querySelectorAll('.map-link');
+    mapLinks.forEach(link => {
+      const linkMapId = link.getAttribute('data-map');
+      if (linkMapId === mapId) {
+        link.classList.add('current');
+      } else {
+        link.classList.remove('current');
+      }
+    });
   }
 
   clearCurrentMap() {
@@ -154,7 +164,6 @@ class MapManager {
 
     // Update UI
     this.updateMapTitle(mapId);
-    document.getElementById('map-select').value = mapId;
 
     // Clear current map
     this.clearCurrentMap();
