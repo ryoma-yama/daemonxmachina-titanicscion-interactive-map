@@ -8,14 +8,25 @@ const colors = {
 };
 
 // SVGをマスクにして背景色で着色するDivIcon
-function createCategoryIcon(category, size = 24) {
+function createCategoryIcon(category, size = 24, isCollected = false) {
   const color = colors[category] || '#FFFFFF';
   const url = `assets/icons/${category}.svg`;
+
+  // Collection state styling
+  const opacity = isCollected ? 0.5 : 1.0;
+  const filter = isCollected ? 'grayscale(50%)' : 'none';
+  const border = isCollected ? '2px solid #00FF00' : 'none';
+
   const html = `
     <div style="
       width:${size}px;height:${size}px;background-color:${color};
       -webkit-mask:url('${url}') center / contain no-repeat;
       mask:url('${url}') center / contain no-repeat;
+      opacity:${opacity};
+      filter:${filter};
+      border:${border};
+      border-radius:50%;
+      box-sizing:border-box;
       ">
     </div>`;
   return L.divIcon({

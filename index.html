@@ -34,6 +34,50 @@
       z-index: 1000;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
+
+    /* Popup styling */
+    .marker-popup {
+      font-family: Arial, sans-serif;
+      min-width: 200px;
+    }
+
+    .marker-popup h4 {
+      margin: 0 0 8px 0;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .marker-popup div {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .collection-status {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid #eee;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333 !important;
+      font-size: 14px !important;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"]:checked {
+      color: #00AA00;
+    }
   </style>
 </head>
 
@@ -47,7 +91,7 @@
 
   <!-- アイコン生成機能 -->
   <script src="src/icons.js"></script>
-  
+
   <!-- メイン処理 -->
   <script src="src/main.js"></script>
 </body>
