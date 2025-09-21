@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          400,
+          300
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "name": "BGMプレイヤー",
+        "category": "bgm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          800,
+          600
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "name": "レアカード",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          600,
+          900
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "name": "宝箱",
+        "category": "chest"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          200,
+          800
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "name": "エネミー",
+        "category": "enemy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1000,
+          400
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "name": "メモリーログ",
+        "category": "log"
+      }
+    }
+  ]
+}

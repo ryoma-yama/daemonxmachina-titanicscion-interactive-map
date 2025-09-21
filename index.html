@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8">
@@ -45,26 +45,11 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-  <script>
-    // CRS.Simpleを使用した地図の初期化
-    var map = L.map('map', {
-      crs: L.CRS.Simple,
-      minZoom: -2,
-      maxZoom: 2
-    });
-
-    // 画像のサイズに基づいたboundsの設定
-    // 画像サイズ: 1230x1230ピクセル
-    var bounds = [[0, 0], [1230, 1230]];
-
-    // imageOverlayで森のマップを表示
-    var imageOverlay = L.imageOverlay('assets/maps/forest.jpg', bounds).addTo(map);
-
-    // 地図の初期表示位置を画像の中央に設定
-    map.fitBounds(bounds);
-
-    console.log('Leaflet map initialized successfully with CRS.Simple');
-  </script>
+  <!-- アイコン生成機能 -->
+  <script src="src/icons.js"></script>
+  
+  <!-- メイン処理 -->
+  <script src="src/main.js"></script>
 </body>
 
 </html>
