@@ -557,9 +557,12 @@ class MapManager {
       const newIcon = createCategoryIcon(feature.properties.category, markerSize, isNowCollected);
       marker.setIcon(newIcon);
 
-      // Update popup content
-      const newPopupContent = this.createPopupContent(feature);
-      marker.setPopupContent(newPopupContent);
+      // Update checkbox in popup if it's currently open
+      const checkboxId = `checkbox-${markerId}`;
+      const checkbox = document.getElementById(checkboxId);
+      if (checkbox) {
+        checkbox.checked = isNowCollected;
+      }
     }
   }
 }
