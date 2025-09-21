@@ -92,10 +92,16 @@ class MapManager {
   }
 
   setupEventListeners() {
-    // Map selector change event
-    const mapSelect = document.getElementById('map-select');
-    mapSelect.addEventListener('change', (e) => {
-      this.switchToMap(e.target.value);
+    // Map navigation link click events
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('.map-link');
+      if (link) {
+        e.preventDefault();
+        if (!link.classList.contains('current')) {
+          const mapId = link.getAttribute('data-map');
+          this.switchToMap(mapId);
+        }
+      }
     });
 
     // Event delegation for popup checkbox interactions
@@ -118,10 +124,24 @@ class MapManager {
     return this.collectionManagers.get(this.currentMapId);
   }
 
+  getMarkerSize() {
+    // Increased marker size for better mobile interaction
+    return window.innerWidth <= 768 ? 32 : 28;
+  }
+
   updateMapTitle(mapId) {
-    const titleElement = document.getElementById('map-title-text');
-    const mapDef = mapDefinitions[mapId];
-    titleElement.textContent = `${mapDef.name} - Daemon X Machina: Titanic Scion`;
+    // Update navigation links - remove current class from all links and add to active one
+    const mapLinks = document.querySelectorAll('.map-link');
+    mapLinks.forEach(link => {
+      const linkMapId = link.getAttribute('data-map');
+      if (linkMapId === mapId) {
+        link.classList.add('current');
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.classList.remove('current');
+        link.removeAttribute('aria-current');
+      }
+    });
   }
 
   clearCurrentMap() {
@@ -154,7 +174,6 @@ class MapManager {
 
     // Update UI
     this.updateMapTitle(mapId);
-    document.getElementById('map-select').value = mapId;
 
     // Clear current map
     this.clearCurrentMap();
@@ -170,8 +189,11 @@ class MapManager {
     this.currentImageOverlay = L.imageOverlay(mapDef.imagePath, mapDef.bounds);
     this.currentImageOverlay.addTo(this.map);
 
-    // Set map view
-    this.map.fitBounds(mapDef.bounds);
+    // Set map view with padding for better initial display
+    this.map.fitBounds(mapDef.bounds, {
+      padding: [20, 20], // Add 20px padding on all sides
+      maxZoom: 1.5 // Prevent over-zooming on initial load
+    });
 
     // Load markers
     this.loadMarkers(mapId, mapDef.markersPath);
@@ -186,8 +208,12 @@ class MapManager {
         this.currentMarkerLayer = L.geoJSON(data, {
           pointToLayer: (feature, latlng) => {
             const isCollected = collectionManager.isCollected(feature.properties.id);
+            const markerSize = this.getMarkerSize();
             const marker = L.marker(latlng, {
-              icon: createCategoryIcon(feature.properties.category, 24, isCollected)
+              icon: createCategoryIcon(feature.properties.category, markerSize, isCollected),
+              // Add extra click tolerance for mobile devices
+              interactive: true,
+              bubblingMouseEvents: false
             });
 
             // Store marker reference and feature data
@@ -198,7 +224,27 @@ class MapManager {
           },
           onEachFeature: (feature, layer) => {
             const popupContent = this.createPopupContent(feature);
-            layer.bindPopup(popupContent);
+
+            // Enhanced popup configuration for better UX
+            const popupOptions = {
+              maxWidth: 280,
+              minWidth: 220,
+              autoPan: true,
+              autoPanPadding: [10, 10],
+              closeButton: true,
+              autoClose: false,
+              keepInView: true,
+              // Better positioning for mobile
+              offset: [0, -10]
+            };
+
+            // Add extra padding on mobile devices
+            if (window.innerWidth <= 768) {
+              popupOptions.autoPanPadding = [20, 20];
+              popupOptions.maxWidth = 300;
+            }
+
+            layer.bindPopup(popupContent, popupOptions);
           }
         });
 
@@ -241,7 +287,8 @@ class MapManager {
     const marker = this.markerRefs.get(markerId);
     if (marker) {
       const feature = marker.feature;
-      const newIcon = createCategoryIcon(feature.properties.category, 24, isNowCollected);
+      const markerSize = this.getMarkerSize();
+      const newIcon = createCategoryIcon(feature.properties.category, markerSize, isNowCollected);
       marker.setIcon(newIcon);
 
       // Update popup content
