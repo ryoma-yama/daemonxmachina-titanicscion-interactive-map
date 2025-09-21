@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daemon X Machina: Titanic Scion - Interactive Map</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #map {
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .map-title {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="map-title">Forest Map - Daemon X Machina: Titanic Scion</div>
+  <div id="map"></div>
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    // CRS.Simpleを使用した地図の初期化
+    var map = L.map('map', {
+      crs: L.CRS.Simple,
+      minZoom: -2,
+      maxZoom: 2
+    });
+
+    // 画像のサイズに基づいたboundsの設定
+    // 画像サイズ: 1230x1230ピクセル
+    var bounds = [[0, 0], [1230, 1230]];
+
+    // imageOverlayで森のマップを表示
+    var imageOverlay = L.imageOverlay('assets/maps/forest.jpg', bounds).addTo(map);
+
+    // 地図の初期表示位置を画像の中央に設定
+    map.fitBounds(bounds);
+
+    console.log('Leaflet map initialized successfully with CRS.Simple');
+  </script>
+</body>
+
+</html>
