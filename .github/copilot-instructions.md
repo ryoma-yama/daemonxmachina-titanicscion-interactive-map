@@ -18,7 +18,7 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 ├── README.md              # Comprehensive project documentation
 ├── assets/
 │   ├── data/
-│   │   └── markers.geojson # Marker definitions for all maps
+│   │   └── markers/       # Marker definitions for all maps
 │   ├── icons/             # SVG icons for different categories
 │   └── maps/              # Game map images
 └── src/
@@ -89,7 +89,7 @@ All code comments and in-app text must be written in English.
 ## Common Tasks
 
 ### Adding New Markers
-1. Add entry to `assets/data/markers.geojson`
+1. Add entry to `assets/data/marker/*.geojson`
 2. Ensure category exists in `colors` object in `src/icons.js`
 3. Add corresponding SVG icon to `assets/icons/` if new category
 
