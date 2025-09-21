@@ -1,59 +1,109 @@
-# daemonxmachina-titanicscion-interactive-map
+# Daemon X Machina: Titanic Scion Interactive Map
 
-## 概要
-Daemon X Machina: Titanic Scion に登場する複数のマップを対象とし、マップ上に散らばる収集要素（例: dungeon, log, card）の場所をブラウザ上で管理する。  
-ユーザーはマーカーをクリックして収集済みフラグを切り替えられ、その状態はブラウザの `localStorage` に保存される。
+This project provides an interactive fan-made map for **Daemon X Machina: Titanic Scion**. 
+It helps players track collectible items (dungeons, logs, cards, etc.) across multiple game maps with a browser-based interface.
 
-## 技術スタック
-- JavaScriptライブラリ: [Leaflet](https://leafletjs.com/reference.html)
-  - ReactやVueのようなフレームワークではなく、地図表示専用の軽量ライブラリ
-  - 単体で利用可能
-  - 実装にあたっては公式ドキュメントを必ず参照し、正確なAPI利用を行うこと
-- 保存先: localStorage
-- 表示形式: HTML
+## Disclaimer
+- ©2025 Marvelous Inc.
+- This is an **unofficial fan project**. It is not affiliated with or endorsed by Marvelous Inc.
+- Screenshots, map images, and other in-game assets are used in accordance with the official guidelines.
+- Please check the official guidelines (Japanese): [Video / Streaming / Screenshot Guidelines](https://jp.daemonxmachina.com/titanicscion/news/article/32682) (Last checked: 2025-09-21)
 
-## ベースマップ
-- ゲーム内マップのスクリーンショットをトリミング・結合して1枚の完成画像にする
-- 画像サイズ（縦横ピクセル数）をLeafletに渡し、`L.CRS.Simple` 座標系で利用する
-- 複数マップがある場合は1ページ内で切替式とする
-  - セレクトボックスなどで選択
-  - imageOverlayとマーカー群を切替
-  - localStorageは `map:{mapId}` 形式で分離保存
+## Game Version
+This map is based on **Daemon X Machina: Titanic Scion (Game version 1.0.2)**. 
+Future updates will follow the latest available game version.
 
-## 座標系
-- 現実世界の緯度経度は不要
-- 画像のピクセル座標をそのまま利用（`L.CRS.Simple`）
-- `bounds = [[0,0], [画像高さ, 画像幅]]` として設定
+## Features
+- Interactive maps for Forest, Desert, and Mountains areas
+- Click markers to toggle collection status
+- Progress automatically saved to browser localStorage
+- Category-based marker icons (dungeons, logs, cards, chests, etc.)
+- Map switching with dropdown selection
+- Mobile-friendly responsive design
 
-## マーカー仕様
-- JSONで定義
-  - id: 一意なID
-  - name: 表示名
-  - x, y: ピクセル座標
-  - category: 種別（dungeon, log, cardなど）
-- LeafletのマーカーまたはcircleMarkerとして表示
-- ポップアップ内にチェックボックスを設置し、収集済みフラグを切替可能
+## Technical Stack
+- **Frontend**: Vanilla HTML/CSS/JavaScript (no frameworks)
+- **Map Library**: [Leaflet.js](https://leafletjs.com/) v1.9.4 (via CDN)
+- **Data Storage**: Browser localStorage
+- **Coordinate System**: Leaflet's L.CRS.Simple (pixel-based, not lat/lng)
+- **Data Format**: GeoJSON for marker definitions
+- **Icons**: SVG icons with CSS mask-based coloring
 
-## 進捗保存
-- localStorageを使用
-- マーカーごとの収集状態を `{ id: true/false }` 形式で保存
-- マップIDごとにキーを分けて保存（例: `collect-map:v1:{mapId}`）
+## Project Structure
+```
+/
+├── index.html              # Main HTML entry point
+├── README.md              # Project documentation
+├── LICENSE                # MIT License (source code only)
+├── assets/
+│   ├── data/
+│   │   └── markers/       # GeoJSON marker definitions per map
+│   ├── icons/             # SVG icons for different categories
+│   └── maps/              # Game map images
+└── src/
+    ├── icons.js           # Icon creation utilities
+    └── main.js            # Main application logic
+```
 
-## 規模と性能
-- マーカー数は少量を想定
-- クラスタリングや仮想化は不要
-- 1枚画像または数枚の切替で対応可能
+## Development Setup
 
-## 必須機能一覧
-1. 地図画像を表示（Leaflet imageOverlay）
-2. マーカーを配置し、名前や説明をポップアップに表示
-3. ポップアップ内で「収集済み」チェックボックスを切替
-4. localStorageに収集状態を保存・復元
-5. 複数マップがある場合、プルダウンで切替
+### Local Development
+1. Clone this repository
+2. Start a local HTTP server:
+   ```bash
+   python3 -m http.server 8000 --bind 0.0.0.0
+   ```
+3. Open `http://localhost:8000` in your browser
 
-## 今後の拡張（任意）
-- マーカーのカテゴリ別フィルタ
-- 未収集のみ表示モード
-- 収集状況のJSONエクスポート／インポート
-- 個別マーカーへの直リンク
-- モバイルUI最適化
+### Browser Compatibility
+- Modern browsers with ES6+ support
+- Local storage must be enabled
+- JavaScript must be enabled
+
+### Key Technical Concepts
+- **Coordinate System**: Uses `L.CRS.Simple` instead of geographic coordinates
+- **Map Implementation**: Images loaded via `L.imageOverlay(imagePath, bounds)`
+- **Marker System**: Defined in GeoJSON format with properties: `id`, `name`, `category`
+- **Data Persistence**: localStorage keys format: `collect-map:v1:{mapId}`
+
+## Adding New Content
+
+### Adding New Markers
+1. Add entry to appropriate `assets/data/markers/{map}.geojson` file
+2. Ensure category exists in `colors` object in `src/icons.js`
+3. Add corresponding SVG icon to `assets/icons/` if new category
+
+### Adding New Maps
+1. Add image to `assets/maps/`
+2. Update `mapDefinitions` in `src/main.js`
+3. Create corresponding GeoJSON file in `assets/data/markers/`
+
+## License
+- The **source code** of this repository is licensed under the [MIT License](./LICENSE).
+- All game content and assets remain the property of Marvelous Inc.
+- This repository does not grant any rights to use game assets beyond what is permitted by the official guidelines.
+
+## Assets License
+- Music 186, File Alt 8 — Author: Dazzle UI, Licensed under CC BY 4.0
+- GitHub 80 — Author: Konstantin Filatov, Licensed under CC BY 4.0
+- Evil Skeleton Rpg, Card Casino Games, Chest Games Gaming — Licensed under CC0 (No attribution required)
+
+## Contributing
+This is primarily a personal project for game progress tracking. 
+While contributions are welcome, please note the scope is intentionally limited to maintain simplicity.
+
+### Development Guidelines
+- Use vanilla JavaScript (ES6+)
+- Console logging for debugging is standard practice
+- Follow existing code style and patterns
+- Test changes across different browsers
+- Ensure mobile compatibility
+
+## Support
+For issues related to:
+- **Game content**: Contact Marvelous Inc. official support
+- **This tool**: Create an issue in this repository
+
+---
+
+*This project is maintained as a fan project and learning exercise. It follows a lightweight, static-file architecture for easy deployment and maintenance.*
