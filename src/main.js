@@ -41,4 +41,11 @@ fetch('assets/data/markers.geojson')
     console.error('Error loading markers:', error);
   });
 
+// デバッグ用: マップをクリックした位置の座標をコンソールに出力
+map.on('click', e => {
+  const x = Math.round(e.latlng.lng); // 横
+  const y = Math.round(e.latlng.lat); // 縦
+  console.log(`Clicked at: x=${x}, y=${y}`);
+});
+
 console.log('Leaflet map initialized successfully with CRS.Simple');
