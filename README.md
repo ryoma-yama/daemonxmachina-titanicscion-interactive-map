@@ -48,6 +48,20 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 
 ## Adding New Content
 
+### Recording Mode (Developer Feature)
+The application includes a "Recording mode" for easily capturing marker coordinates:
+
+1. **Enable Recording Mode**: Press `Shift + R` to toggle recording mode on/off
+2. **Visual Indicator**: A red "REC" badge appears when recording mode is active
+3. **Capture Coordinates**: Click anywhere on the map to record coordinates
+4. **Output Format**: Coordinates are logged to console and copied to clipboard in the format:
+   ```
+   {mapId} <category> "<name>" {x} {y}
+   ```
+5. **Usage**: The clipboard output can be used directly with the `add_marker.py` script for batch marker addition
+
+**Note**: Recording mode is intended for developers and contributors to easily capture accurate pixel coordinates for new markers.
+
 ### Adding New Markers
 1. Add entry to appropriate `assets/data/markers/{map}.geojson` file
 2. Ensure category exists in `colors` object in `src/icons.js`

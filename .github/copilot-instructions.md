@@ -16,11 +16,23 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 /
 ├── index.html              # Main HTML entry point
 ├── README.md              # Comprehensive project documentation
+├── LICENSE                # MIT License file
+├── site.webmanifest       # Web app manifest
+├── favicon files          # Various favicon formats (ico, png)
+├── .github/
+│   ├── copilot-instructions.md  # This file
+│   ├── ISSUE_TEMPLATE/    # GitHub Issue Form templates
+│   │   ├── data-contribution.yml   # Map marker data contribution
+│   │   ├── feature-request.yml     # Feature requests
+│   │   └── bug-report.yml          # Bug reports
+│   └── prompts/           # Auto-implementation prompt templates
 ├── assets/
 │   ├── data/
-│   │   └── markers.geojson # Marker definitions for all maps
+│   │   └── markers/       # Marker definitions for all maps (GeoJSON)
 │   ├── icons/             # SVG icons for different categories
-│   └── maps/              # Game map images
+│   └── maps/              # Game map images (JPEG)
+├── scripts/
+│   └── add_marker.py      # Python utility for adding markers
 └── src/
     ├── icons.js           # Icon creation utilities
     └── main.js            # Main application logic
@@ -35,7 +47,9 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 
 ### Map Implementation
 - Images loaded via `L.imageOverlay(imagePath, bounds)`
+- Recording mode: Press `Shift + R` to toggle coordinate recording mode
 - Debug feature: Click map to log coordinates to console
+- Recording mode: Automatically copies coordinates to clipboard for script usage
 
 ### Marker System
 - Defined in GeoJSON format with properties: `id`, `name`, `category`
@@ -67,6 +81,7 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 
 ### Testing & Debugging
 - Open browser console to see coordinate clicks and loading status
+- Recording mode (`Shift + R`) for coordinate capture and clipboard copy
 - No build process - direct file serving works
 - Test marker interactions by clicking on map elements
 - Verify localStorage persistence manually via dev tools
@@ -89,7 +104,7 @@ All code comments and in-app text must be written in English.
 ## Common Tasks
 
 ### Adding New Markers
-1. Add entry to `assets/data/markers.geojson`
+1. Add entry to `assets/data/markers/*.geojson`
 2. Ensure category exists in `colors` object in `src/icons.js`
 3. Add corresponding SVG icon to `assets/icons/` if new category
 
@@ -109,10 +124,12 @@ All code comments and in-app text must be written in English.
 - No build tools or package.json - pure static files
 - All dependencies loaded via CDN
 - Click debugging feature helps with coordinate mapping
+- Recording mode feature helps with coordinate mapping
 - Project follows simple, lightweight architecture philosophy
 
 ## Git Workflow
 - Uses conventional commits
 - Auto-implementation prompts available in `.github/prompts/`
+- Issue templates available in `.github/ISSUE_TEMPLATE/` for structured contributions
 - Draft PRs for review workflow
 - Main branch is default target
