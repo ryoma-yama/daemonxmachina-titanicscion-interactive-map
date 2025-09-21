@@ -21,8 +21,7 @@ body:
         - Open the interactive map in your browser
         - Press `Shift + R` to enable Recording mode (red "REC" badge will appear)
         - Click on map locations where markers should be placed
-        - Coordinates will be automatically copied to your clipboard in the correct format
-        - Paste the coordinates in the appropriate fields below
+        - Use the coordinates in the simple format shown in the Marker Data field
 
   - type: dropdown
     id: map_id
@@ -39,33 +38,36 @@ body:
   - type: textarea
     id: marker_data
     attributes:
-      label: Marker Data (Table Format)
+      label: Marker Data (Simple Format)
       description: |
-        Please provide marker information in table format. You can submit multiple markers at once.
+        Please provide marker information in a simple format. You can submit multiple markers at once.
         
-        **Required fields:** x, y, name, category
-        **Optional fields:** notes
+        **How to use Recording Mode:**
+        1. Open the interactive map in your browser
+        2. Press `Shift + R` to enable Recording mode (red "REC" badge will appear)
+        3. Click on map locations where markers should be placed
+        4. Copy the coordinates from the console or clipboard
+        5. Use the simple format below
         
-        **Available categories:** bgm, card, chest, enemy, log
+        **Available categories:** bgm, card, chest, enemy, log, decal
         
-        **Format example:**
+        **Simple format (one per line):**
         ```
-        | x    | y    | name              | category | notes                    |
-        |------|------|-------------------|----------|--------------------------|
-        | 400  | 300  | BGM Player        | bgm      | Near forest entrance     |
-        | 150  | 450  | Treasure Chest    | chest    | Behind waterfall         |
-        | 600  | 200  | Data Log Terminal | log      | Inside building          |
+        forest bgm "BGM Player" 400 300
+        forest chest "Treasure Chest" 150 450
+        forest log "Data Log Terminal" 600 200
         ```
         
-        **Coordinate Guidelines:**
-        - Use pixel coordinates (integers only)
-        - Origin (0,0) is at top-left corner
-        - Use Recording mode for accurate coordinates
-        - X = horizontal position, Y = vertical position
+        **Format:** `{map_id} {category} "{name}" {x} {y}`
+        
+        **Instructions:**
+        - Use one of: bgm, card, chest, enemy, log, decal for category
+        - Put marker names in quotes
+        - Use coordinates from Recording Mode
+        - One marker per line
       placeholder: |
-        | x    | y    | name              | category | notes                    |
-        |------|------|-------------------|----------|--------------------------|
-        | 400  | 300  | BGM Player        | bgm      | Near forest entrance     |
+        forest bgm "BGM Player" 400 300
+        forest chest "Treasure Chest" 150 450
     validations:
       required: true
 
@@ -99,7 +101,7 @@ body:
       options:
         - label: I have verified these markers don't already exist on the map
           required: true
-        - label: I have used Recording mode or verified coordinates manually
+        - label: I have used Recording mode to generate the commands with accurate coordinates
           required: true
         - label: I have tested the coordinates by visiting the map locations
           required: true

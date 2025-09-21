@@ -296,13 +296,14 @@ class MapManager {
         const output = JSON.stringify({ mapId: this.currentMapId, x: x, y: y });
         console.log(output);
 
-        // Copy to clipboard for use with add_marker.py script
-        // Format: python scripts/add_marker.py {map_id} {category} "{name}" {x} {y}
+        // Copy to clipboard in simple format for GitHub issues
+        // Format: {map_id} {category} "{name}" {x} {y}
         const clipboardText = `${this.currentMapId} <category> "<name>" ${x} ${y}`;
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(clipboardText)
             .then(() => {
               console.log(`Copied to clipboard: ${clipboardText}`);
+              console.log('Replace <category> and "<name>" with actual values');
             })
             .catch(() => {
               // Silent fail - no fallback as per requirements
