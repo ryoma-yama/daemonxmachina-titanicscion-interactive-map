@@ -3,7 +3,8 @@ const colors = {
   bgm: '#00FFFF',
   card: '#39FF14',
   chest: '#FFFF00',
-  enemy: '#FF00FF',
+  decal: '#FF00FF',
+  enemy: '#FF1493',
   log: '#FF6E00'
 };
 

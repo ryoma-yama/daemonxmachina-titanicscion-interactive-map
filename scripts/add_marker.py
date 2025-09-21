@@ -15,7 +15,7 @@ from pathlib import Path
 # Valid categories based on existing project structure
 # NOTE: This list must be synchronized with the 'colors' object in src/icons.js
 # Any changes here should be reflected in the frontend icon system
-VALID_CATEGORIES = ['bgm', 'card', 'chest', 'enemy', 'log']
+VALID_CATEGORIES = ['bgm', 'card', 'chest', 'decal', 'enemy', 'log']
 
 # Default paths
 DEFAULT_MARKERS_DIR = 'assets/data/markers'
