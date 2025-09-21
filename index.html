@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
   <title>Daemon X Machina: Titanic Scion - Interactive Map</title>
 
   <!-- Leaflet CSS -->
@@ -137,6 +138,50 @@
 
     .checkbox-label input[type="checkbox"]:checked {
       accent-color: #00CC00;
+    }
+
+    /* Leaflet controls dark theme */
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+      background-color: #2a2a2a !important;
+      color: #e0e0e0 !important;
+      border: 1px solid #404040 !important;
+    }
+
+    .leaflet-control-zoom-in:hover,
+    .leaflet-control-zoom-out:hover {
+      background-color: #3a3a3a !important;
+      color: #ffffff !important;
+    }
+
+    .leaflet-control-zoom {
+      border: none !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    .leaflet-control-attribution {
+      background-color: rgba(28, 28, 28, 0.8) !important;
+      color: #b0b0b0 !important;
+      border: 1px solid #404040 !important;
+    }
+
+    .leaflet-control-attribution a {
+      color: #0084ff !important;
+    }
+
+    .leaflet-control-attribution a:hover {
+      color: #40a0ff !important;
+    }
+
+    /* Dark theme for all leaflet controls */
+    .leaflet-control {
+      background-color: #2a2a2a !important;
+      border: 1px solid #404040 !important;
+    }
+
+    /* Map container background */
+    .leaflet-container {
+      background-color: #1a1a1a !important;
     }
   </style>
 </head>

@@ -206,7 +206,7 @@ class MapManager {
           },
           onEachFeature: (feature, layer) => {
             const popupContent = this.createPopupContent(feature);
-            
+
             // Enhanced popup configuration for better UX
             const popupOptions = {
               maxWidth: 280,
@@ -219,13 +219,13 @@ class MapManager {
               // Better positioning for mobile
               offset: [0, -10]
             };
-            
+
             // Add extra padding on mobile devices
             if (window.innerWidth <= 768) {
               popupOptions.autoPanPadding = [20, 20];
               popupOptions.maxWidth = 300;
             }
-            
+
             layer.bindPopup(popupContent, popupOptions);
           }
         });
