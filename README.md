@@ -29,21 +29,11 @@ Future updates will follow the latest available game version.
 - **Data Format**: GeoJSON for marker definitions
 - **Icons**: SVG icons with CSS mask-based coloring
 
-## Project Structure
-```
-/
-├── index.html              # Main HTML entry point
-├── README.md              # Project documentation
-├── LICENSE                # MIT License (source code only)
-├── assets/
-│   ├── data/
-│   │   └── markers/       # GeoJSON marker definitions per map
-│   ├── icons/             # SVG icons for different categories
-│   └── maps/              # Game map images
-└── src/
-    ├── icons.js           # Icon creation utilities
-    └── main.js            # Main application logic
-```
+## Key Technical Concepts
+- **Coordinate System**: Uses `L.CRS.Simple` instead of geographic coordinates
+- **Map Implementation**: Images loaded via `L.imageOverlay(imagePath, bounds)`
+- **Marker System**: Defined in GeoJSON format with properties: `id`, `name`, `category`
+- **Data Persistence**: localStorage keys format: `collect-map:v1:{mapId}`
 
 ## Development Setup
 
@@ -59,12 +49,6 @@ Future updates will follow the latest available game version.
 - Modern browsers with ES6+ support
 - Local storage must be enabled
 - JavaScript must be enabled
-
-### Key Technical Concepts
-- **Coordinate System**: Uses `L.CRS.Simple` instead of geographic coordinates
-- **Map Implementation**: Images loaded via `L.imageOverlay(imagePath, bounds)`
-- **Marker System**: Defined in GeoJSON format with properties: `id`, `name`, `category`
-- **Data Persistence**: localStorage keys format: `collect-map:v1:{mapId}`
 
 ## Adding New Content
 
