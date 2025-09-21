@@ -94,10 +94,13 @@ class MapManager {
   setupEventListeners() {
     // Map navigation link click events
     document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('map-link') && !e.target.classList.contains('current')) {
+      const link = e.target.closest('.map-link');
+      if (link) {
         e.preventDefault();
-        const mapId = e.target.getAttribute('data-map');
-        this.switchToMap(mapId);
+        if (!link.classList.contains('current')) {
+          const mapId = link.getAttribute('data-map');
+          this.switchToMap(mapId);
+        }
       }
     });
 
@@ -121,6 +124,11 @@ class MapManager {
     return this.collectionManagers.get(this.currentMapId);
   }
 
+  getMarkerSize() {
+    // Increased marker size for better mobile interaction
+    return window.innerWidth <= 768 ? 32 : 28;
+  }
+
   updateMapTitle(mapId) {
     // Update navigation links - remove current class from all links and add to active one
     const mapLinks = document.querySelectorAll('.map-link');
@@ -128,8 +136,10 @@ class MapManager {
       const linkMapId = link.getAttribute('data-map');
       if (linkMapId === mapId) {
         link.classList.add('current');
+        link.setAttribute('aria-current', 'page');
       } else {
         link.classList.remove('current');
+        link.removeAttribute('aria-current');
       }
     });
   }
@@ -198,8 +208,7 @@ class MapManager {
         this.currentMarkerLayer = L.geoJSON(data, {
           pointToLayer: (feature, latlng) => {
             const isCollected = collectionManager.isCollected(feature.properties.id);
-            // Increased marker size for better mobile interaction
-            const markerSize = window.innerWidth <= 768 ? 32 : 28;
+            const markerSize = this.getMarkerSize();
             const marker = L.marker(latlng, {
               icon: createCategoryIcon(feature.properties.category, markerSize, isCollected),
               // Add extra click tolerance for mobile devices
@@ -278,8 +287,7 @@ class MapManager {
     const marker = this.markerRefs.get(markerId);
     if (marker) {
       const feature = marker.feature;
-      // Use same size logic as in loadMarkers
-      const markerSize = window.innerWidth <= 768 ? 32 : 28;
+      const markerSize = this.getMarkerSize();
       const newIcon = createCategoryIcon(feature.properties.category, markerSize, isNowCollected);
       marker.setIcon(newIcon);
 

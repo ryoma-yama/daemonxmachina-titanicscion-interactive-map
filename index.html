@@ -7,6 +7,9 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
   <title>Daemon X Machina: Titanic Scion - Interactive Map</title>
 
+  <!-- Theme color for browser UI -->
+  <meta name="theme-color" content="#1a1a1a">
+
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -216,13 +219,13 @@
       <div id="map-title-text">Daemon X Machina: Titanic Scion</div>
       <div class="map-subtitle">Interactive Map</div>
     </div>
-    <div class="map-navigation">
+    <nav class="map-navigation" aria-label="Map navigation">
       <a href="#" class="map-link" data-map="forest">Forest</a>
-      <span class="map-separator">|</span>
+      <span class="map-separator" aria-hidden="true">|</span>
       <a href="#" class="map-link" data-map="desert">Desert</a>
-      <span class="map-separator">|</span>
+      <span class="map-separator" aria-hidden="true">|</span>
       <a href="#" class="map-link" data-map="mountains">Mountains</a>
-    </div>
+    </nav>
   </div>
   <div id="map"></div>
 
