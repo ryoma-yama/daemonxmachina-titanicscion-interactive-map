@@ -1,0 +1,136 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for the interactive map
+title: "[FEATURE] "
+labels: ["enhancement"]
+assignees:
+  - ryoma-yama
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request Guidelines
+        
+        Thank you for suggesting a new feature or enhancement for the Daemon X Machina: Titanic Scion Interactive Map!
+        
+        **Before submitting:**
+        - Check if a similar feature request already exists
+        - Consider how the feature fits with the project's goal of simplicity
+        - Think about whether the feature would benefit most users
+
+  - type: dropdown
+    id: feature_type
+    attributes:
+      label: Feature Type
+      description: What type of feature are you requesting?
+      options:
+        - New functionality
+        - UI/UX improvement
+        - Performance enhancement
+        - Mobile experience improvement
+        - Data management feature
+        - Developer/contributor tool
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_summary
+    attributes:
+      label: Feature Summary
+      description: Provide a clear and concise description of the feature you'd like to see
+      placeholder: |
+        Example: Add a filter system to show/hide markers by category
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: Problem Statement
+      description: |
+        What problem does this feature solve? What pain point are you experiencing?
+      placeholder: |
+        Example: Currently, when there are many markers on the map, it becomes cluttered and hard to find specific types of collectibles.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: |
+        Describe the solution you'd like to see implemented. Be as detailed as possible.
+      placeholder: |
+        Example: Add checkboxes or toggle buttons for each marker category (BGM, Cards, Chests, etc.) that allow users to show/hide specific types of markers.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives_considered
+    attributes:
+      label: Alternatives Considered
+      description: |
+        Are there alternative solutions you've considered? What are the pros/cons?
+      placeholder: |
+        Example: 
+        - Dropdown menu instead of checkboxes (less intuitive)
+        - Search functionality (more complex to implement)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would improve experience
+        - High - Significantly impacts usability
+    validations:
+      required: true
+
+  - type: dropdown
+    id: implementation_complexity
+    attributes:
+      label: Estimated Implementation Complexity
+      description: How complex do you think this feature would be to implement?
+      options:
+        - Simple - Minor UI changes or additions
+        - Medium - Moderate code changes required
+        - Complex - Significant architectural changes
+        - Unknown - I'm not sure
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: |
+        Any additional information, mockups, examples, or references that would help explain the feature
+      placeholder: |
+        - Screenshots or mockups
+        - Examples from other applications
+        - Links to related discussions
+        - Technical considerations
+
+  - type: checkboxes
+    id: compatibility
+    attributes:
+      label: Compatibility Considerations
+      description: Please check all that apply
+      options:
+        - label: This feature should work on mobile devices
+        - label: This feature should work with the current localStorage system
+        - label: This feature should maintain the lightweight/simple architecture
+        - label: I've considered how this affects existing functionality
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **For maintainers:** Feature requests will be evaluated based on alignment with project goals, implementation complexity, and benefit to the user base.
+        
+        Thank you for helping improve the interactive map experience!

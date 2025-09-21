@@ -1,0 +1,202 @@
+name: Bug Report
+description: Report a bug or issue with the interactive map
+title: "[BUG] "
+labels: ["bug"]
+assignees:
+  - ryoma-yama
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report Guidelines
+        
+        Thank you for reporting a bug in the Daemon X Machina: Titanic Scion Interactive Map!
+        
+        **Before submitting:**
+        - Check if a similar bug report already exists
+        - Try reproducing the issue in a different browser or device
+        - Clear your browser cache and try again
+
+  - type: textarea
+    id: bug_summary
+    attributes:
+      label: Bug Summary
+      description: Provide a clear and concise description of the bug
+      placeholder: |
+        Example: Markers disappear when switching between maps
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bug_severity
+    attributes:
+      label: Bug Severity
+      description: How severe is this bug?
+      options:
+        - Critical - Application is unusable
+        - High - Major functionality is broken
+        - Medium - Some functionality is impaired
+        - Low - Minor issue or cosmetic problem
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bug_category
+    attributes:
+      label: Bug Category
+      description: Which area of the application is affected?
+      options:
+        - Map display/rendering
+        - Marker functionality
+        - Data persistence (localStorage)
+        - Map switching
+        - Mobile interface
+        - Performance
+        - Recording mode
+        - UI/Visual issues
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        Provide detailed steps to reproduce the bug. Be as specific as possible.
+      placeholder: |
+        1. Open the interactive map
+        2. Click on a marker in the Forest map
+        3. Switch to Desert map using the dropdown
+        4. Switch back to Forest map
+        5. Notice that the previously clicked marker is no longer marked as collected
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: |
+        Example: The marker should remain marked as collected even after switching maps
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: |
+        Example: The marker appears uncollected (default state) when returning to the Forest map
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: Which browser are you using?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Opera
+        - Mobile Safari (iOS)
+        - Chrome Mobile (Android)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: browser_version
+    attributes:
+      label: Browser Version
+      description: What version of the browser are you using?
+      placeholder: "Example: Chrome 118.0.5993.117"
+
+  - type: dropdown
+    id: operating_system
+    attributes:
+      label: Operating System
+      description: Which operating system are you using?
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS
+        - Linux
+        - iOS
+        - Android
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device_type
+    attributes:
+      label: Device Type
+      description: What type of device are you using?
+      options:
+        - Desktop/Laptop
+        - Tablet
+        - Mobile Phone
+    validations:
+      required: true
+
+  - type: textarea
+    id: console_errors
+    attributes:
+      label: Console Errors
+      description: |
+        Open browser developer tools (F12), check the Console tab, and paste any error messages here.
+        If you're not sure how to do this, you can skip this field.
+      placeholder: |
+        Example:
+        Uncaught TypeError: Cannot read properties of undefined (reading 'has')
+            at main.js:245:12
+      render: text
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: |
+        Any additional information that might help diagnose the issue
+      placeholder: |
+        - Screenshots or screen recordings
+        - Network connectivity issues
+        - Browser extensions that might interfere
+        - Whether the issue is consistent or intermittent
+        - When the issue first appeared
+
+  - type: checkboxes
+    id: troubleshooting
+    attributes:
+      label: Troubleshooting Checklist
+      description: Please confirm you have tried these basic troubleshooting steps
+      options:
+        - label: I have tried refreshing the page
+          required: true
+        - label: I have tried clearing browser cache/cookies
+          required: true
+        - label: I have tried in a different browser or incognito/private mode
+          required: false
+        - label: I have checked that JavaScript is enabled
+          required: true
+        - label: I have checked that localStorage is enabled
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **For maintainers:** Bug reports will be triaged based on severity and reproducibility.
+        
+        Thank you for helping improve the stability and reliability of the interactive map!
