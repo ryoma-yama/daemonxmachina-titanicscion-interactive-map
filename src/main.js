@@ -79,7 +79,7 @@ function createPopupContent(feature) {
           <input type="checkbox" id="${checkboxId}" 
                  ${isCollected ? 'checked' : ''} 
                  onchange="toggleMarkerCollection(${feature.properties.id})">
-          収集済み
+          Collected
         </label>
       </div>
     </div>
