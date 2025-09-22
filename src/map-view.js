@@ -74,13 +74,13 @@ export class MapView {
         console.log(output);
 
         // Copy to clipboard in simple format for GitHub issues
-        // Format: {map_id} {category} "{name}" {x} {y}
-        const clipboardText = `${this.currentMapId} <category> "<name>" ${x} ${y}`;
+        // Format: {map_id} {x} {y} {category} "{name}" "{description}"
+        const clipboardText = `${this.currentMapId} ${x} ${y} <category> "<name>" ""`;
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(clipboardText)
             .then(() => {
               console.log(`Copied to clipboard: ${clipboardText}`);
-              console.log('Replace <category> and "<name>" with actual values');
+              console.log('Replace <category>, "<name>", and "" with actual values');
               this.showNotification('Copied!');
             })
             .catch(() => {
@@ -306,6 +306,14 @@ export class MapView {
     const categoryDiv = document.createElement('div');
     categoryDiv.textContent = `Category: ${feature.properties.category}`;
     container.appendChild(categoryDiv);
+
+    // Description display (if available)
+    if (feature.properties.description && feature.properties.description.trim()) {
+      const descriptionDiv = document.createElement('div');
+      descriptionDiv.className = 'marker-description';
+      descriptionDiv.textContent = feature.properties.description;
+      container.appendChild(descriptionDiv);
+    }
 
     // Collection status section
     const statusDiv = document.createElement('div');

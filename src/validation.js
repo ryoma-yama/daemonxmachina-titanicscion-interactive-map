@@ -47,6 +47,15 @@ export function validateGeoJSONFeature(feature) {
     return false;
   }
 
+  // Description validation (optional field)
+  if (props.description !== undefined) {
+    if (typeof props.description !== 'string' ||
+      props.description.length > 500 ||
+      /<[^>]*>/g.test(props.description)) {
+      return false;
+    }
+  }
+
   // Category validation
   const validCategories = Object.keys(colors);
   if (!validCategories.includes(props.category)) {

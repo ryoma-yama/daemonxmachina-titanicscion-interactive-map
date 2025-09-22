@@ -28,8 +28,9 @@ def parse_arguments():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python scripts/add_marker.py forest card "Rare Card" 800 600
-  python scripts/add_marker.py desert chest "Hidden Treasure" 400 300 --dry-run
+  python scripts/add_marker.py forest 800 600 card "Rare Card"
+  python scripts/add_marker.py forest 800 600 card "Rare Card" "Found near the ancient tree"
+  python scripts/add_marker.py desert 400 300 chest "Hidden Treasure" --dry-run
   python scripts/add_marker.py --categories
         """
     )
@@ -42,11 +43,12 @@ Examples:
     
     # Required arguments (only when not using --categories)
     parser.add_argument('map_id', nargs='?', help='Map identifier. Available maps: forest, desert, mountains')
+    parser.add_argument('x', nargs='?', type=int, help='X coordinate (horizontal)')
+    parser.add_argument('y', nargs='?', type=int, help='Y coordinate (vertical)')
     parser.add_argument('category', nargs='?', choices=VALID_CATEGORIES, 
                        help=f'Marker category. Valid options: {", ".join(VALID_CATEGORIES)}')
     parser.add_argument('name', nargs='?', help='Marker name/title')
-    parser.add_argument('x', nargs='?', type=int, help='X coordinate (horizontal)')
-    parser.add_argument('y', nargs='?', type=int, help='Y coordinate (vertical)')
+    parser.add_argument('description', nargs='?', default='', help='Optional marker description')
     
     args = parser.parse_args()
     
@@ -58,14 +60,14 @@ Examples:
     missing_args = []
     if args.map_id is None:
         missing_args.append('map_id')
-    if args.category is None:
-        missing_args.append('category')
-    if args.name is None:
-        missing_args.append('name')
     if args.x is None:
         missing_args.append('x')
     if args.y is None:
         missing_args.append('y')
+    if args.category is None:
+        missing_args.append('category')
+    if args.name is None:
+        missing_args.append('name')
     
     if missing_args:
         parser.error(f"the following arguments are required: {', '.join(missing_args)}")
@@ -211,19 +213,25 @@ def check_duplicates(marker_id, x, y, name, existing_ids, existing_coords, exist
     return True
 
 
-def create_marker_feature(marker_id, name, category, x, y):
+def create_marker_feature(marker_id, name, category, x, y, description=''):
     """Create a GeoJSON Feature for the marker."""
+    properties = {
+        "id": marker_id,
+        "name": name,
+        "category": category
+    }
+    
+    # Add description only if it's not empty
+    if description.strip():
+        properties["description"] = description
+    
     return {
         "type": "Feature",
         "geometry": {
             "type": "Point",
             "coordinates": [x, y]
         },
-        "properties": {
-            "id": marker_id,
-            "name": name,
-            "category": category
-        }
+        "properties": properties
     }
 
 
@@ -250,6 +258,8 @@ def display_marker_preview(marker_feature, file_path):
     print(f"  Name: {props['name']}")
     print(f"  Category: {props['category']}")
     print(f"  Coordinates: ({coords[0]}, {coords[1]})")
+    if 'description' in props and props['description']:
+        print(f"  Description: {props['description']}")
     print(f"  Target file: {file_path}")
     
     # Display JSON representation
@@ -274,9 +284,11 @@ def main():
         
         print(f"Target file: {file_path}")
         print(f"Map ID: {args.map_id}")
+        print(f"Coordinates: ({args.x}, {args.y})")
         print(f"Category: {args.category}")
         print(f"Name: {args.name}")
-        print(f"Coordinates: ({args.x}, {args.y})")
+        if args.description:
+            print(f"Description: {args.description}")
         
         # Load existing GeoJSON data
         print(f"\nLoading GeoJSON data from {file_path}...")
@@ -296,7 +308,7 @@ def main():
             sys.exit(1)
         
         # Create marker feature
-        marker_feature = create_marker_feature(marker_id, args.name, args.category, args.x, args.y)
+        marker_feature = create_marker_feature(marker_id, args.name, args.category, args.x, args.y, args.description)
         
         # Handle dry run
         if args.dry_run:
