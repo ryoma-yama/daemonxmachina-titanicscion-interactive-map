@@ -83,7 +83,7 @@ The application includes a "Recording mode" for easily capturing marker coordina
 3. **Capture Coordinates**: Click anywhere on the map to record coordinates
 4. **Output Format**: Coordinates are logged to console as JSON and copied to clipboard in the format:
    ```
-   {mapId} {x} {y} <category> "<name>" ""
+   {mapId} {x} {y} category "name" ""
    ```
 5. **Usage**: The clipboard output can be used directly with the `add_marker.py` script for batch marker addition
 
