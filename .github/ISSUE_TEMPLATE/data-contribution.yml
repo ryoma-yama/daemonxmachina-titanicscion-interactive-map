@@ -8,112 +8,60 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Data Contribution Guidelines
+        ## Data Contribution
         
         Thank you for contributing to the Daemon X Machina: Titanic Scion Interactive Map! 
         
-        **Before submitting:**
-        1. Please verify that the markers you're submitting don't already exist on the map
-        2. Use the **Recording mode** feature for accurate coordinates (press `Shift + R` in the app)
-        3. Test coordinates by visiting the map at the specified location
-        
-        **Recording Mode Instructions:**
-        - Open the interactive map in your browser
-        - Press `Shift + R` to enable Recording mode (red "REC" badge will appear)
-        - Click on map locations where markers should be placed
-        - Use the coordinates in the simple format shown in the Marker Data field
-
-  - type: dropdown
-    id: map_id
-    attributes:
-      label: Map ID
-      description: Which map area are you contributing markers for?
-      options:
-        - forest
-        - desert
-        - mountains
-    validations:
-      required: true
+        **How to get coordinates:**
+        1. Open the interactive map in your browser
+        2. Press `Shift + R` to enable Recording mode (red "REC" badge will appear)
+        3. Click on map locations to get coordinates
 
   - type: textarea
     id: marker_data
     attributes:
-      label: Marker Data (Simple Format)
+      label: Marker Data
       description: |
-        Please provide marker information in a simple format. You can submit multiple markers at once.
-        
-        **How to use Recording Mode:**
-        1. Open the interactive map in your browser
-        2. Press `Shift + R` to enable Recording mode (red "REC" badge will appear)
-        3. Click on map locations where markers should be placed
-        4. Copy the coordinates from the console or clipboard
-        5. Use the simple format below
-        
-        **Available categories:** bgm, card, chest, enemy, log, decal
-        
-        **Simple format (one per line):**
-        ```
-        forest bgm "BGM Player" 400 300
-        forest chest "Treasure Chest" 150 450
-        forest log "Data Log Terminal" 600 200
-        ```
+        Provide marker information in this simple format (one per line):
         
         **Format:** `{map_id} {category} "{name}" {x} {y}`
         
-        **Instructions:**
-        - Use one of: bgm, card, chest, enemy, log, decal for category
-        - Put marker names in quotes
-        - Use coordinates from Recording Mode
-        - One marker per line
+        **Available maps:** forest, desert, mountains
+        **Available categories:** bgm, card, chest, enemy, log, decal
+        
+        **Example:**
+        ```
+        forest bgm "BGM Player" 400 300
+        desert chest "Treasure Chest" 150 450
+        ```
       placeholder: |
         forest bgm "BGM Player" 400 300
-        forest chest "Treasure Chest" 150 450
+        desert chest "Treasure Chest" 150 450
     validations:
       required: true
 
   - type: textarea
-    id: references
+    id: additional_info
     attributes:
-      label: References (Optional)
-      description: |
-        Any additional references, screenshots, or sources that helped you locate these markers.
-        This helps with verification and accuracy.
+      label: Additional Information (Optional)
+      description: Any screenshots, references, or notes about these markers.
       placeholder: |
         - Screenshot: [link or description]
-        - Video timestamp: [link with timestamp]
-        - Community guide: [link]
-
-  - type: textarea
-    id: additional_notes
-    attributes:
-      label: Additional Notes (Optional)
-      description: Any other information about these markers or the surrounding area.
-      placeholder: |
-        - Special conditions for access
-        - Related quest information
+        - Special access conditions
         - Visual landmarks nearby
 
   - type: checkboxes
     id: verification
     attributes:
-      label: Verification Checklist
-      description: Please confirm you have completed these verification steps
+      label: Verification
+      description: Please confirm the following
       options:
-        - label: I have verified these markers don't already exist on the map
-          required: true
-        - label: I have used Recording mode to generate the commands with accurate coordinates
-          required: true
-        - label: I have tested the coordinates by visiting the map locations
-          required: true
-        - label: All marker names and categories are accurate
-          required: true
+        - label: I have used Recording mode for accurate coordinates
+          required: false
 
   - type: markdown
     attributes:
       value: |
         ---
         
-        **For contributors:** Your contribution will be manually reviewed and added to the map data files. 
-        Thank you for helping improve the interactive map experience for all players!
-        
-        **Note:** This form is for map marker data only. For bug reports or feature requests, please use the appropriate issue templates.
+        **Note:** Your contribution will be reviewed and added to the map. Thank you for helping improve the interactive map!
