@@ -30,6 +30,232 @@
         "name": "Pierced Heart",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          651,
+          956
+        ]
+      },
+      "properties": {
+        "id": "mountains-008",
+        "name": "No.006-Harmonia Valley",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          929,
+          1010
+        ]
+      },
+      "properties": {
+        "id": "mountains-009",
+        "name": "No.015-Deviant",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          168,
+          912
+        ]
+      },
+      "properties": {
+        "id": "mountains-010",
+        "name": "No.017-Assault Impact",
+        "category": "music",
+        "description": "Axiom facility B1F, near the red door"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          332,
+          588
+        ]
+      },
+      "properties": {
+        "id": "mountains-011",
+        "name": "No.018-Arms Of Immortal",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          416,
+          625
+        ]
+      },
+      "properties": {
+        "id": "mountains-012",
+        "name": "No.019-The Neun",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          301,
+          162
+        ]
+      },
+      "properties": {
+        "id": "mountains-013",
+        "name": "No.021-Gearworm",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          204,
+          183
+        ]
+      },
+      "properties": {
+        "id": "mountains-014",
+        "name": "No.022-Hex",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1066,
+          1008
+        ]
+      },
+      "properties": {
+        "id": "mountains-015",
+        "name": "No.023-Legion",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          182,
+          1037
+        ]
+      },
+      "properties": {
+        "id": "mountains-016",
+        "name": "No.025-Arachne",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1000,
+          137
+        ]
+      },
+      "properties": {
+        "id": "mountains-017",
+        "name": "No.026-Gaze",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          255,
+          212
+        ]
+      },
+      "properties": {
+        "id": "mountains-018",
+        "name": "No.027-Yaiba",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          980,
+          919
+        ]
+      },
+      "properties": {
+        "id": "mountains-019",
+        "name": "No.032-Hostility",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          349,
+          747
+        ]
+      },
+      "properties": {
+        "id": "mountains-020",
+        "name": "No.033-Emergency",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          972,
+          967
+        ]
+      },
+      "properties": {
+        "id": "mountains-021",
+        "name": "No.034-Despair",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          425,
+          986
+        ]
+      },
+      "properties": {
+        "id": "mountains-022",
+        "name": "No.037-Eternal Time",
+        "category": "music"
+      }
     }
   ]
 }

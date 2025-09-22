@@ -30,6 +30,68 @@
         "name": "3 Arrows",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          956,
+          1133
+        ]
+      },
+      "properties": {
+        "id": "desert-008",
+        "name": "No.004-Teos Omos Desert",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1134,
+          629
+        ]
+      },
+      "properties": {
+        "id": "desert-009",
+        "name": "No.009-Fusion",
+        "category": "music",
+        "description": "Axiom Facility B1F Small room at the bottom"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120,
+          475
+        ]
+      },
+      "properties": {
+        "id": "desert-010",
+        "name": "No.010-Ice Cream",
+        "category": "music",
+        "description": "Axiom facility, 1st floor"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          546,
+          436
+        ]
+      },
+      "properties": {
+        "id": "desert-011",
+        "name": "No.036-Uncertainty",
+        "category": "music"
+      }
     }
   ]
 }

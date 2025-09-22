@@ -15,6 +15,191 @@
         "name": "Emblem: 14",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          420,
+          51
+        ]
+      },
+      "properties": {
+        "id": "forest-007",
+        "name": "No.003-War Council",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          339,
+          812
+        ]
+      },
+      "properties": {
+        "id": "forest-008",
+        "name": "No.005-Mitera Glastra",
+        "category": "music",
+        "description": "Axiom facility B2F"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          467,
+          341
+        ]
+      },
+      "properties": {
+        "id": "forest-009",
+        "name": "No.007-Deep in the Darkness",
+        "category": "music",
+        "description": "Inside the tent northeast of the white debris in the center"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          622,
+          103
+        ]
+      },
+      "properties": {
+        "id": "forest-010",
+        "name": "No.012-An Ordinary Day",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          913,
+          361
+        ]
+      },
+      "properties": {
+        "id": "forest-011",
+        "name": "No.013-Engage",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          643,
+          680
+        ]
+      },
+      "properties": {
+        "id": "forest-012",
+        "name": "No.014-Overkill",
+        "category": "music",
+        "description": "Western Laboratory B1F, northeast small room"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          263,
+          292
+        ]
+      },
+      "properties": {
+        "id": "forest-013",
+        "name": "No.016-Perfect Raid",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          334,
+          948
+        ]
+      },
+      "properties": {
+        "id": "forest-014",
+        "name": "No.024-Bullet",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          679,
+          342
+        ]
+      },
+      "properties": {
+        "id": "forest-015",
+        "name": "No.028-Nerve",
+        "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          630,
+          680
+        ]
+      },
+      "properties": {
+        "id": "forest-016",
+        "name": "No.030-Way To Go!",
+        "category": "music",
+        "description": "Western Laboratory B1F, small room at the end of the west side"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          156,
+          818
+        ]
+      },
+      "properties": {
+        "id": "forest-017",
+        "name": "No.031-Turning Point",
+        "category": "music",
+        "description": "Axiom Facility B2F"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77,
+          272
+        ]
+      },
+      "properties": {
+        "id": "forest-018",
+        "name": "No.035-Remember our Vow",
+        "category": "music"
+      }
     }
   ]
 }
