@@ -133,3 +133,9 @@ All code comments and in-app text must be written in English.
 - Issue templates available in `.github/ISSUE_TEMPLATE/` for structured contributions
 - Draft PRs for review workflow
 - Main branch is default target
+
+### Pre-commit and PR checks
+
+- Run `pnpm fix` after implementation to apply safe automatic fixes
+- Run `pnpm check` and ensure there are no warnings or errors
+- Verify no unnecessary diffs are introduced, then commit with conventional commits and open a PR

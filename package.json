@@ -7,9 +7,10 @@
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview --base /daemonxmachina-titanicscion-interactive-map/",
-		"lint": "biome lint .",
+		"lint": "biome lint . --write",
 		"format": "biome format . --write",
-		"check": "biome check ."
+		"check": "biome check .",
+		"fix": "biome check . --write"
 	},
 	"keywords": [
 		"daemon-x-machina",
