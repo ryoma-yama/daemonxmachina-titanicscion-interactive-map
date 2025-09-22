@@ -4,12 +4,15 @@
 This is an interactive web-based map application for the game "Daemon X Machina: Titanic Scion" that allows users to track collectible items (dungeons, logs, cards, etc.) across multiple game maps. Users can click markers to toggle collection status, with state persisted in localStorage.
 
 ## Tech Stack
-- **Frontend**: Vanilla HTML/CSS/JavaScript (no frameworks)
-- **Map Library**: Leaflet.js v1.9.4 (via CDN)
+- **Frontend**: Vanilla HTML/CSS/JavaScript (ES modules)
+- **Build Tool**: Vite
+- **Map Library**: Leaflet.js v1.9.4 (npm package)
 - **Data Storage**: Browser localStorage
 - **Coordinate System**: Leaflet's L.CRS.Simple (pixel-based, not lat/lng)
 - **Data Format**: GeoJSON for marker definitions
 - **Icons**: SVG icons with CSS mask-based coloring
+- **Linting/Formatting**: Biome
+- **Package Manager**: pnpm
 
 ## Project Structure
 ```
@@ -17,25 +20,29 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 ├── index.html              # Main HTML entry point
 ├── README.md              # Comprehensive project documentation
 ├── LICENSE                # MIT License file
-├── site.webmanifest       # Web app manifest
-├── favicon files          # Various favicon formats (ico, png)
-├── .github/
-│   ├── copilot-instructions.md  # This file
-│   ├── ISSUE_TEMPLATE/    # GitHub Issue Form templates
-│   │   ├── data-contribution.yml   # Map marker data contribution
-│   │   ├── feature-request.yml     # Feature requests
-│   │   └── bug-report.yml          # Bug reports
-│   └── prompts/           # Auto-implementation prompt templates
-├── assets/
-│   ├── data/
-│   │   └── markers/       # Marker definitions for all maps (GeoJSON)
-│   ├── icons/             # SVG icons for different categories
-│   └── maps/              # Game map images (JPEG)
+├── package.json           # Package dependencies and scripts
+├── pnpm-lock.yaml         # Package lock file
+├── vite.config.js         # Vite configuration
+├── biome.json             # Biome configuration
+├── test_add_marker.py     # Test file for marker script
+├── public/                # Static assets
+│   ├── site.webmanifest   # Web app manifest
+│   ├── favicon files      # Various favicon formats
+│   └── assets/            # Game assets
+│       ├── data/markers/  # Marker definitions (GeoJSON)
+│       ├── icons/         # SVG icons for categories
+│       └── maps/          # Game map images (JPEG)
 ├── scripts/
 │   └── add_marker.py      # Python utility for adding markers
-└── src/
+└── src/                   # Source code
+    ├── main.js            # Application entry point
+    ├── app-controller.js  # Main application controller
+    ├── map-view.js        # Map rendering and interaction
+    ├── map-definitions.js # Map configuration data
+    ├── collection-store.js # Data persistence layer
     ├── icons.js           # Icon creation utilities
-    └── main.js            # Main application logic
+    ├── validation.js      # Data validation utilities
+    └── styles.css         # Main stylesheet
 ```
 
 ## Key Technical Concepts
@@ -59,6 +66,7 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 ### Data Persistence
 - localStorage keys format: `collect-map:v1:{mapId}`
 - Storage format: `{ markerId: true/false }` for collection status
+- Handled by `collection-store.js` module
 
 ## Development Guidelines
 
@@ -78,18 +86,19 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 - Icons: SVG format for scalability
 - New categories require both SVG icon and color definition in `colors` object
 - GeoJSON: Follow existing structure with `id`, `name`, `category` properties
+- Assets organized under `public/assets/` directory
 
 ### Testing & Debugging
 - Open browser console to see coordinate clicks and loading status
 - Recording mode (`Shift + R`) for coordinate capture and clipboard copy
-- No build process - direct file serving works
+- Development server: `pnpm dev` (Vite dev server)
 - Test marker interactions by clicking on map elements
 - Verify localStorage persistence manually via dev tools
 
 ### HTML Verification
-- To preview HTML files, start a local server with:
+- To preview the application during development:
 ```
-python3 -m http.server 8000 --bind 0.0.0.0
+pnpm dev
 ```
 
 ### HTML Language Setting
@@ -104,12 +113,12 @@ All code comments and in-app text must be written in English.
 ## Common Tasks
 
 ### Adding New Markers
-1. Add entry to `assets/data/markers/*.geojson`
+1. Add entry to `public/assets/data/markers/*.geojson`
 2. Ensure category exists in `colors` object in `src/icons.js`
-3. Add corresponding SVG icon to `assets/icons/` if new category
+3. Add corresponding SVG icon to `public/assets/icons/` if new category
 
 ### Adding New Maps
-1. Add image to `assets/maps/`
+1. Add image to `public/assets/maps/`
 2. Update bounds in main.js for image dimensions
 3. Implement map switching logic (currently single map)
 4. Update localStorage key structure for multiple maps
@@ -121,11 +130,11 @@ All code comments and in-app text must be written in English.
 - Size configurable via `createCategoryIcon()` function
 
 ## Important Notes
-- No build tools or package.json - pure static files
-- All dependencies loaded via CDN
+- Uses Vite for modern development workflow and building
+- Leaflet dependency managed via npm
 - Click debugging feature helps with coordinate mapping
 - Recording mode feature helps with coordinate mapping
-- Project follows simple, lightweight architecture philosophy
+- Project follows modular architecture with clear separation of concerns
 
 ## Git Workflow
 - Uses conventional commits
