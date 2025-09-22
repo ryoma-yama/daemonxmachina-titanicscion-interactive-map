@@ -18,14 +18,17 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 - Mobile-friendly responsive design
 
 ## Technical Stack
-- **Frontend**: Vanilla HTML/CSS/JavaScript (no frameworks)
-- **Map Library**: [Leaflet.js](https://leafletjs.com/) v1.9.4 (via CDN)
+- **Frontend**: Vanilla HTML/CSS/JavaScript (ES modules)
+- **Build Tool**: Vite
+- **Map Library**: [Leaflet.js](https://leafletjs.com/) v1.9.4 (npm package)
 - **Data Storage**: Browser localStorage
 - **Coordinate System**: Leaflet's L.CRS.Simple (pixel-based, not lat/lng)
 - **Data Format**: GeoJSON for marker definitions
 - **Icons**: SVG icons with CSS mask-based coloring
   - Uses custom `L.divIcon` with SVG content exclusively
   - Leaflet default marker icons are **not used** in this application
+- **Linting/Formatting**: Biome
+- **Package Manager**: pnpm
 
 ## Key Technical Concepts
 - **Coordinate System**: Uses `L.CRS.Simple` instead of geographic coordinates
@@ -35,13 +38,35 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 
 ## Development Setup
 
+### Prerequisites
+- Node.js 22.19.0 or higher
+- pnpm 10.0.0 or higher
+
 ### Local Development
 1. Clone this repository
-2. Start a local HTTP server:
+2. Install dependencies:
    ```bash
-   python3 -m http.server 8000 --bind 0.0.0.0
+   pnpm install
    ```
-3. Open `http://localhost:8000` in your browser
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+4. Open `http://localhost:3000` in your browser
+
+### Build for Production
+```bash
+pnpm build
+```
+
+### Code Quality
+```bash
+# Run linting and formatting checks
+pnpm check
+
+# Auto-fix issues
+pnpm fix
+```
 
 ### Browser Compatibility
 - Modern browsers with ES6+ support
@@ -56,23 +81,23 @@ The application includes a "Recording mode" for easily capturing marker coordina
 1. **Enable Recording Mode**: Press `Shift + R` to toggle recording mode on/off
 2. **Visual Indicator**: A red "REC" badge appears when recording mode is active
 3. **Capture Coordinates**: Click anywhere on the map to record coordinates
-4. **Output Format**: Coordinates are logged to console and copied to clipboard in the format:
+4. **Output Format**: Coordinates are logged to console as JSON and copied to clipboard in the format:
    ```
-   {mapId} <category> "<name>" {x} {y}
+   {mapId} {x} {y} <category> "<name>" ""
    ```
 5. **Usage**: The clipboard output can be used directly with the `add_marker.py` script for batch marker addition
 
 **Note**: Recording mode is intended for developers and contributors to easily capture accurate pixel coordinates for new markers.
 
 ### Adding New Markers
-1. Add entry to appropriate `assets/data/markers/{map}.geojson` file
+1. Add entry to appropriate `public/assets/data/markers/{map}.geojson` file
 2. Ensure category exists in `colors` object in `src/icons.js`
-3. Add corresponding SVG icon to `assets/icons/` if new category
+3. Add corresponding SVG icon to `public/assets/icons/` if new category
 
 ### Adding New Maps
-1. Add image to `assets/maps/`
-2. Update `mapDefinitions` in `src/main.js`
-3. Create corresponding GeoJSON file in `assets/data/markers/`
+1. Add image to `public/assets/maps/`
+2. Update `mapDefinitions` in `src/map-definitions.js`
+3. Create corresponding GeoJSON file in `public/assets/data/markers/`
 
 ## License
 - The **source code** of this repository is licensed under the [MIT License](./LICENSE).
@@ -88,11 +113,13 @@ This is primarily a personal project for game progress tracking.
 While contributions are welcome, please note the scope is intentionally limited to maintain simplicity.
 
 ### Development Guidelines
-- Use vanilla JavaScript (ES6+)
+- Use vanilla JavaScript (ES6+ modules)
 - Console logging for debugging is standard practice
 - Follow existing code style and patterns
+- Use Biome for code formatting and linting
 - Test changes across different browsers
 - Ensure mobile compatibility
+- Run `pnpm check` before committing changes
 
 #### CSS Important Rules
 This project uses `!important` declarations in CSS for the following justified reasons:
@@ -109,4 +136,4 @@ For issues related to:
 
 ---
 
-*This project is maintained as a fan project and learning exercise. It follows a lightweight, static-file architecture for easy deployment and maintenance.*
+*This project is maintained as a fan project and learning exercise. It uses a modern Vite-based development workflow while maintaining vanilla JavaScript for the core application logic.*
