@@ -1,0 +1,256 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+#map {
+  height: 100vh;
+  width: 100vw;
+}
+
+.map-title {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(28, 28, 28, 0.95);
+  color: #e0e0e0;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid #404040;
+  text-align: center;
+}
+
+.map-info {
+  margin-bottom: 8px;
+}
+
+.map-info #map-title-text {
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.map-subtitle {
+  font-size: 12px;
+  color: #b0b0b0;
+  font-weight: normal;
+}
+
+.map-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.map-link {
+  color: #0084ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.map-link:hover {
+  color: #40a0ff;
+  text-decoration: underline;
+}
+
+.map-link.current {
+  color: #ffffff;
+  font-weight: bold;
+  cursor: default;
+  text-decoration: none;
+}
+
+.map-link.current:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.map-separator {
+  color: #666;
+  user-select: none;
+}
+
+/* Popup styling */
+.leaflet-popup-content-wrapper {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid #404040 !important;
+}
+
+.leaflet-popup-tip {
+  background-color: #2a2a2a !important;
+  border: 1px solid #404040 !important;
+}
+
+.marker-popup {
+  font-family: Arial, sans-serif;
+  min-width: 220px;
+  color: #e0e0e0;
+}
+
+.marker-popup h4 {
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.marker-popup div {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #b0b0b0;
+}
+
+.collection-status {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #404040;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  color: #e0e0e0 !important;
+  font-size: 14px !important;
+  transition: color 0.3s ease;
+}
+
+.checkbox-label:hover {
+  color: #ffffff !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #00AA00;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+  accent-color: #00CC00;
+}
+
+/* Leaflet controls dark theme */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #404040 !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background-color: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+}
+
+.leaflet-control-attribution {
+  background-color: rgba(28, 28, 28, 0.8) !important;
+  color: #b0b0b0 !important;
+  border: 1px solid #404040 !important;
+}
+
+.leaflet-control-attribution a {
+  color: #0084ff !important;
+}
+
+.leaflet-control-attribution a:hover {
+  color: #40a0ff !important;
+}
+
+/* Dark theme for all leaflet controls */
+.leaflet-control {
+  background-color: #2a2a2a !important;
+  border: 1px solid #404040 !important;
+}
+
+/* Map container background */
+.leaflet-container {
+  background-color: #1a1a1a !important;
+}
+
+/* Recording mode badge */
+#rec-badge {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background-color: #ff0000;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: none;
+}
+
+/* Footer styles */
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(26, 26, 26, 0.95);
+  color: #e0e0e0;
+  text-align: center;
+  font-size: 0.8em;
+  padding: 8px 16px;
+  border-top: 1px solid #404040;
+  z-index: 999;
+  line-height: 1.4;
+}
+
+.site-footer div {
+  margin: 2px 0;
+}
+
+.site-footer a {
+  color: #6bb6ff;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Notification toast styles */
+.notification-toast {
+  position: fixed;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(46, 125, 50, 0.9);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(76, 175, 80, 0.5);
+  z-index: 1500;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.notification-toast.show {
+  opacity: 1;
+}
