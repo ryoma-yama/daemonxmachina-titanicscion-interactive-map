@@ -4,6 +4,7 @@
   --bg-secondary: #2a2a2a;
   --bg-tertiary: #3a3a3a;
   --bg-overlay: rgba(28, 28, 28, 0.95);
+  --bg-overlay-light: rgba(28, 28, 28, 0.8);
   --bg-popup: rgba(0, 0, 0, 0.85);
 
   --text-primary: #e0e0e0;
@@ -111,13 +112,13 @@ body {
   color: var(--text-primary) !important;
   border-radius: 8px !important;
   box-shadow: 0 4px 12px var(--shadow-darker) !important;
-  border: 1px solid var(--border-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
   backdrop-filter: blur(4px);
 }
 
 .leaflet-popup-tip {
   background-color: var(--bg-popup) !important;
-  border: 1px solid var(--border-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
 }
 
 .marker-popup {
@@ -193,28 +194,28 @@ body {
 }
 
 .leaflet-control-attribution {
-  background-color: rgba(28, 28, 28, 0.8) !important;
-  color: #b0b0b0 !important;
-  border: 1px solid #404040 !important;
+  background-color: var(--bg-overlay-light) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
 }
 
 .leaflet-control-attribution a {
-  color: #0084ff !important;
+  color: var(--accent-blue) !important;
 }
 
 .leaflet-control-attribution a:hover {
-  color: #40a0ff !important;
+  color: var(--accent-blue-light) !important;
 }
 
 /* Dark theme for all leaflet controls */
 .leaflet-control {
-  background-color: #2a2a2a !important;
-  border: 1px solid #404040 !important;
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
 }
 
 /* Map container background */
 .leaflet-container {
-  background-color: #1a1a1a !important;
+  background-color: var(--bg-primary) !important;
 }
 
 /* Recording mode badge */
