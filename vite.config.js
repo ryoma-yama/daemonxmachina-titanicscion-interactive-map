@@ -4,9 +4,7 @@ export default defineConfig(({ command }) => {
 	const isBuild = command === "build";
 
 	return {
-		base: isBuild
-			? "/daemonxmachina-titanicscion-interactive-map/"
-			: "/",
+		base: isBuild ? "/daemonxmachina-titanicscion-interactive-map/" : "/",
 		esbuild: isBuild ? { pure: ["console.log"] } : undefined,
 		build: {
 			outDir: "dist",
