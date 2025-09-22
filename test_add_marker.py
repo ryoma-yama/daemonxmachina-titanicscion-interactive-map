@@ -172,7 +172,7 @@ def test_add_marker_to_geojson():
 
 def test_valid_categories():
     """Test that valid categories are properly defined."""
-    expected_categories = ['bgm', 'card', 'chest', 'enemy', 'log']
+    expected_categories = ['music', 'card', 'chest', 'enemy', 'log']
     assert VALID_CATEGORIES == expected_categories
 
 

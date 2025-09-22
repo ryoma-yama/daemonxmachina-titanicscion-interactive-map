@@ -61,7 +61,7 @@ body:
       description: |
         Describe the solution you'd like to see implemented. Be as detailed as possible.
       placeholder: |
-        Example: Add checkboxes or toggle buttons for each marker category (BGM, Cards, Chests, etc.) that allow users to show/hide specific types of markers.
+        Example: Add checkboxes or toggle buttons for each marker category (MUSIC, Cards, Chests, etc.) that allow users to show/hide specific types of markers.
     validations:
       required: true
 

@@ -2,7 +2,7 @@
 import L from "leaflet";
 
 export const colors = {
-	bgm: "#00FFFF",
+	music: "#00FFFF",
 	card: "#39FF14",
 	chest: "#FFFF00",
 	decal: "#FF00FF",
