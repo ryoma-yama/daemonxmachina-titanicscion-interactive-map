@@ -12,9 +12,45 @@
 
   <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' https://unpkg.com/leaflet@1.9.4/dist/leaflet.js 'unsafe-inline'; style-src 'self' https://unpkg.com/leaflet@1.9.4/dist/leaflet.css 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://unpkg.com; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self';">
+    content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: blob:;
+      connect-src 'self' ws:;
+      font-src 'self';
+      object-src 'none';
+      media-src 'self';
+      frame-src 'none';
+      worker-src 'none';
+      manifest-src 'self';
+      base-uri 'self';
+      form-action 'self';
+  ">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
+    }
+    
+    #loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-size: 18px;
+    }
+    
+    #app {
+      display: none;
+    }
+  </style>
 
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
@@ -22,45 +58,54 @@
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" href="./favicon.ico" />
   <link rel="manifest" href="./site.webmanifest" />
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-
-  <!-- Application CSS -->
-  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  <div class="map-title">
-    <span id="rec-badge">REC</span>
-    <div class="map-info">
-      <div id="map-title-text">Daemon X Machina: Titanic Scion</div>
-      <div class="map-subtitle">Interactive Map</div>
+  <!-- Display when JavaScript is disabled -->
+  <noscript>
+    <div style="padding: 2em; color: #fff; background: #1a1a1a; text-align: center; font-family: Arial, sans-serif;">
+      <h2>JavaScript Required</h2>
+      <p>このサイトを利用するにはJavaScriptを有効にしてください。</p>
+      <p>Please enable JavaScript to use this interactive map.</p>
     </div>
-    <nav class="map-navigation" aria-label="Map navigation">
-      <a href="#" class="map-link" data-map="desert">Desert</a>
-      <span class="map-separator" aria-hidden="true">|</span>
-      <a href="#" class="map-link" data-map="forest">Forest</a>
-      <span class="map-separator" aria-hidden="true">|</span>
-      <a href="#" class="map-link" data-map="mountains">Mountains</a>
-    </nav>
+  </noscript>
+
+  <!-- Loading display -->
+  <div id="loading">
+    <div>
+      <div style="margin-bottom: 16px; text-align: center;">Loading Interactive Map...</div>
+      <div style="font-size: 14px; opacity: 0.7; text-align: center;">Daemon X Machina: Titanic Scion</div>
+    </div>
   </div>
-  <div id="map"></div>
 
-  <!-- Leaflet JavaScript -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Main application (initially hidden) -->
+  <div id="app">
+    <div class="map-title">
+      <span id="rec-badge">REC</span>
+      <div class="map-info">
+        <div id="map-title-text">Daemon X Machina: Titanic Scion</div>
+        <div class="map-subtitle">Interactive Map</div>
+      </div>
+      <nav class="map-navigation" aria-label="Map navigation">
+        <a href="#" class="map-link" data-map="desert">Desert</a>
+        <span class="map-separator" aria-hidden="true">|</span>
+        <a href="#" class="map-link" data-map="forest">Forest</a>
+        <span class="map-separator" aria-hidden="true">|</span>
+        <a href="#" class="map-link" data-map="mountains">Mountains</a>
+      </nav>
+    </div>
+    <div id="map"></div>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div>©2025 Marvelous Inc. | This is an unofficial, non-commercial fan project. | <a
-        href="https://jp.daemonxmachina.com/titanicscion/news/article/32682" target="_blank"
-        rel="noopener noreferrer">Guidelines (JP)</a></div>
-    <div>Data based on Game version 1.0.3 | <a
-        href="https://github.com/ryoma-yama/daemonxmachina-titanicscion-interactive-map" target="_blank"
-        rel="noopener noreferrer">View source on GitHub</a></div>
-  </footer>
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div>©2025 Marvelous Inc. | This is an unofficial, non-commercial fan project. | <a
+          href="https://jp.daemonxmachina.com/titanicscion/news/article/32682" target="_blank"
+          rel="noopener noreferrer">Guidelines (JP)</a></div>
+      <div>Data based on Game version 1.0.3 | <a
+          href="https://github.com/ryoma-yama/daemonxmachina-titanicscion-interactive-map" target="_blank"
+          rel="noopener noreferrer">View source on GitHub</a></div>
+    </footer>
+  </div>
 
   <!-- JavaScript Modules -->
   <script type="module" src="src/main.js"></script>

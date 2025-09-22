@@ -24,6 +24,8 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 - **Coordinate System**: Leaflet's L.CRS.Simple (pixel-based, not lat/lng)
 - **Data Format**: GeoJSON for marker definitions
 - **Icons**: SVG icons with CSS mask-based coloring
+  - Uses custom `L.divIcon` with SVG content exclusively
+  - Leaflet default marker icons are **not used** in this application
 
 ## Key Technical Concepts
 - **Coordinate System**: Uses `L.CRS.Simple` instead of geographic coordinates
@@ -91,6 +93,14 @@ While contributions are welcome, please note the scope is intentionally limited 
 - Follow existing code style and patterns
 - Test changes across different browsers
 - Ensure mobile compatibility
+
+#### CSS Important Rules
+This project uses `!important` declarations in CSS for the following justified reasons:
+- **Leaflet Override Requirements**: Third-party library (Leaflet.js) styles require `!important` to override default themes
+- **Specificity Management**: Ensures consistent theming across different browser implementations
+- **Third-party Integration**: Common practice when integrating external map libraries that inject their own styles
+
+The `complexity.noImportantStyles` rule is disabled in `biome.json` for this reason.
 
 ## Support
 For issues related to:
