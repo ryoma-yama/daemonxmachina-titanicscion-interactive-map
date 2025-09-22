@@ -81,40 +81,44 @@ body {
 
 /* Popup styling */
 .leaflet-popup-content-wrapper {
-  background-color: #2a2a2a !important;
-  color: #e0e0e0 !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  color: #ffffff !important;
   border-radius: 8px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
-  border: 1px solid #404040 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(4px);
 }
 
 .leaflet-popup-tip {
-  background-color: #2a2a2a !important;
-  border: 1px solid #404040 !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
 .marker-popup {
   font-family: Arial, sans-serif;
   min-width: 220px;
-  color: #e0e0e0;
+  color: #ffffff;
 }
 
 .marker-popup h4 {
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
   color: #ffffff;
   font-size: 16px;
+  font-weight: bold;
 }
 
-.marker-popup div {
-  margin: 4px 0;
+.marker-description {
+  margin: 8px 0 12px 0;
   font-size: 14px;
-  color: #b0b0b0;
+  color: #e0e0e0;
+  line-height: 1.4;
+  font-style: italic;
 }
 
 .collection-status {
   margin-top: 12px;
-  padding-top: 8px;
-  border-top: 1px solid #404040;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .checkbox-label {
@@ -122,13 +126,13 @@ body {
   align-items: center;
   cursor: pointer;
   font-weight: bold;
-  color: #e0e0e0 !important;
+  color: #ffffff !important;
   font-size: 14px !important;
   transition: color 0.3s ease;
 }
 
 .checkbox-label:hover {
-  color: #ffffff !important;
+  color: #f0f0f0 !important;
 }
 
 .checkbox-label input[type="checkbox"] {

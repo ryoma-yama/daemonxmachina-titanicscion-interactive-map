@@ -297,16 +297,6 @@ export class MapView {
     title.textContent = feature.properties.name;
     container.appendChild(title);
 
-    // ID display
-    const idDiv = document.createElement('div');
-    idDiv.textContent = `ID: ${feature.properties.id}`;
-    container.appendChild(idDiv);
-
-    // Category display
-    const categoryDiv = document.createElement('div');
-    categoryDiv.textContent = `Category: ${feature.properties.category}`;
-    container.appendChild(categoryDiv);
-
     // Description display (if available)
     if (feature.properties.description && feature.properties.description.trim()) {
       const descriptionDiv = document.createElement('div');
