@@ -1,11 +1,11 @@
 // Application controller - Coordinator between all components
-import { getMapDefinition, getAllMapIds } from './map-definitions.js';
+import { getMapDefinition, getAllMapIds, getInitialMapId, saveSelectedMap } from './map-definitions.js';
 import { CollectionManager } from './collection-store.js';
 import { MapView } from './map-view.js';
 
 export class AppController {
   constructor() {
-    this.currentMapId = 'forest';
+    this.currentMapId = getInitialMapId();
     this.collectionManagers = new Map();
 
     // Initialize collection managers for all maps
@@ -60,6 +60,9 @@ export class AppController {
   handleMapNavigation(mapId) {
     if (mapId !== this.currentMapId) {
       this.switchToMap(mapId);
+
+      // Save selected map to localStorage for next session
+      saveSelectedMap(mapId);
     }
   }
 

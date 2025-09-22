@@ -24,19 +24,22 @@ body:
       description: |
         Provide marker information in this simple format (one per line):
         
-        **Format:** `{map_id} {category} "{name}" {x} {y}`
+        **Format:** `{map_id} {x} {y} {category} "{name}" "{description}"`
         
         **Available maps:** forest, desert, mountains
         **Available categories:** bgm, card, chest, enemy, log, decal
         
+        **Note:** Description is optional - you can leave it empty if needed: `"{name}" ""`
+        
         **Example:**
         ```
-        forest bgm "BGM Player" 400 300
-        desert chest "Treasure Chest" 150 450
+        forest 400 300 bgm "BGM Player" "Hidden music track near the waterfall"
+        desert 150 450 chest "Treasure Chest" "Contains rare weapon parts"
+        mountains 800 200 log "Captain's Log" ""
         ```
       placeholder: |
-        forest bgm "BGM Player" 400 300
-        desert chest "Treasure Chest" 150 450
+        forest 400 300 bgm "BGM Player" "Hidden music track near the waterfall"
+        desert 150 450 chest "Treasure Chest" "Contains rare weapon parts"
     validations:
       required: true
 

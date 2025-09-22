@@ -1,9 +1,9 @@
 // Collection state management - localStorage and state handling
 import { validateMarkerId } from './validation.js';
-import { isValidMapId } from './map-definitions.js';
+import { isValidMapId, getDefaultMapId } from './map-definitions.js';
 
 export class CollectionManager {
-  constructor(mapId = 'forest') {
+  constructor(mapId = getDefaultMapId()) {
     this.mapId = this.validateMapId(mapId);
     this.storageKey = `collect-map:v1:${this.mapId}`;
     this.collectedItems = this.loadFromStorage();
@@ -14,8 +14,8 @@ export class CollectionManager {
    */
   validateMapId(mapId) {
     if (!isValidMapId(mapId)) {
-      console.warn(`Invalid mapId: ${mapId}, defaulting to 'forest'`);
-      return 'forest';
+      console.warn(`Invalid mapId: ${mapId}, defaulting to '${getDefaultMapId()}'`);
+      return getDefaultMapId();
     }
     return mapId;
   }

@@ -1,4 +1,9 @@
 // Map definitions - Static data only
+
+// Default configuration constants
+export const DEFAULT_MAP_ID = 'desert';
+export const LAST_MAP_STORAGE_KEY = 'last-selected-map:v1';
+
 export const mapDefinitions = {
   forest: {
     name: 'Forest Map',
@@ -39,4 +44,45 @@ export function getAllMapIds() {
  */
 export function isValidMapId(mapId) {
   return mapId && mapDefinitions.hasOwnProperty(mapId);
+}
+
+/**
+ * Get default map ID
+ */
+export function getDefaultMapId() {
+  return DEFAULT_MAP_ID;
+}
+
+/**
+ * Get last selected map from localStorage, fallback to default
+ */
+export function getInitialMapId() {
+  try {
+    const stored = localStorage.getItem(LAST_MAP_STORAGE_KEY);
+    if (stored && isValidMapId(stored)) {
+      return stored;
+    }
+  } catch (error) {
+    console.warn('Failed to retrieve last selected map from localStorage:', error);
+  }
+
+  return DEFAULT_MAP_ID;
+}
+
+/**
+ * Save map selection to localStorage
+ */
+export function saveSelectedMap(mapId) {
+  if (!isValidMapId(mapId)) {
+    console.error(`Invalid map ID: ${mapId}`);
+    return false;
+  }
+
+  try {
+    localStorage.setItem(LAST_MAP_STORAGE_KEY, mapId);
+    return true;
+  } catch (error) {
+    console.error('Failed to save selected map to localStorage:', error);
+    return false;
+  }
 }
