@@ -18,7 +18,7 @@ from pathlib import Path
 VALID_CATEGORIES = ['music', 'card', 'chest', 'decal', 'enemy', 'log']
 
 # Default paths
-DEFAULT_MARKERS_DIR = 'assets/data/markers'
+DEFAULT_MARKERS_DIR = 'public/assets/data/markers'
 
 
 def parse_arguments():
