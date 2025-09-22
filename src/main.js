@@ -4,6 +4,17 @@ import { AppController } from "./app-controller.js";
 import "./styles.css";
 
 function init() {
+	// Hide loading screen and show app
+	const loadingElement = document.getElementById('loading');
+	const appElement = document.getElementById('app');
+	
+	if (loadingElement) {
+		loadingElement.style.display = 'none';
+	}
+	if (appElement) {
+		appElement.style.display = 'block';
+	}
+	
 	// Initialize application after all CSS is loaded
 	new AppController();
 	console.log("Multi-map system initialized successfully");

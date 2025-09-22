@@ -35,8 +35,21 @@
       margin: 0;
       height: 100%;
       background: #1a1a1a;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
     }
-    #map { width: 100vw; height: 100vh; }
+    
+    #loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-size: 18px;
+    }
+    
+    #app {
+      display: none;
+    }
   </style>
 
   <!-- Favicons -->
@@ -48,31 +61,51 @@
 </head>
 
 <body>
-  <div class="map-title">
-    <span id="rec-badge">REC</span>
-    <div class="map-info">
-      <div id="map-title-text">Daemon X Machina: Titanic Scion</div>
-      <div class="map-subtitle">Interactive Map</div>
+  <!-- Display when JavaScript is disabled -->
+  <noscript>
+    <div style="padding: 2em; color: #fff; background: #1a1a1a; text-align: center; font-family: Arial, sans-serif;">
+      <h2>JavaScript Required</h2>
+      <p>このサイトを利用するにはJavaScriptを有効にしてください。</p>
+      <p>Please enable JavaScript to use this interactive map.</p>
     </div>
-    <nav class="map-navigation" aria-label="Map navigation">
-      <a href="#" class="map-link" data-map="desert">Desert</a>
-      <span class="map-separator" aria-hidden="true">|</span>
-      <a href="#" class="map-link" data-map="forest">Forest</a>
-      <span class="map-separator" aria-hidden="true">|</span>
-      <a href="#" class="map-link" data-map="mountains">Mountains</a>
-    </nav>
-  </div>
-  <div id="map"> </div>
+  </noscript>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div>©2025 Marvelous Inc. | This is an unofficial, non-commercial fan project. | <a
-        href="https://jp.daemonxmachina.com/titanicscion/news/article/32682" target="_blank"
-        rel="noopener noreferrer">Guidelines (JP)</a></div>
-    <div>Data based on Game version 1.0.3 | <a
-        href="https://github.com/ryoma-yama/daemonxmachina-titanicscion-interactive-map" target="_blank"
-        rel="noopener noreferrer">View source on GitHub</a></div>
-  </footer>
+  <!-- Loading display -->
+  <div id="loading">
+    <div>
+      <div style="margin-bottom: 16px; text-align: center;">Loading Interactive Map...</div>
+      <div style="font-size: 14px; opacity: 0.7; text-align: center;">Daemon X Machina: Titanic Scion</div>
+    </div>
+  </div>
+
+  <!-- Main application (initially hidden) -->
+  <div id="app">
+    <div class="map-title">
+      <span id="rec-badge">REC</span>
+      <div class="map-info">
+        <div id="map-title-text">Daemon X Machina: Titanic Scion</div>
+        <div class="map-subtitle">Interactive Map</div>
+      </div>
+      <nav class="map-navigation" aria-label="Map navigation">
+        <a href="#" class="map-link" data-map="desert">Desert</a>
+        <span class="map-separator" aria-hidden="true">|</span>
+        <a href="#" class="map-link" data-map="forest">Forest</a>
+        <span class="map-separator" aria-hidden="true">|</span>
+        <a href="#" class="map-link" data-map="mountains">Mountains</a>
+      </nav>
+    </div>
+    <div id="map"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div>©2025 Marvelous Inc. | This is an unofficial, non-commercial fan project. | <a
+          href="https://jp.daemonxmachina.com/titanicscion/news/article/32682" target="_blank"
+          rel="noopener noreferrer">Guidelines (JP)</a></div>
+      <div>Data based on Game version 1.0.3 | <a
+          href="https://github.com/ryoma-yama/daemonxmachina-titanicscion-interactive-map" target="_blank"
+          rel="noopener noreferrer">View source on GitHub</a></div>
+    </footer>
+  </div>
 
   <!-- JavaScript Modules -->
   <script type="module" src="src/main.js"></script>
