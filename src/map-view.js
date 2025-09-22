@@ -91,7 +91,7 @@ export class MapView {
 				// Copy to clipboard in simple format for GitHub issues
 				// Format: {map_id} {x} {y} {category} "{name}" "{description}"
 				const clipboardText = `${this.currentMapId} ${x} ${y} <category> "<name>" ""`;
-				if (navigator.clipboard && navigator.clipboard.writeText) {
+				if (navigator.clipboard?.writeText) {
 					navigator.clipboard
 						.writeText(clipboardText)
 						.then(() => {
@@ -341,10 +341,7 @@ export class MapView {
 		container.appendChild(title);
 
 		// Description display (if available)
-		if (
-			feature.properties.description &&
-			feature.properties.description.trim()
-		) {
+		if (feature.properties.description?.trim()) {
 			const descriptionDiv = document.createElement("div");
 			descriptionDiv.className = "marker-description";
 			descriptionDiv.textContent = feature.properties.description;
