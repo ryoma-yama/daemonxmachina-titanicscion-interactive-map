@@ -92,6 +92,14 @@ While contributions are welcome, please note the scope is intentionally limited 
 - Test changes across different browsers
 - Ensure mobile compatibility
 
+#### CSS Important Rules
+This project uses `!important` declarations in CSS for the following justified reasons:
+- **Leaflet Override Requirements**: Third-party library (Leaflet.js) styles require `!important` to override default themes
+- **Specificity Management**: Ensures consistent theming across different browser implementations
+- **Third-party Integration**: Common practice when integrating external map libraries that inject their own styles
+
+The `complexity.noImportantStyles` rule is disabled in `biome.json` for this reason.
+
 ## Support
 For issues related to:
 - **Game content**: Contact Marvelous Inc. official support
