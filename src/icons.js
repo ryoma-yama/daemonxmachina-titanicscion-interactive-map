@@ -10,10 +10,16 @@ export const colors = {
 	log: "#FF6E00",
 };
 
+// Get base URL for assets (handles both dev and production builds)
+const getAssetPath = (path) => {
+	const baseUrl = import.meta.env.BASE_URL || "/";
+	return baseUrl.endsWith("/") ? baseUrl + path.slice(1) : baseUrl + path;
+};
+
 // DivIcon that uses SVG as mask and colors with background color
 export function createCategoryIcon(category, size = 24, isCollected = false) {
 	const color = colors[category] || "#FFFFFF";
-	const url = `/assets/icons/${category}.svg`;
+	const url = getAssetPath(`/assets/icons/${category}.svg`);
 
 	// Collection state styling
 	const opacity = isCollected ? 0.5 : 1.0;

@@ -4,33 +4,39 @@
 export const DEFAULT_MAP_ID = "desert";
 export const LAST_MAP_STORAGE_KEY = "last-selected-map:v1";
 
+// Get base URL for assets (handles both dev and production builds)
+const getAssetPath = (path) => {
+	const baseUrl = import.meta.env.BASE_URL || "/";
+	return baseUrl.endsWith("/") ? baseUrl + path.slice(1) : baseUrl + path;
+};
+
 export const mapDefinitions = {
 	forest: {
 		name: "Forest Map",
-		imagePath: "/assets/maps/forest.jpg",
+		imagePath: getAssetPath("/assets/maps/forest.jpg"),
 		bounds: [
 			[0, 0],
 			[1230, 1230],
 		],
-		markersPath: "/assets/data/markers/forest.geojson",
+		markersPath: getAssetPath("/assets/data/markers/forest.geojson"),
 	},
 	desert: {
 		name: "Desert Map",
-		imagePath: "/assets/maps/desert.jpg",
+		imagePath: getAssetPath("/assets/maps/desert.jpg"),
 		bounds: [
 			[0, 0],
 			[1230, 1230],
 		],
-		markersPath: "/assets/data/markers/desert.geojson",
+		markersPath: getAssetPath("/assets/data/markers/desert.geojson"),
 	},
 	mountains: {
 		name: "Mountains Map",
-		imagePath: "/assets/maps/mountains.jpg",
+		imagePath: getAssetPath("/assets/maps/mountains.jpg"),
 		bounds: [
 			[0, 0],
 			[1230, 1230],
 		],
-		markersPath: "/assets/data/markers/mountains.geojson",
+		markersPath: getAssetPath("/assets/data/markers/mountains.geojson"),
 	},
 };
 

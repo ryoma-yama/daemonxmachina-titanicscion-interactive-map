@@ -1,12 +1,13 @@
 import { defineConfig } from "vite";
 
 export default defineConfig(({ command }) => {
+	const isBuild = command === "build";
+
 	return {
-		// Set base path for both build and preview
-		base:
-			command === "build" || command === "serve"
-				? "/daemonxmachina-titanicscion-interactive-map/"
-				: "/",
+		base: isBuild
+			? "/daemonxmachina-titanicscion-interactive-map/"
+			: "/",
+		esbuild: isBuild ? { pure: ["console.log"] } : undefined,
 		build: {
 			outDir: "dist",
 			sourcemap: true,
