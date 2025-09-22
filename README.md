@@ -99,6 +99,9 @@ The application includes a "Recording mode" for easily capturing marker coordina
 2. Update `mapDefinitions` in `src/map-definitions.js`
 3. Create corresponding GeoJSON file in `public/assets/data/markers/`
 
+## Credits
+- [Music Data Locations — Steam Community Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3569600723), Author: Lethendra
+
 ## License
 - The **source code** of this repository is licensed under the [MIT License](./LICENSE).
 - All game content and assets remain the property of Marvelous Inc.
