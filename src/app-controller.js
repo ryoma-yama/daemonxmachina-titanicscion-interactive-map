@@ -72,4 +72,9 @@ export class AppController {
 			saveSelectedMap(mapId);
 		}
 	}
+
+	// Callback for recording mode toggle (currently does nothing)
+	handleRecordingModeToggle(_isRecording) {
+		// Intentionally left blank; implement if needed
+	}
 }
