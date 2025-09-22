@@ -1,9 +1,36 @@
+/* Dark theme color variables */
+:root {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2a2a2a;
+  --bg-tertiary: #3a3a3a;
+  --bg-overlay: rgba(28, 28, 28, 0.95);
+  --bg-popup: rgba(0, 0, 0, 0.85);
+
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #888888;
+  --text-bright: #f0f0f0;
+  --text-white: #ffffff;
+
+  --border-primary: #404040;
+  --border-secondary: rgba(255, 255, 255, 0.15);
+  --border-accent: rgba(255, 255, 255, 0.25);
+
+  --accent-blue: #0084ff;
+  --accent-blue-light: #40a0ff;
+  --accent-green: #00aa00;
+  --accent-green-bright: #00cc00;
+
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+  --shadow-darker: rgba(0, 0, 0, 0.6);
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #1a1a1a;
-  color: #e0e0e0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 #map {
@@ -16,14 +43,14 @@ body {
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(28, 28, 28, 0.95);
-  color: #e0e0e0;
+  background: var(--bg-overlay);
+  color: var(--text-primary);
   padding: 16px 24px;
   border-radius: 8px;
   font-weight: bold;
   z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  border: 1px solid #404040;
+  box-shadow: 0 4px 12px var(--shadow-dark);
+  border: 1px solid var(--border-primary);
   text-align: center;
 }
 
@@ -38,7 +65,7 @@ body {
 
 .map-subtitle {
   font-size: 12px;
-  color: #b0b0b0;
+  color: var(--text-secondary);
   font-weight: normal;
 }
 
@@ -51,58 +78,57 @@ body {
 }
 
 .map-link {
-  color: #0084ff;
+  color: var(--accent-blue);
   text-decoration: none;
   transition: color 0.3s ease;
   cursor: pointer;
 }
 
 .map-link:hover {
-  color: #40a0ff;
+  color: var(--accent-blue-light);
   text-decoration: underline;
 }
 
 .map-link.current {
-  color: #ffffff;
+  color: var(--text-bright);
   font-weight: bold;
   cursor: default;
   text-decoration: none;
 }
 
 .map-link.current:hover {
-  color: #ffffff;
-  text-decoration: none;
+  color: var(--text-bright);
 }
 
 .map-separator {
-  color: #666;
+  color: var(--text-muted);
   user-select: none;
 }
 
 /* Popup styling */
 .leaflet-popup-content-wrapper {
-  background-color: rgba(0, 0, 0, 0.85) !important;
-  color: #ffffff !important;
+  background-color: var(--bg-popup) !important;
+  color: var(--text-primary) !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 12px var(--shadow-darker) !important;
+  border: 1px solid var(--border-secondary) !important;
   backdrop-filter: blur(4px);
 }
 
 .leaflet-popup-tip {
-  background-color: rgba(0, 0, 0, 0.85) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: var(--bg-popup) !important;
+  border: 1px solid var(--border-secondary) !important;
 }
 
 .marker-popup {
   font-family: Arial, sans-serif;
   min-width: 220px;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .marker-popup h4 {
   margin: 0 0 12px 0;
-  color: #ffffff;
+  color: var(--text-bright);
   font-size: 16px;
   font-weight: bold;
 }
@@ -110,7 +136,7 @@ body {
 .marker-description {
   margin: 8px 0 12px 0;
   font-size: 14px;
-  color: #e0e0e0;
+  color: var(--text-secondary);
   line-height: 1.4;
   font-style: italic;
 }
@@ -118,7 +144,7 @@ body {
 .collection-status {
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid var(--border-accent);
 }
 
 .checkbox-label {
@@ -126,13 +152,13 @@ body {
   align-items: center;
   cursor: pointer;
   font-weight: bold;
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
   font-size: 14px !important;
   transition: color 0.3s ease;
 }
 
 .checkbox-label:hover {
-  color: #f0f0f0 !important;
+  color: var(--text-bright) !important;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -140,30 +166,30 @@ body {
   width: 16px;
   height: 16px;
   cursor: pointer;
-  accent-color: #00AA00;
+  accent-color: var(--accent-green);
 }
 
 .checkbox-label input[type="checkbox"]:checked {
-  accent-color: #00CC00;
+  accent-color: var(--accent-green-bright);
 }
 
 /* Leaflet controls dark theme */
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-  background-color: #2a2a2a !important;
-  color: #e0e0e0 !important;
-  border: 1px solid #404040 !important;
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-primary) !important;
 }
 
 .leaflet-control-zoom-in:hover,
 .leaflet-control-zoom-out:hover {
-  background-color: #3a3a3a !important;
-  color: #ffffff !important;
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-white) !important;
 }
 
 .leaflet-control-zoom {
   border: none !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: 0 4px 12px var(--shadow-darker) !important;
 }
 
 .leaflet-control-attribution {
