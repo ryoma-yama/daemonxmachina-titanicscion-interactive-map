@@ -20,6 +20,7 @@
 	"author": "RyomaY",
 	"license": "MIT",
 	"dependencies": {
+		"dompurify": "^3.2.7",
 		"leaflet": "^1.9.4"
 	},
 	"devDependencies": {

@@ -1,5 +1,24 @@
 // Data validation utilities - Pure functions only
+
+import DOMPurify from "dompurify";
 import { colors } from "./icons.js";
+
+/**
+ * Check if text contains potentially unsafe HTML content
+ * Uses DOMPurify to sanitize and compare with original text
+ */
+function containsUnsafeHTML(text) {
+	if (typeof text !== "string") {
+		return false;
+	}
+
+	// Sanitize the text and compare with original
+	const sanitized = DOMPurify.sanitize(text, {
+		ALLOWED_TAGS: [],
+		ALLOWED_ATTR: [],
+	});
+	return sanitized !== text;
+}
 
 /**
  * Validate marker ID format
@@ -44,7 +63,7 @@ export function validateGeoJSONFeature(feature) {
 		typeof props.name !== "string" ||
 		props.name.length === 0 ||
 		props.name.length > 100 ||
-		/<[^>]*>/g.test(props.name)
+		containsUnsafeHTML(props.name)
 	) {
 		return false;
 	}
@@ -54,7 +73,7 @@ export function validateGeoJSONFeature(feature) {
 		if (
 			typeof props.description !== "string" ||
 			props.description.length > 500 ||
-			/<[^>]*>/g.test(props.description)
+			containsUnsafeHTML(props.description)
 		) {
 			return false;
 		}
