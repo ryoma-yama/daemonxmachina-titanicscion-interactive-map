@@ -260,6 +260,30 @@
     .site-footer a:hover {
       text-decoration: underline;
     }
+
+    /* Notification toast styles */
+    .notification-toast {
+      position: fixed;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(46, 125, 50, 0.9);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: normal;
+      padding: 10px 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(76, 175, 80, 0.5);
+      z-index: 1500;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      pointer-events: none;
+    }
+
+    .notification-toast.show {
+      opacity: 1;
+    }
   </style>
 </head>
 

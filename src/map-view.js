@@ -81,6 +81,7 @@ export class MapView {
             .then(() => {
               console.log(`Copied to clipboard: ${clipboardText}`);
               console.log('Replace <category> and "<name>" with actual values');
+              this.showNotification('Copied!');
             })
             .catch(() => {
               // Silent fail - no fallback as per requirements
@@ -108,6 +109,32 @@ export class MapView {
     if (badge) {
       badge.style.display = this.isRecordingMode ? 'block' : 'none';
     }
+  }
+
+  showNotification(message) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'notification-toast';
+    notification.textContent = message;
+
+    // Add to DOM
+    document.body.appendChild(notification);
+
+    // Trigger fade-in animation
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 10);
+
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+      notification.classList.remove('show');
+      // Remove from DOM after fade-out animation completes
+      setTimeout(() => {
+        if (notification.parentNode) {
+          document.body.removeChild(notification);
+        }
+      }, 300);
+    }, 2000);
   }
 
   getMarkerSize() {
