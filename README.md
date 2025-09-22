@@ -108,7 +108,7 @@ The application includes a "Recording mode" for easily capturing marker coordina
 - This repository does not grant any rights to use game assets beyond what is permitted by the official guidelines.
 
 ## Assets License
-- Music 186, File Alt 8 — Author: Dazzle UI, Licensed under CC BY 4.0
+- Music 186, File Alt 8, Search, Xmark — Author: Dazzle UI, Licensed under CC BY 4.0
 - Evil Skeleton Rpg, Card Casino Games, Chest Games Gaming — Licensed under CC0 (No attribution required)
 
 ## Contributing
