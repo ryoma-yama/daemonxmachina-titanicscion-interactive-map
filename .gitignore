@@ -154,3 +154,6 @@ dist/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Temporary files
+tmp/

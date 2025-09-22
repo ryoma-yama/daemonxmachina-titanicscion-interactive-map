@@ -15,10 +15,10 @@ from pathlib import Path
 # Valid categories based on existing project structure
 # NOTE: This list must be synchronized with the 'colors' object in src/icons.js
 # Any changes here should be reflected in the frontend icon system
-VALID_CATEGORIES = ['bgm', 'card', 'chest', 'decal', 'enemy', 'log']
+VALID_CATEGORIES = ['music', 'card', 'chest', 'decal', 'enemy', 'log']
 
 # Default paths
-DEFAULT_MARKERS_DIR = 'assets/data/markers'
+DEFAULT_MARKERS_DIR = 'public/assets/data/markers'
 
 
 def parse_arguments():
@@ -89,16 +89,22 @@ def get_file_path(map_id):
 
 
 def validate_inputs(args):
-    """Validate input arguments."""
+    """Validate input arguments and normalize string inputs."""
     # Validate coordinates are non-negative
     if args.x < 0 or args.y < 0:
         print(f"Error: Coordinates must be non-negative. Got x={args.x}, y={args.y}", file=sys.stderr)
         sys.exit(1)
     
-    # Validate marker name is not empty
-    if not args.name.strip():
+    # Normalize and validate marker name
+    if args.name:
+        args.name = args.name.strip()
+    if not args.name:
         print("Error: Marker name cannot be empty", file=sys.stderr)
         sys.exit(1)
+    
+    # Normalize description
+    if args.description:
+        args.description = args.description.strip()
 
 
 def load_geojson(file_path):
@@ -221,8 +227,8 @@ def create_marker_feature(marker_id, name, category, x, y, description=''):
         "category": category
     }
     
-    # Add description only if it's not empty
-    if description.strip():
+    # Add description only if it's not empty (description should already be normalized)
+    if description:
         properties["description"] = description
     
     return {
@@ -275,7 +281,7 @@ def main():
     if args.categories:
         show_categories()
     
-    # Validate inputs
+    # Validate inputs (includes normalization)
     validate_inputs(args)
     
     try:

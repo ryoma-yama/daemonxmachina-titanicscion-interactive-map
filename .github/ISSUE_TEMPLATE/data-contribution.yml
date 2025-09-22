@@ -27,18 +27,18 @@ body:
         **Format:** `{map_id} {x} {y} {category} "{name}" "{description}"`
         
         **Available maps:** forest, desert, mountains
-        **Available categories:** bgm, card, chest, enemy, log, decal
+        **Available categories:** music, card, chest, enemy, log, decal
         
         **Note:** Description is optional - you can leave it empty if needed: `"{name}" ""`
         
         **Example:**
         ```
-        forest 400 300 bgm "BGM Player" "Hidden music track near the waterfall"
+        forest 400 300 music "MUSIC Player" "Hidden music track near the waterfall"
         desert 150 450 chest "Treasure Chest" "Contains rare weapon parts"
         mountains 800 200 log "Captain's Log" ""
         ```
       placeholder: |
-        forest 400 300 bgm "BGM Player" "Hidden music track near the waterfall"
+        forest 400 300 music "MUSIC Player" "Hidden music track near the waterfall"
         desert 150 450 chest "Treasure Chest" "Contains rare weapon parts"
     validations:
       required: true

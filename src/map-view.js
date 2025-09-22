@@ -90,14 +90,14 @@ export class MapView {
 
 				// Copy to clipboard in simple format for GitHub issues
 				// Format: {map_id} {x} {y} {category} "{name}" "{description}"
-				const clipboardText = `${this.currentMapId} ${x} ${y} <category> "<name>" ""`;
+				const clipboardText = `${this.currentMapId} ${x} ${y} category "name" ""`;
 				if (navigator.clipboard?.writeText) {
 					navigator.clipboard
 						.writeText(clipboardText)
 						.then(() => {
 							console.log(`Copied to clipboard: ${clipboardText}`);
 							console.log(
-								'Replace <category>, "<name>", and "" with actual values',
+								'Replace category, "name", and "" with actual values',
 							);
 							this.showNotification("Copied!");
 						})
