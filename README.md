@@ -24,6 +24,8 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 - **Coordinate System**: Leaflet's L.CRS.Simple (pixel-based, not lat/lng)
 - **Data Format**: GeoJSON for marker definitions
 - **Icons**: SVG icons with CSS mask-based coloring
+  - Uses custom `L.divIcon` with SVG content exclusively
+  - Leaflet default marker icons are **not used** in this application
 
 ## Key Technical Concepts
 - **Coordinate System**: Uses `L.CRS.Simple` instead of geographic coordinates

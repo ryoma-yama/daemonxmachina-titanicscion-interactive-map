@@ -1,4 +1,6 @@
 // Fluorescent color definitions
+import L from "leaflet";
+
 export const colors = {
 	bgm: "#00FFFF",
 	card: "#39FF14",

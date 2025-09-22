@@ -1,5 +1,6 @@
 // Leaflet display functionality - View layer only
 
+import L from "leaflet";
 import { createCategoryIcon } from "./icons.js";
 import { validateGeoJSONFeature } from "./validation.js";
 
