@@ -93,6 +93,21 @@
         "name": "No.036-Uncertainty",
         "category": "music"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          964,
+          1134
+        ]
+      },
+      "properties": {
+        "id": "desert-012",
+        "name": "Card: War Scythe (Vambrace)",
+        "category": "card"
+      }
     }
   ]
 }
