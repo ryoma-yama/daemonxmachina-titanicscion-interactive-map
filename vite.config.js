@@ -2,9 +2,9 @@ import { defineConfig } from "vite";
 
 export default defineConfig(({ command }) => {
 	return {
-		// Disable base path during development to avoid 404 errors
+		// Set base path for both build and preview
 		base:
-			command === "build"
+			command === "build" || command === "serve"
 				? "/daemonxmachina-titanicscion-interactive-map/"
 				: "/",
 		build: {
