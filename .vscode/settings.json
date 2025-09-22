@@ -1,7 +1,5 @@
 {
-  "cSpell.words": [
-    "latlng"
-  ],
-  "python-envs.defaultEnvManager": "ms-python.python:system",
-  "python-envs.pythonProjects": []
+	"cSpell.words": ["latlng"],
+	"python-envs.defaultEnvManager": "ms-python.python:system",
+	"python-envs.pythonProjects": []
 }

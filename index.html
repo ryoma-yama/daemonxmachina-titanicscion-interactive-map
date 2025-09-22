@@ -12,9 +12,24 @@
 
   <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' https://unpkg.com/leaflet@1.9.4/dist/leaflet.js 'unsafe-inline'; style-src 'self' https://unpkg.com/leaflet@1.9.4/dist/leaflet.css 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://unpkg.com; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self';">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Minimal inline CSS to prevent FOUC -->
+  <style>
+    html,
+    body {
+      margin: 0
+    }
+
+    #map {
+      width: 100vw;
+      height: 100vh
+    }
+  </style>
+
+  <link rel="stylesheet" href="/src/styles.css" />
 
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
@@ -22,13 +37,6 @@
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" href="./favicon.ico" />
   <link rel="manifest" href="./site.webmanifest" />
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-
-  <!-- Application CSS -->
-  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
@@ -46,11 +54,7 @@
       <a href="#" class="map-link" data-map="mountains">Mountains</a>
     </nav>
   </div>
-  <div id="map"></div>
-
-  <!-- Leaflet JavaScript -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <div id="map"> </div>
 
   <!-- Footer -->
   <footer class="site-footer">

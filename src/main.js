@@ -1,8 +1,12 @@
-
 // Application entry point - Dependency assembly and initialization only
-import { AppController } from './app-controller.js';
+import "leaflet/dist/leaflet.css";
+import { AppController } from "./app-controller.js";
+import "./styles.css";
 
-// Initialize application
-new AppController();
+function init() {
+	// Initialize application after all CSS is loaded
+	new AppController();
+	console.log("Multi-map system initialized successfully");
+}
 
-console.log('Multi-map system initialized successfully');
+window.addEventListener("load", init);

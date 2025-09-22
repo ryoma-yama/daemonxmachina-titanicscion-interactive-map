@@ -1,0 +1,33 @@
+{
+	"name": "daemonxmachina-titanicscion-interactive-map",
+	"version": "1.0.0",
+	"description": "Interactive map for Daemon X Machina: Titanic Scion",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"lint": "biome lint .",
+		"format": "biome format . --write",
+		"check": "biome check ."
+	},
+	"keywords": [
+		"daemon-x-machina",
+		"interactive-map",
+		"game-tool"
+	],
+	"author": "RyomaY",
+	"license": "MIT",
+	"dependencies": {
+		"leaflet": "^1.9.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.4",
+		"vite": "^5.4.0"
+	},
+	"engines": {
+		"node": ">=22.19.0",
+		"pnpm": ">=10.0.0"
+	},
+	"packageManager": "pnpm@10.17.0"
+}

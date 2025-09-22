@@ -1,73 +1,75 @@
 // Application controller - Coordinator between all components
-import { getMapDefinition, getAllMapIds, getInitialMapId, saveSelectedMap } from './map-definitions.js';
-import { CollectionManager } from './collection-store.js';
-import { MapView } from './map-view.js';
+
+import { CollectionManager } from "./collection-store.js";
+import {
+	getAllMapIds,
+	getInitialMapId,
+	getMapDefinition,
+	saveSelectedMap,
+} from "./map-definitions.js";
+import { MapView } from "./map-view.js";
 
 export class AppController {
-  constructor() {
-    this.currentMapId = getInitialMapId();
-    this.collectionManagers = new Map();
+	constructor() {
+		this.currentMapId = getInitialMapId();
+		this.collectionManagers = new Map();
 
-    // Initialize collection managers for all maps
-    getAllMapIds().forEach(mapId => {
-      this.collectionManagers.set(mapId, new CollectionManager(mapId));
-    });
+		// Initialize collection managers for all maps
+		getAllMapIds().forEach((mapId) => {
+			this.collectionManagers.set(mapId, new CollectionManager(mapId));
+		});
 
-    // Initialize map view with callbacks
-    this.mapView = new MapView('map', {
-      onMarkerToggle: (markerId) => this.handleMarkerToggle(markerId),
-      onMapSwitch: (mapId) => this.handleMapNavigation(mapId),
-      onRecordingModeToggle: (isRecording) => this.handleRecordingModeToggle(isRecording)
-    });
+		// Initialize map view with callbacks
+		this.mapView = new MapView("map", {
+			onMarkerToggle: (markerId) => this.handleMarkerToggle(markerId),
+			onMapSwitch: (mapId) => this.handleMapNavigation(mapId),
+			onRecordingModeToggle: (isRecording) =>
+				this.handleRecordingModeToggle(isRecording),
+		});
 
-    // Load initial map
-    this.switchToMap(this.currentMapId);
-  }
+		// Load initial map
+		this.switchToMap(this.currentMapId);
+	}
 
-  getCurrentCollectionManager() {
-    return this.collectionManagers.get(this.currentMapId);
-  }
+	getCurrentCollectionManager() {
+		return this.collectionManagers.get(this.currentMapId);
+	}
 
-  switchToMap(mapId) {
-    const mapDefinition = getMapDefinition(mapId);
-    if (!mapDefinition) {
-      console.error(`Map definition not found for: ${mapId}`);
-      return;
-    }
+	switchToMap(mapId) {
+		const mapDefinition = getMapDefinition(mapId);
+		if (!mapDefinition) {
+			console.error(`Map definition not found for: ${mapId}`);
+			return;
+		}
 
-    console.log(`Switching to map: ${mapId}`);
+		console.log(`Switching to map: ${mapId}`);
 
-    // Update current map ID
-    this.currentMapId = mapId;
+		// Update current map ID
+		this.currentMapId = mapId;
 
-    // Load map in view
-    this.mapView.loadMap(mapDefinition, mapId);
+		// Load map in view
+		this.mapView.loadMap(mapDefinition, mapId);
 
-    // Load markers with collection state
-    const collectionManager = this.getCurrentCollectionManager();
-    this.mapView.loadMarkers(mapDefinition.markersPath, collectionManager);
-  }
+		// Load markers with collection state
+		const collectionManager = this.getCurrentCollectionManager();
+		this.mapView.loadMarkers(mapDefinition.markersPath, collectionManager);
+	}
 
-  handleMarkerToggle(markerId) {
-    const collectionManager = this.getCurrentCollectionManager();
-    const isNowCollected = collectionManager.toggleCollection(markerId);
-    console.log(`Marker ${markerId} collection status: ${isNowCollected}`);
+	handleMarkerToggle(markerId) {
+		const collectionManager = this.getCurrentCollectionManager();
+		const isNowCollected = collectionManager.toggleCollection(markerId);
+		console.log(`Marker ${markerId} collection status: ${isNowCollected}`);
 
-    // Update marker appearance in view
-    this.mapView.updateMarkerState(markerId, isNowCollected);
-  }
+		// Update marker appearance in view
+		this.mapView.updateMarkerState(markerId, isNowCollected);
+	}
 
-  handleMapNavigation(mapId) {
-    if (mapId !== this.currentMapId) {
-      this.switchToMap(mapId);
+	handleMapNavigation(mapId) {
+		if (mapId !== this.currentMapId) {
+			this.switchToMap(mapId);
 
-      // Save selected map to localStorage for next session
-      saveSelectedMap(mapId);
-    }
-  }
-
-  handleRecordingModeToggle(isRecording) {
-    // Additional logic for recording mode could be added here
-    // Currently handled entirely in the view
-  }
+			// Save selected map to localStorage for next session
+			saveSelectedMap(mapId);
+		}
+	}
 }
