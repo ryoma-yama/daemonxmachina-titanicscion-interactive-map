@@ -1,5 +1,5 @@
 // Fluorescent color definitions
-const colors = {
+export const colors = {
   bgm: '#00FFFF',
   card: '#39FF14',
   chest: '#FFFF00',
@@ -9,7 +9,7 @@ const colors = {
 };
 
 // DivIcon that uses SVG as mask and colors with background color
-function createCategoryIcon(category, size = 24, isCollected = false) {
+export function createCategoryIcon(category, size = 24, isCollected = false) {
   const color = colors[category] || '#FFFFFF';
   const url = `assets/icons/${category}.svg`;
 
