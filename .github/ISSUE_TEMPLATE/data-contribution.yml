@@ -40,6 +40,7 @@ body:
       placeholder: |
         forest 400 300 bgm "BGM Player" "Hidden music track near the waterfall"
         desert 150 450 chest "Treasure Chest" "Contains rare weapon parts"
+      render: shell
     validations:
       required: true
 
