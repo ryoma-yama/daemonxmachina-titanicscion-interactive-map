@@ -246,10 +246,7 @@ export class MapView {
 			const validFeatures = data.features.filter((feature, index) => {
 				const isValid = validateGeoJSONFeature(feature);
 				if (!isValid) {
-					console.warn(
-						`Skipping invalid feature at index ${index}:`,
-						feature,
-					);
+					console.warn(`Skipping invalid feature at index ${index}:`, feature);
 				}
 				return isValid;
 			});
@@ -346,12 +343,7 @@ export class MapView {
 			return false;
 		}
 
-		const {
-			zoom,
-			openPopup = true,
-			animate = false,
-			panOffset,
-		} = options;
+		const { zoom, openPopup = true, animate = false, panOffset } = options;
 
 		const currentZoom = this.map.getZoom();
 		const fallbackZoom = Number.isFinite(currentZoom)

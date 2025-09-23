@@ -46,12 +46,7 @@ export class AppController {
 	}
 
 	async switchToMap(mapId, options = {}) {
-		const {
-			focusMarkerId,
-			zoom,
-			skipUrlUpdate = false,
-			panOffset,
-		} = options;
+		const { focusMarkerId, zoom, skipUrlUpdate = false, panOffset } = options;
 
 		const mapDefinition = getMapDefinition(mapId);
 		if (!mapDefinition) {
@@ -78,9 +73,7 @@ export class AppController {
 				panOffset,
 			});
 			if (!focused) {
-				console.warn(
-					`Marker ${focusMarkerId} not found on map ${mapId}`,
-				);
+				console.warn(`Marker ${focusMarkerId} not found on map ${mapId}`);
 			}
 		} else if (focusMarkerId && !markersLoaded) {
 			console.warn(

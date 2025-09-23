@@ -1,11 +1,11 @@
 // Search panel for locating markers across maps
 
 import L from "leaflet";
-import { mapDefinitions } from "./map-definitions.js";
-import { colors } from "./icons.js";
-import { validateGeoJSONFeature } from "./validation.js";
-import { updateUrlState } from "./url-state.js";
 import { getAssetPath } from "./asset-path.js";
+import { colors } from "./icons.js";
+import { mapDefinitions } from "./map-definitions.js";
+import { updateUrlState } from "./url-state.js";
+import { validateGeoJSONFeature } from "./validation.js";
 
 const MAX_RESULTS = 100;
 const FOCUS_ZOOM = 1;
@@ -56,7 +56,9 @@ export class SearchPanel {
 
 		closeButton.addEventListener("click", () => this.closePanel());
 		this.searchInput.addEventListener("input", () => this.handleSearchInput());
-		this.searchInput.addEventListener("keydown", (event) => this.handleSearchKeydown(event));
+		this.searchInput.addEventListener("keydown", (event) =>
+			this.handleSearchKeydown(event),
+		);
 		this.toggleButton.addEventListener("click", (event) => {
 			event.preventDefault();
 			event.stopPropagation();
@@ -69,7 +71,7 @@ export class SearchPanel {
 
 		L.DomEvent.disableClickPropagation(this.toggleButton);
 		L.DomEvent.disableScrollPropagation(this.toggleButton);
-}
+	}
 
 	attachGlobalHandlers() {
 		document.addEventListener("keydown", (event) => {
@@ -81,7 +83,7 @@ export class SearchPanel {
 
 		L.DomEvent.disableScrollPropagation(this.panelElement);
 		L.DomEvent.disableClickPropagation(this.panelElement);
-}
+	}
 
 	async loadMarkerIndex() {
 		const entries = Object.entries(mapDefinitions);
@@ -164,7 +166,10 @@ export class SearchPanel {
 				".search-panel__result",
 			);
 			if (firstResult) {
-				this.activateResult(firstResult.dataset.mapId, firstResult.dataset.markerId);
+				this.activateResult(
+					firstResult.dataset.mapId,
+					firstResult.dataset.markerId,
+				);
 			}
 		}
 	}
