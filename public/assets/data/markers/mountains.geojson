@@ -12,7 +12,8 @@
       },
       "properties": {
         "id": "mountains-006",
-        "name": "Graffiti: 3",
+        "name": "Graffiti: 7",
+        "name_jp": "ウォールアート: 7",
         "category": "decal"
       }
     },
@@ -27,8 +28,7 @@
       },
       "properties": {
         "id": "mountains-007",
-        "name": "Graffiti: 7",
-        "name_jp": "ウォールアート: 7",
+        "name": "3 Arrows",
         "category": "decal"
       }
     },
@@ -256,6 +256,295 @@
         "id": "mountains-022",
         "name": "No.037-Eternal Time",
         "category": "music"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          903,
+          560
+        ]
+      },
+      "properties": {
+        "id": "mountains-023",
+        "name": "Kraken",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          667,
+          871
+        ]
+      },
+      "properties": {
+        "id": "mountains-024",
+        "name": "Emblem: 7",
+        "description": "bottom of the rock face",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1043,
+          184
+        ]
+      },
+      "properties": {
+        "id": "mountains-025",
+        "name": "Emblem: 9",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          938,
+          1034
+        ]
+      },
+      "properties": {
+        "id": "mountains-026",
+        "name": "Graffiti: 8",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          180,
+          996
+        ]
+      },
+      "properties": {
+        "id": "mountains-027",
+        "name": "Emblem: 21",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67,
+          1003
+        ]
+      },
+      "properties": {
+        "id": "mountains-028",
+        "name": "Emblem: 24",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          772,
+          825
+        ]
+      },
+      "properties": {
+        "id": "mountains-029",
+        "name": "Graffiti: 2",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          893,
+          847
+        ]
+      },
+      "properties": {
+        "id": "mountains-030",
+        "name": "Pixies",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          634,
+          385
+        ]
+      },
+      "properties": {
+        "id": "mountains-031",
+        "name": "Emblem: 18",
+        "description": "wall of low building",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          795,
+          181
+        ]
+      },
+      "properties": {
+        "id": "mountains-032",
+        "name": "Emblem: 19",
+        "description": "side of iron plate stuck in ground",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          343,
+          725
+        ]
+      },
+      "properties": {
+        "id": "mountains-033",
+        "name": "Skull Face",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          409,
+          196
+        ]
+      },
+      "properties": {
+        "id": "mountains-034",
+        "name": "Emblem: 2",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          909,
+          369
+        ]
+      },
+      "properties": {
+        "id": "mountains-035",
+        "name": "Emblem: 13",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          991,
+          919
+        ]
+      },
+      "properties": {
+        "id": "mountains-036",
+        "name": "Line Art: 11",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          602,
+          1193
+        ]
+      },
+      "properties": {
+        "id": "mountains-037",
+        "name": "Emblem: 3",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          511,
+          928
+        ]
+      },
+      "properties": {
+        "id": "mountains-038",
+        "name": "Spider",
+        "description": "side of overhanging rock",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          416,
+          985
+        ]
+      },
+      "properties": {
+        "id": "mountains-039",
+        "name": "War Scythe (Helm)",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          790,
+          149
+        ]
+      },
+      "properties": {
+        "id": "mountains-040",
+        "name": "Thousand Cuts",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          878,
+          110
+        ]
+      },
+      "properties": {
+        "id": "mountains-041",
+        "name": "Emblem: 6",
+        "category": "decal"
       }
     }
   ]
