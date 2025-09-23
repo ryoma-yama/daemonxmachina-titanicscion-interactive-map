@@ -103,18 +103,12 @@
           aria-label="Search markers by name or category"
         />
         <button id="search-close" type="button" class="search-panel__close" aria-label="Close search panel">
-          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path
-              fill="currentColor"
-              d="M18 6a1 1 0 0 0-1.41-1.41L12 9.17 7.41 4.59A1 1 0 0 0 6 6l4.58 4.59L6 15.17A1 1 0 0 0 7.41 16.6L12 12l4.59 4.59A1 1 0 0 0 18 15.17l-4.59-4.58z"
-            />
-          </svg>
+          <span class="search-icon" aria-hidden="true"></span>
         </button>
       </div>
       <div id="search-message" class="search-panel__message">Loading markers...</div>
       <ul id="search-results" class="search-panel__results"></ul>
     </aside>
-
     <div class="leaflet-bar leaflet-control search-toggle-control">
       <button
         id="search-toggle"
@@ -123,12 +117,7 @@
         aria-label="Toggle search panel"
         type="button"
       >
-        <svg class="search-toggle-control__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path
-            fill="currentColor"
-            d="M15.795 15.811 21 21l-1.414 1.414-5.206-5.205a6.5 6.5 0 1 1 1.414-1.414ZM10.5 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"
-          />
-        </svg>
+        <span class="search-toggle-control__icon" aria-hidden="true"></span>
       </button>
     </div>
 

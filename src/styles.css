@@ -296,6 +296,9 @@ body {
 	height: 18px;
 	display: block;
 	pointer-events: none;
+	background-color: currentColor;
+	mask: url("/assets/icons/search.svg") no-repeat center / contain;
+	-webkit-mask: url("/assets/icons/search.svg") no-repeat center / contain;
 }
 
 .search-panel {
@@ -366,6 +369,9 @@ body {
 	height: 18px;
 	display: block;
 	pointer-events: none;
+	background-color: currentColor;
+	mask: url("/assets/icons/close.svg") no-repeat center / contain;
+	-webkit-mask: url("/assets/icons/close.svg") no-repeat center / contain;
 }
 
 .search-panel__close:hover,
