@@ -8,6 +8,7 @@ export const colors = {
 	chest: "#FFFF00",
 	decal: "#FF00FF",
 	enemy: "#FF1493",
+	boss: "#FF0000",
 	log: "#FF6E00",
 };
 

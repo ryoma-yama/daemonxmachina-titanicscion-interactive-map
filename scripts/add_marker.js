@@ -9,6 +9,7 @@ export const VALID_CATEGORIES = Object.freeze([
   'chest',
   'decal',
   'enemy',
+  'boss',
   'log',
 ]);
 
