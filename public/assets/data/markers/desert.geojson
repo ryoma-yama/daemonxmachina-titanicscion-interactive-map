@@ -124,6 +124,337 @@
         "description": "side of iron plate stuck in ground",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          452,
+          851
+        ]
+      },
+      "properties": {
+        "id": "desert-014",
+        "name": "Byway No.1",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113,
+          764
+        ]
+      },
+      "properties": {
+        "id": "desert-015",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          66,
+          155
+        ]
+      },
+      "properties": {
+        "id": "desert-016",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          256,
+          62
+        ]
+      },
+      "properties": {
+        "id": "desert-017",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118,
+          500
+        ]
+      },
+      "properties": {
+        "id": "desert-018",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          273,
+          585
+        ]
+      },
+      "properties": {
+        "id": "desert-019",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          867,
+          307
+        ]
+      },
+      "properties": {
+        "id": "desert-020",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1201,
+          348
+        ]
+      },
+      "properties": {
+        "id": "desert-021",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          797,
+          565
+        ]
+      },
+      "properties": {
+        "id": "desert-022",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          856,
+          667
+        ]
+      },
+      "properties": {
+        "id": "desert-023",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          479,
+          449
+        ]
+      },
+      "properties": {
+        "id": "desert-024",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          778,
+          913
+        ]
+      },
+      "properties": {
+        "id": "desert-025",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          638,
+          1181
+        ]
+      },
+      "properties": {
+        "id": "desert-026",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          298,
+          189
+        ]
+      },
+      "properties": {
+        "id": "desert-027",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          632,
+          19
+        ]
+      },
+      "properties": {
+        "id": "desert-028",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          827,
+          41
+        ]
+      },
+      "properties": {
+        "id": "desert-029",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          984,
+          338
+        ]
+      },
+      "properties": {
+        "id": "desert-030",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          842,
+          454
+        ]
+      },
+      "properties": {
+        "id": "desert-031",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          584,
+          508
+        ]
+      },
+      "properties": {
+        "id": "desert-032",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1138,
+          659
+        ]
+      },
+      "properties": {
+        "id": "desert-033",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1040,
+          1151
+        ]
+      },
+      "properties": {
+        "id": "desert-034",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          585,
+          470
+        ]
+      },
+      "properties": {
+        "id": "desert-035",
+        "name": "Vargr Greed",
+        "category": "chest",
+        "description": "Fire Room. Recommended: Burn Resistance MAX (1000)"
+      }
     }
   ]
 }
