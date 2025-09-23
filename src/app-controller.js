@@ -8,6 +8,10 @@ import {
 	saveSelectedMap,
 } from "./map-definitions.js";
 import { MapView } from "./map-view.js";
+import {
+	loadHideCollectedPreference,
+	saveHideCollectedPreference,
+} from "./preferences-store.js";
 import { SearchPanel } from "./search-panel.js";
 import { parseUrlState, updateUrlState } from "./url-state.js";
 
@@ -17,6 +21,7 @@ export class AppController {
 		this.currentMapId = this.urlState.mapId || getInitialMapId();
 		this.collectionManagers = new Map();
 		this.markerLoadPromise = Promise.resolve(false);
+		this.hideCollected = loadHideCollectedPreference();
 
 		// Initialize collection managers for all maps
 		getAllMapIds().forEach((mapId) => {
@@ -32,6 +37,7 @@ export class AppController {
 		});
 
 		this.searchPanel = new SearchPanel({ appController: this });
+		this.searchPanel.setHideCollectedState(this.hideCollected);
 
 		// Load initial map and optionally focus marker from URL state
 		void this.switchToMap(this.currentMapId, {
@@ -60,6 +66,7 @@ export class AppController {
 		this.mapView.loadMap(mapDefinition, mapId);
 
 		const collectionManager = this.getCurrentCollectionManager();
+		this.mapView.setHideCollected(this.hideCollected, collectionManager);
 		this.markerLoadPromise = this.mapView.loadMarkers(
 			mapDefinition.markersPath,
 			collectionManager,
@@ -106,6 +113,9 @@ export class AppController {
 		console.log(`Marker ${markerId} collection status: ${isNowCollected}`);
 
 		this.mapView.updateMarkerState(markerId, isNowCollected);
+		if (this.hideCollected) {
+			void this.searchPanel.refreshResults();
+		}
 	}
 
 	handleMapNavigation(mapId) {
@@ -117,6 +127,33 @@ export class AppController {
 
 	handleRecordingModeToggle(_isRecording) {
 		// Intentionally left blank; implement if needed
+	}
+
+	getHideCollected() {
+		return this.hideCollected;
+	}
+
+	setHideCollected(hideCollected) {
+		const normalized = Boolean(hideCollected);
+		const previous = this.hideCollected;
+		this.hideCollected = normalized;
+		if (previous !== normalized) {
+			saveHideCollectedPreference(normalized);
+		}
+
+		const collectionManager = this.getCurrentCollectionManager();
+		if (collectionManager) {
+			this.mapView.setHideCollected(normalized, collectionManager);
+		}
+
+		if (this.searchPanel) {
+			this.searchPanel.setHideCollectedState(normalized);
+		}
+	}
+
+	isMarkerCollected(mapId, markerId) {
+		const manager = this.collectionManagers.get(mapId);
+		return manager ? manager.isCollected(markerId) : false;
 	}
 
 	async focusMarkerOnCurrentMap(markerId, options = {}) {

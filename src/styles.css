@@ -290,6 +290,11 @@ body {
 	color: var(--text-bright);
 }
 
+.hide-toggle-control__button[aria-pressed="true"] {
+	background: var(--bg-tertiary);
+	color: var(--accent-green-bright);
+}
+
 .search-toggle-control__icon {
 	width: 18px;
 	height: 18px;
@@ -298,6 +303,21 @@ body {
 	background-color: currentColor;
 	mask: url("/assets/icons/search.svg") no-repeat center / contain;
 	-webkit-mask: url("/assets/icons/search.svg") no-repeat center / contain;
+}
+
+.hide-toggle-control__icon {
+	width: 18px;
+	height: 18px;
+	display: block;
+	pointer-events: none;
+	background-color: currentColor;
+	mask: url("/assets/icons/eye.svg") no-repeat center / contain;
+	-webkit-mask: url("/assets/icons/eye.svg") no-repeat center / contain;
+}
+
+.hide-toggle-control__icon--hidden {
+	mask: url("/assets/icons/eye-off.svg") no-repeat center / contain;
+	-webkit-mask: url("/assets/icons/eye-off.svg") no-repeat center / contain;
 }
 
 .search-panel {

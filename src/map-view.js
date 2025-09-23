@@ -13,6 +13,8 @@ export class MapView {
 		this.currentImageOverlay = null;
 		this.currentMarkerLayer = null;
 		this.markerFetchToken = null;
+		this.currentCollectionState = null;
+		this.hideCollected = false;
 
 		// Recording mode state
 		this.isRecordingMode = false;
@@ -191,6 +193,7 @@ export class MapView {
 
 		// Clear marker references
 		this.markerRefs.clear();
+		this.currentCollectionState = null;
 	}
 
 	loadMap(mapDefinition, mapId) {
@@ -222,6 +225,7 @@ export class MapView {
 	async loadMarkers(markersPath, collectionState) {
 		const fetchToken = Symbol("markerFetch");
 		this.markerFetchToken = fetchToken;
+		this.currentCollectionState = collectionState;
 
 		try {
 			const response = await fetch(markersPath);
@@ -281,6 +285,13 @@ export class MapView {
 						bubblingMouseEvents: false,
 					});
 
+					marker.on("add", () => {
+						const element = marker.getElement();
+						if (element) {
+							element.setAttribute("data-marker-id", feature.properties.id);
+						}
+					});
+
 					marker.feature = feature;
 					this.markerRefs.set(feature.properties.id, marker);
 
@@ -316,6 +327,7 @@ export class MapView {
 				return false;
 			}
 
+			this.applyHideCollected();
 			this.currentMarkerLayer.addTo(this.map);
 			console.log(
 				`GeoJSON markers loaded successfully for ${this.currentMapId}`,
@@ -340,6 +352,14 @@ export class MapView {
 	focusMarker(markerId, options = {}) {
 		const marker = this.markerRefs.get(markerId);
 		if (!marker) {
+			return false;
+		}
+
+		if (
+			this.hideCollected &&
+			this.currentMarkerLayer &&
+			!this.currentMarkerLayer.hasLayer(marker)
+		) {
 			return false;
 		}
 
@@ -456,6 +476,8 @@ export class MapView {
 			if (checkbox) {
 				checkbox.checked = isCollected;
 			}
+
+			this.updateMarkerVisibility(markerId, isCollected);
 		}
 	}
 
@@ -469,5 +491,45 @@ export class MapView {
 
 	getLeafletMap() {
 		return this.map;
+	}
+
+	setHideCollected(hideCollected, collectionState) {
+		this.hideCollected = Boolean(hideCollected);
+		if (collectionState) {
+			this.currentCollectionState = collectionState;
+		}
+		this.applyHideCollected();
+	}
+
+	applyHideCollected() {
+		if (!this.currentMarkerLayer || !this.currentCollectionState) {
+			return;
+		}
+
+		this.markerRefs.forEach((_marker, markerId) => {
+			const isCollected = this.currentCollectionState.isCollected(markerId);
+			this.updateMarkerVisibility(markerId, isCollected);
+		});
+	}
+
+	updateMarkerVisibility(markerId, isCollected) {
+		if (!this.currentMarkerLayer) {
+			return;
+		}
+
+		const marker = this.markerRefs.get(markerId);
+		if (!marker) {
+			return;
+		}
+
+		const shouldHide = this.hideCollected && isCollected;
+		const hasLayer = this.currentMarkerLayer.hasLayer(marker);
+
+		if (shouldHide && hasLayer) {
+			this.currentMarkerLayer.removeLayer(marker);
+			marker.closePopup();
+		} else if (!shouldHide && !hasLayer) {
+			this.currentMarkerLayer.addLayer(marker);
+		}
 	}
 }
