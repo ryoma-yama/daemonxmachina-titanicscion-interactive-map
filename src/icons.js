@@ -8,7 +8,9 @@ export const colors = {
 	chest: "#FFFF00",
 	decal: "#FF00FF",
 	enemy: "#FF1493",
+	boss: "#FF0000",
 	log: "#FF6E00",
+	npc: "#1E90FF",
 };
 
 // DivIcon that uses SVG as mask and colors with background color
