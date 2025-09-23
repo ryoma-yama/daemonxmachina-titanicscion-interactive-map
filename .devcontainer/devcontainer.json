@@ -9,7 +9,10 @@
 	"postCreateCommand": "set -e; corepack enable; corepack prepare pnpm@latest --activate; if [ -f pnpm-lock.yaml ]; then pnpm install; fi",
 	"customizations": {
 		"vscode": {
-			"extensions": ["biomejs.biome"]
+			"extensions": [
+				"biomejs.biome",
+				"streetsidesoftware.code-spell-checker"
+			]
 		}
 	}
 }
