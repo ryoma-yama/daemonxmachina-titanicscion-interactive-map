@@ -1,7 +1,7 @@
 // Data validation utilities - Pure functions only
 
 import DOMPurify from "dompurify";
-import { colors } from "./icons.js";
+import { colors } from "./constants.js";
 
 /**
  * Check if text contains potentially unsafe HTML content

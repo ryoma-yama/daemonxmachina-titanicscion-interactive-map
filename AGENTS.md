@@ -61,7 +61,7 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 ### Marker System
 - Defined in GeoJSON format with properties: `id`, `name`, `category`
 - Custom colored icons using CSS mask technique
-- Colors defined in fluorescent palette in `src/icons.js`
+- Colors defined in fluorescent palette in `src/constants.js`
 
 ### Data Persistence
 - localStorage keys format: `collect-map:v1:{mapId}`

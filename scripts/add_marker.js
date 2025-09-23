@@ -2,17 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
+import { colors } from "../src/constants.js";
 
-export const VALID_CATEGORIES = Object.freeze([
-  'music',
-  'card',
-  'chest',
-  'decal',
-  'enemy',
-  'boss',
-  'log',
-  'npc',
-]);
+export const VALID_CATEGORIES = Object.freeze(Object.keys(colors));
 
 export const DEFAULT_MARKERS_DIR = 'public/assets/data/markers';
 

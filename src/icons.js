@@ -1,17 +1,6 @@
-// Fluorescent color definitions
 import L from "leaflet";
 import { getAssetPath } from "./asset-path.js";
-
-export const colors = {
-	music: "#00FFFF",
-	card: "#39FF14",
-	chest: "#FFFF00",
-	decal: "#FF00FF",
-	enemy: "#FF1493",
-	boss: "#FF0000",
-	log: "#FF6E00",
-	npc: "#1E90FF",
-};
+import { colors } from "./constants.js";
 
 // DivIcon that uses SVG as mask and colors with background color
 export function createCategoryIcon(category, size = 24, isCollected = false) {

@@ -2,7 +2,7 @@
 
 import L from "leaflet";
 import { getAssetPath } from "./asset-path.js";
-import { colors } from "./icons.js";
+import { colors } from "./constants.js";
 import { mapDefinitions } from "./map-definitions.js";
 import { updateUrlState } from "./url-state.js";
 import { validateGeoJSONFeature } from "./validation.js";

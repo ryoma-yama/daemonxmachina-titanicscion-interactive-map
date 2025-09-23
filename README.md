@@ -93,7 +93,7 @@ The application includes a "Recording mode" for easily capturing marker coordina
 
 ### Adding New Markers
 1. Add entry to appropriate `public/assets/data/markers/{map}.geojson` file
-2. Ensure category exists in `colors` object in `src/icons.js`
+2. Ensure category exists in `colors` object in `src/constants.js`
 3. Add corresponding SVG icon to `public/assets/icons/` if new category
 
 ### Adding New Maps
