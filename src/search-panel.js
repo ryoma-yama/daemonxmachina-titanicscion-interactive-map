@@ -112,6 +112,7 @@ export class SearchPanel {
 						const props = feature.properties;
 						const name = props.name || props.id;
 						const category = props.category || "unknown";
+						const description = props.description || "";
 						const iconUrl = getAssetPath(`/assets/icons/${category}.svg`);
 
 						index.push({
@@ -121,6 +122,8 @@ export class SearchPanel {
 							nameNormalized: normalizeText(name),
 							category,
 							categoryNormalized: normalizeText(category),
+							description,
+							descriptionNormalized: normalizeText(description),
 							iconUrl,
 						});
 					});
@@ -147,7 +150,8 @@ export class SearchPanel {
 			.filter(
 				(entry) =>
 					entry.nameNormalized.includes(normalized) ||
-					entry.categoryNormalized.includes(normalized),
+					entry.categoryNormalized.includes(normalized) ||
+					entry.descriptionNormalized.includes(normalized),
 			)
 			.slice(0, MAX_RESULTS);
 	}
