@@ -101,6 +101,7 @@ The application includes a "Recording mode" for easily capturing marker coordina
 
 ## Credits
 - [Music Data Locations — Steam Community Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3569600723), Author: Lethendra
+- Special thanks to Algester (Daemon X Machina Discord Server)
 
 ## License
 - The **source code** of this repository is licensed under the [MIT License](./LICENSE).
