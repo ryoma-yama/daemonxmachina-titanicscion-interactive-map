@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 export default defineConfig(({ command }) => {
@@ -10,6 +11,10 @@ export default defineConfig(({ command }) => {
 			outDir: "dist",
 			sourcemap: true,
 			rollupOptions: {
+				input: {
+					main: resolve(__dirname, "index.html"),
+					about: resolve(__dirname, "about.html"),
+				},
 				output: {
 					manualChunks: {
 						// Separate Leaflet as vendor chunk

@@ -11,8 +11,7 @@
   <meta name="theme-color" content="#1a1a1a">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy"
-    content="
+  <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
       script-src 'self' 'unsafe-inline';
       style-src 'self' 'unsafe-inline';
@@ -31,14 +30,15 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
       height: 100%;
       background: #1a1a1a;
       color: #e0e0e0;
       font-family: Arial, sans-serif;
     }
-    
+
     #loading {
       display: flex;
       justify-content: center;
@@ -46,18 +46,18 @@
       height: 100vh;
       font-size: 18px;
     }
-    
+
     #app {
       display: none;
     }
   </style>
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
-  <link rel="icon" href="./favicon.ico" />
-  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="manifest" href="/site.webmanifest" />
 </head>
 
 <body>
@@ -95,13 +95,8 @@
     <!-- Search Panel -->
     <aside id="search-panel" class="search-panel" aria-hidden="true" aria-label="Marker search panel" inert>
       <div class="search-panel__header">
-        <input
-          id="search-input"
-          type="search"
-          class="search-panel__input"
-          placeholder="Search markers"
-          aria-label="Search markers by name or category"
-        />
+        <input id="search-input" type="search" class="search-panel__input" placeholder="Search markers"
+          aria-label="Search markers by name or category" />
         <button id="search-close" type="button" class="search-panel__close" aria-label="Close search panel">
           <span class="search-icon" aria-hidden="true"></span>
         </button>
@@ -110,23 +105,18 @@
       <ul id="search-results" class="search-panel__results"></ul>
     </aside>
     <div class="leaflet-bar leaflet-control search-toggle-control">
-      <button
-        id="search-toggle"
-        class="search-toggle-control__button"
-        aria-expanded="false"
-        aria-label="Toggle search panel"
-        type="button"
-      >
+      <button id="search-toggle" class="search-toggle-control__button" aria-expanded="false"
+        aria-label="Toggle search panel" type="button">
         <span class="search-toggle-control__icon" aria-hidden="true"></span>
       </button>
     </div>
 
     <!-- Footer -->
     <footer class="site-footer">
-      ©2025 Marvelous Inc. | Unofficial fan project | 
-      <a href="./about.html">About</a> | 
-        <a href="https://github.com/ryoma-yama/daemonxmachina-titanicscion-interactive-map" target="_blank"
-          rel="noopener noreferrer">GitHub</a>
+      ©2025 Marvelous Inc. | Unofficial fan project |
+      <a href="./about.html">About</a> |
+      <a href="https://github.com/ryoma-yama/daemonxmachina-titanicscion-interactive-map" target="_blank"
+        rel="noopener noreferrer">GitHub</a>
     </footer>
 
   </div>
