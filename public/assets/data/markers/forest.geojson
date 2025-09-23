@@ -490,6 +490,21 @@
         "category": "npc",
         "description": "Rewards:\\n- Card: Bloodsucker\\n- Decal: Six"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          400,
+          931
+        ]
+      },
+      "properties": {
+        "id": "forest-038",
+        "name": "Full Deck",
+        "category": "decal"
+      }
     }
   ]
 }
