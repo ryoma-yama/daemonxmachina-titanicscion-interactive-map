@@ -1,14 +1,10 @@
 // Map definitions - Static data only
 
+import { getAssetPath } from "./asset-path.js";
+
 // Default configuration constants
 export const DEFAULT_MAP_ID = "desert";
 export const LAST_MAP_STORAGE_KEY = "last-selected-map:v1";
-
-// Get base URL for assets (handles both dev and production builds)
-const getAssetPath = (path) => {
-	const baseUrl = import.meta.env.BASE_URL || "/";
-	return baseUrl.endsWith("/") ? baseUrl + path.slice(1) : baseUrl + path;
-};
 
 export const mapDefinitions = {
 	forest: {

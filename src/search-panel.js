@@ -5,16 +5,11 @@ import { mapDefinitions } from "./map-definitions.js";
 import { colors } from "./icons.js";
 import { validateGeoJSONFeature } from "./validation.js";
 import { updateUrlState } from "./url-state.js";
+import { getAssetPath } from "./asset-path.js";
 
 const MAX_RESULTS = 100;
 const FOCUS_ZOOM = 1;
 const MAX_VERTICAL_OFFSET = 220;
-
-const baseUrl = import.meta.env.BASE_URL || "/";
-const getAssetPath = (path) =>
-	baseUrl.endsWith("/")
-		? baseUrl + path.replace(/^\//, "")
-		: `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
 
 function normalizeText(text) {
 	return text?.toLowerCase() ?? "";

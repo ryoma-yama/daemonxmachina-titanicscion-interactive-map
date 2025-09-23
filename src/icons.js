@@ -1,5 +1,6 @@
 // Fluorescent color definitions
 import L from "leaflet";
+import { getAssetPath } from "./asset-path.js";
 
 export const colors = {
 	music: "#00FFFF",
@@ -8,12 +9,6 @@ export const colors = {
 	decal: "#FF00FF",
 	enemy: "#FF1493",
 	log: "#FF6E00",
-};
-
-// Get base URL for assets (handles both dev and production builds)
-const getAssetPath = (path) => {
-	const baseUrl = import.meta.env.BASE_URL || "/";
-	return baseUrl.endsWith("/") ? baseUrl + path.slice(1) : baseUrl + path;
 };
 
 // DivIcon that uses SVG as mask and colors with background color
