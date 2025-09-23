@@ -160,3 +160,6 @@ tmp/
 
 # Playwright test results
 test-results/
+
+# Test coverage reports
+coverage/
