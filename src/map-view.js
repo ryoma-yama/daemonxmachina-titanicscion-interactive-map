@@ -12,6 +12,7 @@ export class MapView {
 		this.markerRefs = new Map();
 		this.currentImageOverlay = null;
 		this.currentMarkerLayer = null;
+		this.markerFetchToken = null;
 
 		// Recording mode state
 		this.isRecordingMode = false;
@@ -218,113 +219,183 @@ export class MapView {
 		});
 	}
 
-	loadMarkers(markersPath, collectionState) {
-		fetch(markersPath)
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+	async loadMarkers(markersPath, collectionState) {
+		const fetchToken = Symbol("markerFetch");
+		this.markerFetchToken = fetchToken;
+
+		try {
+			const response = await fetch(markersPath);
+			if (!response.ok) {
+				throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+			}
+			const data = await response.json();
+
+			if (
+				!data ||
+				typeof data !== "object" ||
+				data.type !== "FeatureCollection" ||
+				!Array.isArray(data.features)
+			) {
+				throw new Error("Invalid GeoJSON structure");
+			}
+
+			if (this.markerFetchToken !== fetchToken) {
+				return false;
+			}
+
+			const validFeatures = data.features.filter((feature, index) => {
+				const isValid = validateGeoJSONFeature(feature);
+				if (!isValid) {
+					console.warn(
+						`Skipping invalid feature at index ${index}:`,
+						feature,
+					);
 				}
-				return response.json();
-			})
-			.then((data) => {
-				// Check basic GeoJSON structure
-				if (
-					!data ||
-					typeof data !== "object" ||
-					data.type !== "FeatureCollection" ||
-					!Array.isArray(data.features)
-				) {
-					throw new Error("Invalid GeoJSON structure");
-				}
-
-				// Validate each feature
-				const validFeatures = data.features.filter((feature, index) => {
-					const isValid = validateGeoJSONFeature(feature);
-					if (!isValid) {
-						console.warn(
-							`Skipping invalid feature at index ${index}:`,
-							feature,
-						);
-					}
-					return isValid;
-				});
-
-				console.log(
-					`Loaded ${validFeatures.length} valid features out of ${data.features.length} total for ${this.currentMapId}`,
-				);
-
-				// Create marker layer with validated data
-				const validData = {
-					type: "FeatureCollection",
-					features: validFeatures,
-				};
-
-				this.currentMarkerLayer = L.geoJSON(validData, {
-					pointToLayer: (feature, latlng) => {
-						const isCollected = collectionState.isCollected(
-							feature.properties.id,
-						);
-						const markerSize = this.getMarkerSize();
-						const marker = L.marker(latlng, {
-							icon: createCategoryIcon(
-								feature.properties.category,
-								markerSize,
-								isCollected,
-							),
-							// Add extra click tolerance for mobile devices
-							interactive: true,
-							bubblingMouseEvents: false,
-						});
-
-						// Store marker reference and feature data
-						marker.feature = feature;
-						this.markerRefs.set(feature.properties.id, marker);
-
-						return marker;
-					},
-					onEachFeature: (feature, layer) => {
-						const popupContent = this.createPopupContent(
-							feature,
-							collectionState,
-						);
-
-						// Enhanced popup configuration for better UX
-						const popupOptions = {
-							maxWidth: 280,
-							minWidth: 220,
-							autoPan: true,
-							autoPanPadding: [10, 10],
-							closeButton: true,
-							autoClose: false,
-							keepInView: true,
-							// Better positioning for mobile
-							offset: [0, -10],
-						};
-
-						// Add extra padding on mobile devices
-						if (window.innerWidth <= 768) {
-							popupOptions.autoPanPadding = [20, 20];
-							popupOptions.maxWidth = 300;
-						}
-
-						layer.bindPopup(popupContent, popupOptions);
-					},
-				});
-
-				this.currentMarkerLayer.addTo(this.map);
-				console.log(
-					`GeoJSON markers loaded successfully for ${this.currentMapId}`,
-				);
-			})
-			.catch((error) => {
-				console.error(`Error loading markers for ${this.currentMapId}:`, error);
-				// Fallback: Create empty marker layer
-				this.currentMarkerLayer = L.geoJSON({
-					type: "FeatureCollection",
-					features: [],
-				});
-				this.currentMarkerLayer.addTo(this.map);
+				return isValid;
 			});
+
+			console.log(
+				`Loaded ${validFeatures.length} valid features out of ${data.features.length} total for ${this.currentMapId}`,
+			);
+
+			if (this.markerFetchToken !== fetchToken) {
+				return false;
+			}
+
+			const validData = {
+				type: "FeatureCollection",
+				features: validFeatures,
+			};
+
+			this.markerRefs.clear();
+			this.currentMarkerLayer = L.geoJSON(validData, {
+				pointToLayer: (feature, latlng) => {
+					const isCollected = collectionState.isCollected(
+						feature.properties.id,
+					);
+					const markerSize = this.getMarkerSize();
+					const marker = L.marker(latlng, {
+						icon: createCategoryIcon(
+							feature.properties.category,
+							markerSize,
+							isCollected,
+						),
+						interactive: true,
+						bubblingMouseEvents: false,
+					});
+
+					marker.feature = feature;
+					this.markerRefs.set(feature.properties.id, marker);
+
+					return marker;
+				},
+				onEachFeature: (feature, layer) => {
+					const popupContent = this.createPopupContent(
+						feature,
+						collectionState,
+					);
+
+					const popupOptions = {
+						maxWidth: 280,
+						minWidth: 220,
+						autoPan: true,
+						autoPanPadding: [10, 10],
+						closeButton: true,
+						autoClose: false,
+						keepInView: true,
+						offset: [0, -10],
+					};
+
+					if (window.innerWidth <= 768) {
+						popupOptions.autoPanPadding = [20, 20];
+						popupOptions.maxWidth = 300;
+					}
+
+					layer.bindPopup(popupContent, popupOptions);
+				},
+			});
+
+			if (this.markerFetchToken !== fetchToken) {
+				return false;
+			}
+
+			this.currentMarkerLayer.addTo(this.map);
+			console.log(
+				`GeoJSON markers loaded successfully for ${this.currentMapId}`,
+			);
+			return true;
+		} catch (error) {
+			if (this.markerFetchToken !== fetchToken) {
+				return false;
+			}
+
+			console.error(`Error loading markers for ${this.currentMapId}:`, error);
+			this.markerRefs.clear();
+			this.currentMarkerLayer = L.geoJSON({
+				type: "FeatureCollection",
+				features: [],
+			});
+			this.currentMarkerLayer.addTo(this.map);
+			return false;
+		}
+	}
+
+	focusMarker(markerId, options = {}) {
+		const marker = this.markerRefs.get(markerId);
+		if (!marker) {
+			return false;
+		}
+
+		const {
+			zoom,
+			openPopup = true,
+			animate = false,
+			panOffset,
+		} = options;
+
+		const currentZoom = this.map.getZoom();
+		const fallbackZoom = Number.isFinite(currentZoom)
+			? currentZoom
+			: this.map.getMinZoom();
+		const targetZoom = Number.isFinite(zoom) ? zoom : fallbackZoom;
+
+		this.map.stop();
+
+		let targetLatLng = marker.getLatLng();
+		if (
+			Array.isArray(panOffset) &&
+			panOffset.length === 2 &&
+			panOffset.every((value) => Number.isFinite(value))
+		) {
+			const offsetPoint = L.point(panOffset[0], panOffset[1]);
+			const projected = this.map.project(targetLatLng, targetZoom);
+			const adjustedPoint = projected.subtract(offsetPoint);
+			targetLatLng = this.map.unproject(adjustedPoint, targetZoom);
+		}
+
+		this.map.setView(targetLatLng, targetZoom, { animate });
+
+		if (openPopup) {
+			this.map.closePopup();
+
+			const popup = marker.getPopup();
+			let restoreAutoPan = null;
+			if (popup) {
+				const originalAutoPan = popup.options.autoPan;
+				popup.options.autoPan = false;
+				restoreAutoPan = () => {
+					popup.options.autoPan = originalAutoPan;
+				};
+			}
+
+			marker.openPopup();
+
+			if (restoreAutoPan) {
+				setTimeout(restoreAutoPan, 0);
+			}
+		}
+
+		return true;
 	}
 
 	createPopupContent(feature, collectionState) {
@@ -395,5 +466,13 @@ export class MapView {
 
 	getCurrentMapId() {
 		return this.currentMapId;
+	}
+
+	getZoomLevel() {
+		return this.map.getZoom();
+	}
+
+	getLeafletMap() {
+		return this.map;
 	}
 }
