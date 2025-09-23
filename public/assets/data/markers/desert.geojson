@@ -28,7 +28,7 @@
       },
       "properties": {
         "id": "desert-007",
-        "name": "3 Arrows",
+        "name": "Graffiti: 3",
         "category": "decal"
       }
     },
@@ -105,8 +105,23 @@
       },
       "properties": {
         "id": "desert-012",
-        "name": "Card: War Scythe (Vambrace)",
+        "name": "War Scythe (Vambrace)",
         "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1118,
+          495
+        ]
+      },
+      "properties": {
+        "id": "desert-013",
+        "name": "?decal-a",
+        "category": "decal"
       }
     }
   ]

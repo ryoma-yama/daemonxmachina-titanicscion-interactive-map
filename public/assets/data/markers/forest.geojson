@@ -200,6 +200,201 @@
         "name": "No.035-Remember our Vow",
         "category": "music"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          716,
+          1076
+        ]
+      },
+      "properties": {
+        "id": "forest-019",
+        "name": "Emblem: 8",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          403,
+          778
+        ]
+      },
+      "properties": {
+        "id": "forest-020",
+        "name": "Emblem: 20",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153,
+          468
+        ]
+      },
+      "properties": {
+        "id": "forest-021",
+        "name": "Rose",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70,
+          397
+        ]
+      },
+      "properties": {
+        "id": "forest-022",
+        "name": "Line Art: 4",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          728,
+          108
+        ]
+      },
+      "properties": {
+        "id": "forest-023",
+        "name": "Pegasus",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135,
+          600
+        ]
+      },
+      "properties": {
+        "id": "forest-024",
+        "name": "Sword",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140,
+          233
+        ]
+      },
+      "properties": {
+        "id": "forest-025",
+        "name": "Block Art: 1",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          202,
+          695
+        ]
+      },
+      "properties": {
+        "id": "forest-026",
+        "name": "Peach",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          448,
+          467
+        ]
+      },
+      "properties": {
+        "id": "forest-027",
+        "name": "?Star",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          443,
+          296
+        ]
+      },
+      "properties": {
+        "id": "forest-028",
+        "name": "?Mushroom",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          651,
+          599
+        ]
+      },
+      "properties": {
+        "id": "forest-029",
+        "name": "?Hexagon",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126,
+          275
+        ]
+      },
+      "properties": {
+        "id": "forest-030",
+        "name": "?Triangle",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          448,
+          47
+        ]
+      },
+      "properties": {
+        "id": "forest-031",
+        "name": "?decal-b",
+        "category": "decal"
+      }
     }
   ]
 }

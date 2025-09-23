@@ -10,7 +10,10 @@
 		"lint": "biome lint . --write",
 		"format": "biome format . --write",
 		"check": "biome check .",
-		"fix": "biome check . --write"
+		"fix": "biome check . --write",
+		"test": "vitest run --coverage",
+		"add-marker": "node scripts/add_marker.js",
+		"batch-add-markers": "node scripts/batch_add_markers.js"
 	},
 	"keywords": [
 		"daemon-x-machina",
@@ -27,7 +30,9 @@
 		"@biomejs/biome": "2.2.4",
 		"@playwright/test": "^1.55.0",
 		"playwright": "^1.55.0",
-		"vite": "^5.4.0"
+		"vite": "^5.4.0",
+		"vitest": "^2.1.4",
+		"@vitest/coverage-v8": "^2.1.4"
 	},
 	"engines": {
 		"node": ">=22.19.0",
