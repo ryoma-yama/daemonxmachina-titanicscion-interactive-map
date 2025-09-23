@@ -18,7 +18,7 @@ test.describe("hide collected toggle", () => {
 		await expect(hideToggle).toHaveAttribute("aria-pressed", "false");
 
 		const markerLocator = page.locator(
-			'.leaflet-marker-icon[data-marker-id="desert-006"]',
+			'#map [data-marker-id="desert-006"]',
 		);
 		await expect(markerLocator).toHaveCount(1);
 

@@ -280,16 +280,10 @@ export class MapView {
 							feature.properties.category,
 							markerSize,
 							isCollected,
+							feature.properties.id,
 						),
 						interactive: true,
 						bubblingMouseEvents: false,
-					});
-
-					marker.on("add", () => {
-						const element = marker.getElement();
-						if (element) {
-							element.setAttribute("data-marker-id", feature.properties.id);
-						}
 					});
 
 					marker.feature = feature;
@@ -467,6 +461,7 @@ export class MapView {
 				feature.properties.category,
 				markerSize,
 				isCollected,
+				markerId,
 			);
 			marker.setIcon(newIcon);
 
