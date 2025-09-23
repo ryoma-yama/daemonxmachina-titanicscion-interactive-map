@@ -227,15 +227,12 @@ body {
 	background: rgba(26, 26, 26, 0.95);
 	color: #e0e0e0;
 	text-align: center;
-	font-size: 0.8em;
-	padding: 8px 16px;
+	font-size: 0.75em;
+	padding: 4px 8px;
 	border-top: 1px solid #404040;
 	z-index: 999;
-	line-height: 1.4;
-}
-
-.site-footer div {
-	margin: 2px 0;
+	line-height: 1.2;
+	white-space: nowrap;
 }
 
 .site-footer a {

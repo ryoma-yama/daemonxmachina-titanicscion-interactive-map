@@ -9,6 +9,8 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 - Screenshots, map images, and other in-game assets are used in accordance with the official guidelines.
 - Please check the official guidelines (Japanese): [Video / Streaming / Screenshot Guidelines](https://jp.daemonxmachina.com/titanicscion/news/article/32682) (Last checked: 2025-09-21)
 
+Detailed credits, asset licenses, and support information are available on the [About page](./about.html).
+
 ## Features
 - Interactive maps for Forest, Desert, and Mountains areas
 - Click markers to toggle collection status
@@ -99,18 +101,10 @@ The application includes a "Recording mode" for easily capturing marker coordina
 2. Update `mapDefinitions` in `src/map-definitions.js`
 3. Create corresponding GeoJSON file in `public/assets/data/markers/`
 
-## Credits
-- [Music Data Locations — Steam Community Guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3569600723), Author: Lethendra
-- Special thanks to Algester (Daemon X Machina Discord Server)
-
 ## License
 - The **source code** of this repository is licensed under the [MIT License](./LICENSE).
 - All game content and assets remain the property of Marvelous Inc.
 - This repository does not grant any rights to use game assets beyond what is permitted by the official guidelines.
-
-## Assets License
-- Music 186, File Alt 8, Search, Xmark — Author: Dazzle UI, Licensed under CC BY 4.0
-- Evil Skeleton Rpg, Card Casino Games, Chest Games Gaming — Licensed under CC0 (No attribution required)
 
 ## Contributing
 This is primarily a personal project for game progress tracking. 
@@ -132,11 +126,6 @@ This project uses `!important` declarations in CSS for the following justified r
 - **Third-party Integration**: Common practice when integrating external map libraries that inject their own styles
 
 The `complexity.noImportantStyles` rule is disabled in `biome.json` for this reason.
-
-## Support
-For issues related to:
-- **Game content**: Contact Marvelous Inc. official support
-- **This tool**: Create an issue in this repository
 
 ---
 
