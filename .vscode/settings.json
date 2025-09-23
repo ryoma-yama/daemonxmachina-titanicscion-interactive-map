@@ -1,5 +1,12 @@
 {
 	"cSpell.words": ["latlng"],
-	"python-envs.defaultEnvManager": "ms-python.python:system",
-	"python-envs.pythonProjects": []
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
 }
