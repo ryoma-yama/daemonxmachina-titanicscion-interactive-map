@@ -28,7 +28,7 @@
       },
       "properties": {
         "id": "desert-007",
-        "name": "Graffiti: 3",
+        "name": "Graffiti: 9",
         "category": "decal"
       }
     },
@@ -545,6 +545,141 @@
       "properties": {
         "id": "desert-041",
         "name": "Emblem: 11",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          421,
+          138
+        ]
+      },
+      "properties": {
+        "id": "desert-042",
+        "name": "Smiling Face",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          261,
+          231
+        ]
+      },
+      "properties": {
+        "id": "desert-043",
+        "name": "Line Art: 1",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          220,
+          115
+        ]
+      },
+      "properties": {
+        "id": "desert-044",
+        "name": "Line Art: 3",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          762,
+          461
+        ]
+      },
+      "properties": {
+        "id": "desert-045",
+        "name": "Emblem: 10",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1062,
+          1064
+        ]
+      },
+      "properties": {
+        "id": "desert-046",
+        "name": "Line Art: 9",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          780,
+          542
+        ]
+      },
+      "properties": {
+        "id": "desert-047",
+        "name": "Emblem: 17",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          541,
+          581
+        ]
+      },
+      "properties": {
+        "id": "desert-048",
+        "name": "Block Art: 4",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          941,
+          219
+        ]
+      },
+      "properties": {
+        "id": "desert-049",
+        "name": "Graffiti: 6",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1007,
+          230
+        ]
+      },
+      "properties": {
+        "id": "desert-050",
+        "name": "Line Art: 17",
         "category": "decal"
       }
     }
