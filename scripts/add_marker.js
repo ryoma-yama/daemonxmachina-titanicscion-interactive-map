@@ -168,7 +168,6 @@ export function saveGeojson(filePath, data) {
 export function extractExistingData(geojsonData) {
   const existingIds = new Set();
   const existingCoords = new Set();
-  const existingNames = new Set();
 
   for (const feature of geojsonData.features ?? []) {
     const properties = feature?.properties ?? {};
@@ -183,12 +182,9 @@ export function extractExistingData(geojsonData) {
       existingCoords.add(toCoordKey(x, y));
     }
 
-    if (typeof properties.name === 'string') {
-      existingNames.add(properties.name);
-    }
   }
 
-  return { existingIds, existingCoords, existingNames };
+  return { existingIds, existingCoords };
 }
 
 export function generateNextId(mapId, existingIds) {
@@ -208,7 +204,7 @@ export function generateNextId(mapId, existingIds) {
   return `${prefix}${nextNumber.toString().padStart(3, '0')}`;
 }
 
-export function checkDuplicates(markerId, x, y, name, existingIds, existingCoords, existingNames) {
+export function checkDuplicates(markerId, x, y, existingIds, existingCoords) {
   const warnings = [];
 
   if (existingIds.has(markerId)) {
@@ -217,10 +213,6 @@ export function checkDuplicates(markerId, x, y, name, existingIds, existingCoord
 
   if (existingCoords.has(toCoordKey(x, y))) {
     warnings.push(`Coordinates (${x}, ${y}) already exist`);
-  }
-
-  if (existingNames.has(name)) {
-    warnings.push(`Name '${name}' already exists`);
   }
 
   return warnings;
@@ -299,7 +291,7 @@ export function main(argv = process.argv.slice(2), markersDir = DEFAULT_MARKERS_
 
   console.log(`\nLoading GeoJSON data from ${filePath}...`);
   const geojsonData = loadGeojson(filePath);
-  const { existingIds, existingCoords, existingNames } = extractExistingData(geojsonData);
+  const { existingIds, existingCoords } = extractExistingData(geojsonData);
   console.log(`Found ${existingIds.size} existing markers`);
 
   const markerId = generateNextId(validated.mapId, existingIds);
@@ -309,10 +301,8 @@ export function main(argv = process.argv.slice(2), markersDir = DEFAULT_MARKERS_
     markerId,
     validated.x,
     validated.y,
-    validated.name,
     existingIds,
     existingCoords,
-    existingNames,
   );
 
   if (warnings.length > 0) {

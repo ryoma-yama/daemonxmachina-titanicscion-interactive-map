@@ -190,7 +190,7 @@ describe('saveGeojson', () => {
 });
 
 describe('extractExistingData', () => {
-  it('collects ids, coordinates, and names', () => {
+  it('collects ids and coordinates', () => {
     const data = {
       type: 'FeatureCollection',
       features: [
@@ -198,24 +198,21 @@ describe('extractExistingData', () => {
         { properties: { id: 'forest-002', name: 'B' }, geometry: { coordinates: [300, 400] } },
       ],
     };
-    const { existingIds, existingCoords, existingNames } = extractExistingData(data);
+    const { existingIds, existingCoords } = extractExistingData(data);
     expect(existingIds.has('forest-001')).toBe(true);
     expect(existingCoords.has('100:200')).toBe(true);
-    expect(existingNames.has('B')).toBe(true);
   });
 
   it('handles missing fields gracefully', () => {
-    const { existingIds, existingCoords, existingNames } = extractExistingData({ type: 'FeatureCollection', features: [{}] });
+    const { existingIds, existingCoords } = extractExistingData({ type: 'FeatureCollection', features: [{}] });
     expect(existingIds.size).toBe(0);
     expect(existingCoords.size).toBe(0);
-    expect(existingNames.size).toBe(0);
   });
 
   it('returns empty sets when features are absent', () => {
-    const { existingIds, existingCoords, existingNames } = extractExistingData({});
+    const { existingIds, existingCoords } = extractExistingData({});
     expect(existingIds.size).toBe(0);
     expect(existingCoords.size).toBe(0);
-    expect(existingNames.size).toBe(0);
   });
 });
 
@@ -237,20 +234,17 @@ describe('checkDuplicates', () => {
       'forest-001',
       100,
       200,
-      'Existing',
       new Set(['forest-001']),
       new Set(['100:200']),
-      new Set(['Existing']),
     );
     expect(warnings).toEqual([
       "ID 'forest-001' already exists",
       'Coordinates (100, 200) already exist',
-      "Name 'Existing' already exists",
     ]);
   });
 
   it('returns empty array when there are no duplicates', () => {
-    expect(checkDuplicates('forest-002', 1, 2, 'New', new Set(), new Set(), new Set())).toEqual([]);
+    expect(checkDuplicates('forest-002', 1, 2, new Set(), new Set())).toEqual([]);
   });
 });
 
@@ -333,16 +327,32 @@ describe('main', () => {
     expect(process.exitCode).toBeUndefined();
   });
 
-  it('stops when duplicates are detected', () => {
+  it('stops when duplicate coordinates are detected', () => {
+    const markersDir = createTempDir();
+    const filePath = getFilePath('forest', markersDir);
+    const existingFeature = createMarkerFeature('forest-001', 'Existing', 'card', 100, 200);
+    saveGeojson(filePath, { type: 'FeatureCollection', features: [existingFeature] });
+
+    const { error } = captureLogs();
+    main(['forest', '100', '200', 'card', 'New Name'], markersDir);
+    expect(error).toHaveBeenCalledWith('Error: Duplicate data detected:');
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('allows markers with duplicate names', () => {
     const markersDir = createTempDir();
     const filePath = getFilePath('forest', markersDir);
     const existingFeature = createMarkerFeature('forest-001', 'Duplicate', 'card', 100, 200);
     saveGeojson(filePath, { type: 'FeatureCollection', features: [existingFeature] });
 
-    const { error } = captureLogs();
+    const { log, error } = captureLogs();
     main(['forest', '300', '400', 'card', 'Duplicate'], markersDir);
-    expect(error).toHaveBeenCalledWith('Error: Duplicate data detected:');
-    expect(process.exitCode).toBe(1);
+    expect(error).not.toHaveBeenCalledWith('Error: Duplicate data detected:');
+    expect(process.exitCode).toBeUndefined();
+    expect(log).toHaveBeenCalledWith('✓ Total markers in file: 2');
+    const saved = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    expect(saved.features).toHaveLength(2);
+    expect(saved.features.filter((feature) => feature.properties?.name === 'Duplicate')).toHaveLength(2);
   });
 
   it('prints preview on dry run', () => {
