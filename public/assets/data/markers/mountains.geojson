@@ -546,6 +546,21 @@
         "name": "Emblem: 6",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          192,
+          917
+        ]
+      },
+      "properties": {
+        "id": "mountains-042",
+        "name": "Cherry",
+        "category": "card"
+      }
     }
   ]
 }
