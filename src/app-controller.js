@@ -8,11 +8,15 @@ import {
 	saveSelectedMap,
 } from "./map-definitions.js";
 import { MapView } from "./map-view.js";
+import { SearchPanel } from "./search-panel.js";
+import { parseUrlState, updateUrlState } from "./url-state.js";
 
 export class AppController {
 	constructor() {
-		this.currentMapId = getInitialMapId();
+		this.urlState = parseUrlState();
+		this.currentMapId = this.urlState.mapId || getInitialMapId();
 		this.collectionManagers = new Map();
+		this.markerLoadPromise = Promise.resolve(false);
 
 		// Initialize collection managers for all maps
 		getAllMapIds().forEach((mapId) => {
@@ -27,15 +31,23 @@ export class AppController {
 				this.handleRecordingModeToggle(isRecording),
 		});
 
-		// Load initial map
-		this.switchToMap(this.currentMapId);
+		this.searchPanel = new SearchPanel({ appController: this });
+
+		// Load initial map and optionally focus marker from URL state
+		void this.switchToMap(this.currentMapId, {
+			focusMarkerId: this.urlState.markerId,
+			zoom: this.urlState.zoom,
+			skipUrlUpdate: true,
+		});
 	}
 
 	getCurrentCollectionManager() {
 		return this.collectionManagers.get(this.currentMapId);
 	}
 
-	switchToMap(mapId) {
+	async switchToMap(mapId, options = {}) {
+		const { focusMarkerId, zoom, skipUrlUpdate = false, panOffset } = options;
+
 		const mapDefinition = getMapDefinition(mapId);
 		if (!mapDefinition) {
 			console.error(`Map definition not found for: ${mapId}`);
@@ -44,15 +56,48 @@ export class AppController {
 
 		console.log(`Switching to map: ${mapId}`);
 
-		// Update current map ID
 		this.currentMapId = mapId;
-
-		// Load map in view
 		this.mapView.loadMap(mapDefinition, mapId);
 
-		// Load markers with collection state
 		const collectionManager = this.getCurrentCollectionManager();
-		this.mapView.loadMarkers(mapDefinition.markersPath, collectionManager);
+		this.markerLoadPromise = this.mapView.loadMarkers(
+			mapDefinition.markersPath,
+			collectionManager,
+		);
+		const markersLoaded = await this.markerLoadPromise;
+
+		let focused = false;
+		if (markersLoaded && focusMarkerId) {
+			focused = this.mapView.focusMarker(focusMarkerId, {
+				zoom,
+				panOffset,
+			});
+			if (!focused) {
+				console.warn(`Marker ${focusMarkerId} not found on map ${mapId}`);
+			}
+		} else if (focusMarkerId && !markersLoaded) {
+			console.warn(
+				`Markers failed to load for ${mapId}, unable to focus ${focusMarkerId}`,
+			);
+		}
+
+		saveSelectedMap(mapId);
+
+		if (!skipUrlUpdate) {
+			if (focusMarkerId && focused) {
+				const zoomToPersist =
+					typeof zoom === "number" && Number.isFinite(zoom)
+						? zoom
+						: this.mapView.getZoomLevel();
+				updateUrlState({
+					mapId,
+					markerId: focusMarkerId,
+					zoom: zoomToPersist,
+				});
+			} else {
+				updateUrlState({ mapId, markerId: null, zoom: null });
+			}
+		}
 	}
 
 	handleMarkerToggle(markerId) {
@@ -60,21 +105,35 @@ export class AppController {
 		const isNowCollected = collectionManager.toggleCollection(markerId);
 		console.log(`Marker ${markerId} collection status: ${isNowCollected}`);
 
-		// Update marker appearance in view
 		this.mapView.updateMarkerState(markerId, isNowCollected);
 	}
 
 	handleMapNavigation(mapId) {
 		if (mapId !== this.currentMapId) {
-			this.switchToMap(mapId);
-
-			// Save selected map to localStorage for next session
+			void this.switchToMap(mapId);
 			saveSelectedMap(mapId);
 		}
 	}
 
-	// Callback for recording mode toggle (currently does nothing)
 	handleRecordingModeToggle(_isRecording) {
 		// Intentionally left blank; implement if needed
+	}
+
+	async focusMarkerOnCurrentMap(markerId, options = {}) {
+		const markersLoaded = await this.markerLoadPromise;
+		if (!markersLoaded) {
+			console.warn(
+				`Markers not loaded for ${this.currentMapId}, cannot focus ${markerId}`,
+			);
+			return false;
+		}
+
+		const focused = this.mapView.focusMarker(markerId, options);
+		if (!focused) {
+			console.warn(
+				`Marker ${markerId} not found on current map ${this.currentMapId}`,
+			);
+		}
+		return focused;
 	}
 }

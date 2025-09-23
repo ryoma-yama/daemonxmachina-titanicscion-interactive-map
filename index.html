@@ -92,6 +92,35 @@
     </div>
     <div id="map"></div>
 
+    <!-- Search Panel -->
+    <aside id="search-panel" class="search-panel" aria-hidden="true" aria-label="Marker search panel" inert>
+      <div class="search-panel__header">
+        <input
+          id="search-input"
+          type="search"
+          class="search-panel__input"
+          placeholder="Search markers"
+          aria-label="Search markers by name or category"
+        />
+        <button id="search-close" type="button" class="search-panel__close" aria-label="Close search panel">
+          <span class="search-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div id="search-message" class="search-panel__message">Loading markers...</div>
+      <ul id="search-results" class="search-panel__results"></ul>
+    </aside>
+    <div class="leaflet-bar leaflet-control search-toggle-control">
+      <button
+        id="search-toggle"
+        class="search-toggle-control__button"
+        aria-expanded="false"
+        aria-label="Toggle search panel"
+        type="button"
+      >
+        <span class="search-toggle-control__icon" aria-hidden="true"></span>
+      </button>
+    </div>
+
     <!-- Footer -->
     <footer class="site-footer">
       <div>©2025 Marvelous Inc. | This is an unofficial, non-commercial fan project. | <a
