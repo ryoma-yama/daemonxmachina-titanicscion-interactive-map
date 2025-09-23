@@ -24,6 +24,7 @@ export class SearchPanel {
 		this.isPanelOpen = false;
 		this.markerIndex = [];
 		this.indexPromise = this.loadMarkerIndex();
+		this.hideCollected = false;
 
 		this.panelElement = document.getElementById("search-panel");
 		this.searchInput = document.getElementById("search-input");
@@ -31,6 +32,10 @@ export class SearchPanel {
 		this.resultsList = document.getElementById("search-results");
 		this.toggleButton = document.getElementById("search-toggle");
 		this.toggleWrapper = this.toggleButton?.closest(".search-toggle-control");
+		this.hideToggleButton = document.getElementById("hide-collected-toggle");
+		this.hideToggleIcon = this.hideToggleButton?.querySelector(
+			".hide-toggle-control__icon",
+		);
 		const closeButton = document.getElementById("search-close");
 
 		if (
@@ -40,6 +45,8 @@ export class SearchPanel {
 			!this.resultsList ||
 			!this.toggleButton ||
 			!this.toggleWrapper ||
+			!this.hideToggleButton ||
+			!this.hideToggleIcon ||
 			!closeButton
 		) {
 			throw new Error("Search panel markup is missing required elements");
@@ -69,8 +76,17 @@ export class SearchPanel {
 			}
 		});
 
+		this.hideToggleButton.addEventListener("click", (event) => {
+			event.preventDefault();
+			event.stopPropagation();
+			const nextState = !this.appController.getHideCollected();
+			this.appController.setHideCollected(nextState);
+		});
+
 		L.DomEvent.disableClickPropagation(this.toggleButton);
 		L.DomEvent.disableScrollPropagation(this.toggleButton);
+		L.DomEvent.disableClickPropagation(this.hideToggleButton);
+		L.DomEvent.disableScrollPropagation(this.hideToggleButton);
 	}
 
 	attachGlobalHandlers() {
@@ -153,6 +169,7 @@ export class SearchPanel {
 					entry.categoryNormalized.includes(normalized) ||
 					entry.descriptionNormalized.includes(normalized),
 			)
+			.filter((entry) => this.shouldIncludeEntry(entry))
 			.slice(0, MAX_RESULTS);
 	}
 
@@ -292,5 +309,37 @@ export class SearchPanel {
 			this.toggleButton.setAttribute("aria-expanded", "false");
 			this.toggleButton.focus();
 		}
+	}
+
+	shouldIncludeEntry(entry) {
+		if (!this.hideCollected) {
+			return true;
+		}
+		return !this.appController.isMarkerCollected(entry.mapId, entry.markerId);
+	}
+
+	setHideCollectedState(hideCollected) {
+		this.hideCollected = Boolean(hideCollected);
+		const pressed = this.hideCollected ? "true" : "false";
+		const label = this.hideCollected
+			? "Show collected markers"
+			: "Hide collected markers";
+		this.hideToggleButton.setAttribute("aria-pressed", pressed);
+		this.hideToggleButton.setAttribute("aria-label", label);
+		this.hideToggleButton.setAttribute("title", label);
+
+		this.hideToggleIcon.classList.toggle(
+			"hide-toggle-control__icon--hidden",
+			this.hideCollected,
+		);
+
+		void this.refreshResults();
+	}
+
+	async refreshResults() {
+		await this.indexPromise;
+		const query = this.searchInput.value;
+		const results = this.getFilteredMarkers(query);
+		this.renderResults(results);
 	}
 }

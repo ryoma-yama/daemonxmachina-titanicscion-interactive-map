@@ -455,6 +455,98 @@
         "category": "chest",
         "description": "Fire Room. Recommended: Burn Resistance MAX (1000)"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          357,
+          563
+        ]
+      },
+      "properties": {
+        "id": "desert-036",
+        "name": "Emblem: 16",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          327,
+          597
+        ]
+      },
+      "properties": {
+        "id": "desert-037",
+        "name": "Graffiti: 5",
+        "category": "decal",
+        "description": "Near the Colony, via the passage just north"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          326,
+          586
+        ]
+      },
+      "properties": {
+        "id": "desert-038",
+        "name": "Cratos (Greaves)",
+        "category": "card",
+        "description": "In the Colony, via the passage just north"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          445,
+          508
+        ]
+      },
+      "properties": {
+        "id": "desert-039",
+        "name": "Graffiti: 4",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          550,
+          133
+        ]
+      },
+      "properties": {
+        "id": "desert-040",
+        "name": "Graffiti: 10",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1225,
+          297
+        ]
+      },
+      "properties": {
+        "id": "desert-041",
+        "name": "Emblem: 11",
+        "category": "decal"
+      }
     }
   ]
 }
