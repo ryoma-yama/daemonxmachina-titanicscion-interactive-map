@@ -11,9 +11,10 @@ const FOCUS_ZOOM = 1;
 const MAX_VERTICAL_OFFSET = 220;
 
 const baseUrl = import.meta.env.BASE_URL || "/";
-const getAssetPath = (path) => (baseUrl.endsWith("/") ? baseUrl + path.slice(1) : baseUrl + path);
-const searchIconPath = getAssetPath("/assets/icons/search.svg");
-const closeIconPath = getAssetPath("/assets/icons/close.svg");
+const getAssetPath = (path) =>
+	baseUrl.endsWith("/")
+		? baseUrl + path.replace(/^\//, "")
+		: `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
 
 function normalizeText(text) {
 	return text?.toLowerCase() ?? "";
@@ -29,101 +30,51 @@ export class SearchPanel {
 		this.markerIndex = [];
 		this.indexPromise = this.loadMarkerIndex();
 
-		this.createPanel();
-		this.createToggleControl();
-		this.attachGlobalHandlers();
-	}
+		this.panelElement = document.getElementById("search-panel");
+		this.searchInput = document.getElementById("search-input");
+		this.messageElement = document.getElementById("search-message");
+		this.resultsList = document.getElementById("search-results");
+		this.toggleButton = document.getElementById("search-toggle");
+		this.toggleWrapper = this.toggleButton?.closest(".search-toggle-control");
+		const closeButton = document.getElementById("search-close");
 
-	createPanel() {
-		const appRoot = document.getElementById("app");
-		if (!appRoot) {
-			throw new Error("App root element not found for search panel");
+		if (
+			!this.panelElement ||
+			!this.searchInput ||
+			!this.messageElement ||
+			!this.resultsList ||
+			!this.toggleButton ||
+			!this.toggleWrapper ||
+			!closeButton
+		) {
+			throw new Error("Search panel markup is missing required elements");
 		}
 
-		this.panelElement = document.createElement("aside");
-		this.panelElement.className = "search-panel";
-		this.panelElement.setAttribute("aria-hidden", "true");
-		this.panelElement.setAttribute("inert", "");
-		this.panelElement.setAttribute("aria-label", "Marker search panel");
+		const leafLetTopLeft = this.map
+			.getContainer()
+			.querySelector(".leaflet-top.leaflet-left");
+		if (leafLetTopLeft && !leafLetTopLeft.contains(this.toggleWrapper)) {
+			leafLetTopLeft.appendChild(this.toggleWrapper);
+		}
 
-		const header = document.createElement("div");
-		header.className = "search-panel__header";
-
-		this.searchInput = document.createElement("input");
-		this.searchInput.type = "search";
-		this.searchInput.className = "search-panel__input";
-		this.searchInput.placeholder = "Search markers";
-		this.searchInput.setAttribute("aria-label", "Search markers by name or category");
-
-		const closeButton = document.createElement("button");
-		closeButton.type = "button";
-		closeButton.className = "search-panel__close";
-		closeButton.setAttribute("aria-label", "Close search panel");
-
-		const closeIcon = document.createElement("img");
-		closeIcon.src = closeIconPath;
-		closeIcon.alt = "";
-		closeIcon.setAttribute("aria-hidden", "true");
-		closeButton.appendChild(closeIcon);
-
-		header.appendChild(this.searchInput);
-		header.appendChild(closeButton);
-
-		this.messageElement = document.createElement("div");
-		this.messageElement.className = "search-panel__message";
-		this.messageElement.textContent = "Loading markers...";
-
-		this.resultsList = document.createElement("ul");
-		this.resultsList.className = "search-panel__results";
-
-		this.panelElement.appendChild(header);
-		this.panelElement.appendChild(this.messageElement);
-		this.panelElement.appendChild(this.resultsList);
-
-		appRoot.appendChild(this.panelElement);
+		this.attachGlobalHandlers();
 
 		closeButton.addEventListener("click", () => this.closePanel());
 		this.searchInput.addEventListener("input", () => this.handleSearchInput());
 		this.searchInput.addEventListener("keydown", (event) => this.handleSearchKeydown(event));
-	}
+		this.toggleButton.addEventListener("click", (event) => {
+			event.preventDefault();
+			event.stopPropagation();
+			if (this.isPanelOpen) {
+				this.closePanel();
+			} else {
+				this.openPanel();
+			}
+		});
 
-	createToggleControl() {
-		const control = L.control({ position: "topleft" });
-		control.onAdd = () => {
-			const container = L.DomUtil.create(
-				"div",
-				"leaflet-bar leaflet-control search-toggle-control",
-			);
-			const button = L.DomUtil.create("button", "search-toggle-control__button", container);
-			button.type = "button";
-			button.setAttribute("aria-expanded", "false");
-			button.setAttribute("aria-label", "Toggle search panel");
-
-			const icon = L.DomUtil.create("img", "search-toggle-control__icon", button);
-			icon.src = searchIconPath;
-			icon.alt = "";
-			icon.setAttribute("aria-hidden", "true");
-
-			L.DomEvent.disableClickPropagation(button);
-			L.DomEvent.disableScrollPropagation(button);
-
-			button.addEventListener("click", (event) => {
-				event.preventDefault();
-				event.stopPropagation();
-				if (this.isPanelOpen) {
-					this.closePanel();
-				} else {
-					this.openPanel();
-				}
-			});
-
-			this.toggleButton = button;
-			return container;
-		};
-
-		control.addTo(this.map);
-		this.toggleControl = control;
-	}
+		L.DomEvent.disableClickPropagation(this.toggleButton);
+		L.DomEvent.disableScrollPropagation(this.toggleButton);
+}
 
 	attachGlobalHandlers() {
 		document.addEventListener("keydown", (event) => {
@@ -135,7 +86,7 @@ export class SearchPanel {
 
 		L.DomEvent.disableScrollPropagation(this.panelElement);
 		L.DomEvent.disableClickPropagation(this.panelElement);
-	}
+}
 
 	async loadMarkerIndex() {
 		const entries = Object.entries(mapDefinitions);

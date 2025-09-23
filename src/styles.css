@@ -291,11 +291,11 @@ body {
 	color: var(--text-bright);
 }
 
-.search-toggle-control__button img {
+.search-toggle-control__icon {
 	width: 18px;
 	height: 18px;
+	display: block;
 	pointer-events: none;
-	filter: invert(1);
 }
 
 .search-panel {
@@ -361,11 +361,11 @@ body {
 	transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-.search-panel__close img {
+.search-panel__close .search-icon {
 	width: 18px;
 	height: 18px;
+	display: block;
 	pointer-events: none;
-	filter: invert(1);
 }
 
 .search-panel__close:hover,
