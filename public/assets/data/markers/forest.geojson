@@ -395,6 +395,68 @@
         "name": "?decal-b",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          959,
+          1092
+        ]
+      },
+      "properties": {
+        "id": "forest-032",
+        "name": "Grus RT: Alpha - 1",
+        "category": "enemy",
+        "description": "Drops: - Dev. Data (Blue Shark) - Dev. Data (Caladrius)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1000,
+          1013
+        ]
+      },
+      "properties": {
+        "id": "forest-033",
+        "name": "Grus RT: Alpha - 2",
+        "category": "enemy",
+        "description": "Drops: - Dev. Data (Blue Shark) - Dev. Data (Caladrius)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          628,
+          134
+        ]
+      },
+      "properties": {
+        "id": "forest-034",
+        "name": "Grausam RT: Alpha",
+        "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          856,
+          1068
+        ]
+      },
+      "properties": {
+        "id": "forest-035",
+        "name": "Lapis Lacrima RT: Beta",
+        "category": "boss"
+      }
     }
   ]
 }
