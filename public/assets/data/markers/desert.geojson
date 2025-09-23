@@ -453,7 +453,7 @@
         "id": "desert-035",
         "name": "Vargr Greed",
         "category": "chest",
-        "description": "Fire Room. Recommended: Burn Resistance MAX (1000)"
+        "description": "Fire Room. Recommended: Burn Resistance MAX (1000). Seven Deadly Sins series."
       }
     },
     {
@@ -681,6 +681,130 @@
         "id": "desert-050",
         "name": "Line Art: 17",
         "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          425,
+          795
+        ]
+      },
+      "properties": {
+        "id": "desert-051",
+        "name": "Grausam",
+        "category": "boss",
+        "description": "Story progression required"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1039,
+          899
+        ]
+      },
+      "properties": {
+        "id": "desert-052",
+        "name": "Cybele RT: Alpha",
+        "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          354,
+          143
+        ]
+      },
+      "properties": {
+        "id": "desert-053",
+        "name": "Lapis Lacrima",
+        "category": "boss",
+        "description": "Story progression required"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          698,
+          472
+        ]
+      },
+      "properties": {
+        "id": "desert-054",
+        "name": "Gunfort",
+        "category": "boss",
+        "description": "Changes each defeat: Normal → Alpha → Beta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1081,
+          542
+        ]
+      },
+      "properties": {
+        "id": "desert-055",
+        "name": "Dreadnought",
+        "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          170,
+          952
+        ]
+      },
+      "properties": {
+        "id": "desert-056",
+        "name": "Dreadnought RT: Alpha",
+        "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          906,
+          272
+        ]
+      },
+      "properties": {
+        "id": "desert-057",
+        "name": "Rebellion",
+        "category": "boss",
+        "description": "Defeating it will not register in Simulator"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73,
+          190
+        ]
+      },
+      "properties": {
+        "id": "desert-058",
+        "name": "No.041-A Memorial Monument",
+        "category": "log"
       }
     }
   ]

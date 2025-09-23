@@ -114,8 +114,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          263,
-          292
+          271,
+          284
         ]
       },
       "properties": {
@@ -409,7 +409,7 @@
       },
       "properties": {
         "id": "forest-032",
-        "name": "Grus RT: Alpha - 1",
+        "name": "Grus RT: Alpha",
         "category": "enemy",
         "description": "Drops: - Dev. Data (Blue Shark) - Dev. Data (Caladrius)"
       }
@@ -425,7 +425,7 @@
       },
       "properties": {
         "id": "forest-033",
-        "name": "Grus RT: Alpha - 2",
+        "name": "Grus RT: Alpha",
         "category": "enemy",
         "description": "Drops: - Dev. Data (Blue Shark) - Dev. Data (Caladrius)"
       }
@@ -503,6 +503,84 @@
       "properties": {
         "id": "forest-038",
         "name": "Full Deck",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          251,
+          284
+        ]
+      },
+      "properties": {
+        "id": "forest-039",
+        "name": "Duel: Enamored Card Player",
+        "category": "npc",
+        "description": "Rewards:\\n- Card: Avaron\\n- Decal: Seven"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          261,
+          284
+        ]
+      },
+      "properties": {
+        "id": "forest-040",
+        "name": "Shop: Colony Shop Owner",
+        "category": "npc",
+        "description": "Cards:\\n- Berserk (Vambrace)\\n- Futsunushi (Vambrace)\\n- Strider X"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          720,
+          1057
+        ]
+      },
+      "properties": {
+        "id": "forest-041",
+        "name": "Graceful Lust",
+        "category": "chest",
+        "description": "Corrosion Room. Recommended: Corrosion Resistance MAX (1000). Seven Deadly Sins series."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          538,
+          1100
+        ]
+      },
+      "properties": {
+        "id": "forest-042",
+        "name": "Pineapple",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          755,
+          280
+        ]
+      },
+      "properties": {
+        "id": "forest-043",
+        "name": "Apple",
         "category": "decal"
       }
     }
