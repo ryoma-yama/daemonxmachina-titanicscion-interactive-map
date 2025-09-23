@@ -332,7 +332,7 @@
       },
       "properties": {
         "id": "forest-027",
-        "name": "?Star",
+        "name": "Emblem: 5",
         "category": "decal"
       }
     },
@@ -347,7 +347,8 @@
       },
       "properties": {
         "id": "forest-028",
-        "name": "?Mushroom",
+        "name": "Graffiti: 1",
+        "description": "mid-wall of building",
         "category": "decal"
       }
     },
@@ -392,7 +393,8 @@
       },
       "properties": {
         "id": "forest-031",
-        "name": "?decal-b",
+        "name": "Hornet",
+        "description": "side of iron plate stuck in ground",
         "category": "decal"
       }
     },
@@ -456,6 +458,37 @@
         "id": "forest-035",
         "name": "Lapis Lacrima RT: Beta",
         "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          451,
+          446
+        ]
+      },
+      "properties": {
+        "id": "forest-036",
+        "name": "Hydra RT: Alpha",
+        "category": "enemy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          408,
+          311
+        ]
+      },
+      "properties": {
+        "id": "forest-037",
+        "name": "Duel: Card Keeper",
+        "category": "npc",
+        "description": "Rewards:\\n- Card: Bloodsucker\\n- Decal: Six"
       }
     }
   ]

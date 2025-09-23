@@ -407,7 +407,7 @@ export class MapView {
 		if (feature.properties.description?.trim()) {
 			const descriptionDiv = document.createElement("div");
 			descriptionDiv.className = "marker-description";
-			descriptionDiv.textContent = feature.properties.description;
+			descriptionDiv.innerHTML = feature.properties.description.replace(/\\n/g, "<br>");
 			container.appendChild(descriptionDiv);
 		}
 

@@ -114,13 +114,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1118,
-          495
+          1128,
+          490
         ]
       },
       "properties": {
         "id": "desert-013",
-        "name": "?decal-a",
+        "name": "Block Art: 5",
+        "description": "side of iron plate stuck in ground",
         "category": "decal"
       }
     }

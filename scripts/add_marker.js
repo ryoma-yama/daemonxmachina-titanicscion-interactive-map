@@ -11,6 +11,7 @@ export const VALID_CATEGORIES = Object.freeze([
   'enemy',
   'boss',
   'log',
+  'npc',
 ]);
 
 export const DEFAULT_MARKERS_DIR = 'public/assets/data/markers';
