@@ -1,6 +1,7 @@
 // Leaflet display functionality - View layer only
 
 import L from "leaflet";
+import { categoryItemLabels } from "./constants.js";
 import { createCategoryIcon } from "./icons.js";
 import { createShareUrl } from "./url-state.js";
 import { validateGeoJSONFeature } from "./validation.js";
@@ -497,6 +498,38 @@ export class MapView {
 				"<br>",
 			);
 			container.appendChild(descriptionDiv);
+		}
+
+		// Items list display based on category label
+		const itemsLabel = categoryItemLabels[feature.properties.category];
+		const items = [];
+		if (Array.isArray(feature.properties.items)) {
+			for (const rawItem of feature.properties.items) {
+				if (typeof rawItem !== "string") {
+					continue;
+				}
+				const trimmedItem = rawItem.trim();
+				if (trimmedItem) {
+					items.push(trimmedItem);
+				}
+			}
+		}
+
+		if (itemsLabel && items.length > 0) {
+			const itemsContainer = document.createElement("div");
+			itemsContainer.className = "marker-items";
+
+			const labelLine = document.createElement("div");
+			labelLine.textContent = `${itemsLabel}:`;
+			itemsContainer.appendChild(labelLine);
+
+			for (const item of items) {
+				const itemLine = document.createElement("div");
+				itemLine.textContent = `- ${item}`;
+				itemsContainer.appendChild(itemLine);
+			}
+
+			container.appendChild(itemsContainer);
 		}
 
 		// Collection status section

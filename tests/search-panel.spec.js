@@ -13,6 +13,62 @@ const captureConsole = (pageErrors) => (msg) => {
 };
 
 test.describe("search panel", () => {
+	test("search can find markers by item entry", async ({ page }) => {
+		const pageErrors = [];
+		page.on("pageerror", (error) => pageErrors.push(error));
+		page.on("console", captureConsole(pageErrors));
+
+		await page.route("**/assets/data/markers/desert.geojson", async (route) => {
+			const mockMarkers = {
+				type: "FeatureCollection",
+				features: [
+					{
+						type: "Feature",
+						geometry: {
+							type: "Point",
+							coordinates: [600, 600],
+						},
+						properties: {
+							id: "desert-test-001",
+							name: "Sealed Vault",
+							category: "dungeon",
+							description: "Guarded by automatons.",
+							items: ["Unique Relic"],
+						},
+					},
+				],
+			};
+
+			await route.fulfill({
+				status: 200,
+				contentType: "application/json",
+				body: JSON.stringify(mockMarkers),
+			});
+		});
+
+		await page.goto("/");
+
+		const toggleButton = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
+		await toggleButton.click();
+
+		const searchInput = page.getByPlaceholder("Search markers");
+		await searchInput.fill("relic");
+
+		const firstResult = page
+			.locator(".search-panel__result", { hasText: "Sealed Vault" })
+			.first();
+		await expect(firstResult).toBeVisible();
+
+		await expect(page.locator("#search-message")).toHaveText("1 result");
+
+		expect(
+			pageErrors,
+			"No errors expected when searching markers by item entry",
+		).toEqual([]);
+	});
+
 	test("single marker focus updates URL without errors", async ({ page }) => {
 		const pageErrors = [];
 		page.on("pageerror", (error) => pageErrors.push(error));
