@@ -488,7 +488,6 @@
         "id": "forest-037",
         "name": "Card Keeper",
         "category": "duelist",
-        "description": "Rewards:\\n- Card: Bloodsucker\\n- Decal: Six",
         "items": [
           "Card: Bloodsucker",
           "Decal: Six"
@@ -523,7 +522,10 @@
         "id": "forest-039",
         "name": "Enamored Card Player",
         "category": "duelist",
-        "description": "Rewards:\\n- Card: Avaron\\n- Decal: Seven"
+        "items": [
+          "Card: Avalon",
+          "Decal: Seven"
+        ]
       }
     },
     {
@@ -539,7 +541,11 @@
         "id": "forest-040",
         "name": "Colony Shop Owner",
         "category": "shop",
-        "description": "Cards:\\n- Berserk (Vambrace)\\n- Futsunushi (Vambrace)\\n- Strider X"
+        "items": [
+          "Card: Berserk (Vambrace)",
+          "Card: Futsunushi (Vambrace)",
+          "Card: Strider X"
+        ]
       }
     },
     {
