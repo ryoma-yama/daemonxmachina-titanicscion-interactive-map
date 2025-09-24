@@ -40,14 +40,14 @@ describe("FilterManager storage handling", () => {
                 manager.initializeCategories(["music", "card", "enemy"]);
 
                 expect(manager.getSelectedCategories()).toEqual([
-                        "music",
                         "card",
                         "enemy",
+                        "music",
                 ]);
                 expect(storage.getItem(FILTER_STORAGE_KEY)).toBe(
                         JSON.stringify({
-                                selected: ["music", "card", "enemy"],
-                                known: ["music", "card", "enemy"],
+                                selected: ["card", "enemy", "music"],
+                                known: ["card", "enemy", "music"],
                         }),
                 );
         });
@@ -61,11 +61,11 @@ describe("FilterManager storage handling", () => {
 
                 manager.initializeCategories(["music", "card"]);
 
-                expect(manager.getSelectedCategories()).toEqual(["music", "card"]);
+                expect(manager.getSelectedCategories()).toEqual(["card", "music"]);
                 expect(storage.getItem(FILTER_STORAGE_KEY)).toBe(
                         JSON.stringify({
-                                selected: ["music", "card"],
-                                known: ["music", "card"],
+                                selected: ["card", "music"],
+                                known: ["card", "music"],
                         }),
                 );
         });
@@ -84,6 +84,25 @@ describe("FilterManager storage handling", () => {
                         }),
                 );
         });
+
+        it("sorts categories alphabetically regardless of input order", () => {
+                const manager = new FilterManager({ storage, eventTarget });
+
+                manager.initializeCategories(["decal", "Music", "card", "boss"]);
+
+                expect(manager.getAvailableCategories()).toEqual([
+                        "boss",
+                        "card",
+                        "decal",
+                        "Music",
+                ]);
+                expect(manager.getSelectedCategories()).toEqual([
+                        "boss",
+                        "card",
+                        "decal",
+                        "Music",
+                ]);
+        });
 });
 
 describe("FilterManager state transitions", () => {
@@ -100,13 +119,13 @@ describe("FilterManager state transitions", () => {
 
         it("toggles individual categories", () => {
                 manager.toggleCategory("music");
-                expect(manager.getSelectedCategories()).toEqual(["card", "boss"]);
+                expect(manager.getSelectedCategories()).toEqual(["boss", "card"]);
 
                 manager.toggleCategory("music");
                 expect(manager.getSelectedCategories()).toEqual([
-                        "music",
-                        "card",
                         "boss",
+                        "card",
+                        "music",
                 ]);
         });
 
@@ -116,18 +135,18 @@ describe("FilterManager state transitions", () => {
 
                 manager.selectAll();
                 expect(manager.getSelectedCategories()).toEqual([
-                        "music",
-                        "card",
                         "boss",
+                        "card",
+                        "music",
                 ]);
         });
 
         it("ignores invalid categories during toggle", () => {
                 manager.toggleCategory("unknown");
                 expect(manager.getSelectedCategories()).toEqual([
-                        "music",
-                        "card",
                         "boss",
+                        "card",
+                        "music",
                 ]);
         });
 });
@@ -146,7 +165,7 @@ describe("FilterManager event dispatch", () => {
                 manager.toggleCategory("card");
 
                 expect(received).toEqual([
-                        ["music", "card"],
+                        ["card", "music"],
                         ["music"],
                 ]);
         });

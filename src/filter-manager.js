@@ -1,4 +1,4 @@
-const DEFAULT_STORAGE_KEY = "preferences.filter.categories:v1";
+const DEFAULT_STORAGE_KEY = "filter-categories:v1";
 
 function isStringArray(value) {
         return Array.isArray(value) && value.every((item) => typeof item === "string");
@@ -19,6 +19,20 @@ function normalizeCategoryList(categories) {
                 result.push(trimmed);
         });
         return result;
+}
+
+function sortCategoryList(categories) {
+        return [...categories].sort((a, b) => {
+                const aLower = a.toLowerCase();
+                const bLower = b.toLowerCase();
+                if (aLower < bLower) {
+                        return -1;
+                }
+                if (aLower > bLower) {
+                        return 1;
+                }
+                return a.localeCompare(b);
+        });
 }
 
 function createFilterChangedEvent(selectedCategories) {
@@ -67,7 +81,7 @@ export class FilterManager {
         }
 
         initializeCategories(categories) {
-                const normalized = normalizeCategoryList(categories);
+                const normalized = sortCategoryList(normalizeCategoryList(categories));
                 this.availableCategories = normalized;
 
                 let initial = this.initialSelection;
