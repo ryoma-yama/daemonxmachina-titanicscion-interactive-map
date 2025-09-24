@@ -2,6 +2,7 @@
 
 import L from "leaflet";
 import { createCategoryIcon } from "./icons.js";
+import { createShareUrl } from "./url-state.js";
 import { validateGeoJSONFeature } from "./validation.js";
 
 export class MapView {
@@ -73,7 +74,39 @@ export class MapView {
 						this.callbacks.onMapSwitch(mapId);
 					}
 				}
+				return;
 			}
+
+			const shareButton = e.target.closest(".share-link-button");
+			if (!shareButton) {
+				return;
+			}
+
+			const markerId = shareButton.getAttribute("data-marker-id");
+			const mapId =
+				shareButton.getAttribute("data-map-id") || this.currentMapId;
+			if (!markerId || !mapId) {
+				return;
+			}
+
+			if (!navigator.clipboard?.writeText) {
+				this.showNotification("Failed to copy link", { type: "error" });
+				return;
+			}
+
+			const zoom = this.getZoomLevel();
+			const shareUrl = createShareUrl({ mapId, markerId, zoom });
+
+			navigator.clipboard
+				.writeText(shareUrl)
+				.then(() => {
+					this.showNotification("Link copied!");
+				})
+				.catch(() => {
+					this.showNotification("Failed to copy link", {
+						type: "error",
+					});
+				});
 		});
 
 		// Event delegation for popup checkbox interactions
@@ -484,7 +517,32 @@ export class MapView {
 
 		label.appendChild(checkbox);
 		label.appendChild(labelText);
+
+		const shareButton = document.createElement("button");
+		shareButton.type = "button";
+		shareButton.className = "share-link-button";
+		shareButton.setAttribute("aria-label", "Copy marker link");
+		shareButton.setAttribute("data-marker-id", feature.properties.id);
+		if (this.currentMapId) {
+			shareButton.setAttribute("data-map-id", this.currentMapId);
+		}
+
+		const tooltipId = `share-tooltip-${feature.properties.id}`;
+		shareButton.setAttribute("aria-describedby", tooltipId);
+
+		const iconSpan = document.createElement("span");
+		iconSpan.className = "share-link-button__icon";
+		shareButton.appendChild(iconSpan);
+
+		const tooltip = document.createElement("span");
+		tooltip.id = tooltipId;
+		tooltip.className = "share-link-button__tooltip";
+		tooltip.setAttribute("role", "tooltip");
+		tooltip.textContent = "Copy link";
+		shareButton.appendChild(tooltip);
+
 		statusDiv.appendChild(label);
+		statusDiv.appendChild(shareButton);
 		container.appendChild(statusDiv);
 
 		return container.outerHTML;

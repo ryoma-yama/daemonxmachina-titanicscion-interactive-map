@@ -11,6 +11,28 @@ function getCurrentUrl() {
 	return new URL(window.location.href);
 }
 
+function applyStateToUrl(url, { mapId, markerId, zoom }) {
+	if (mapId === null) {
+		url.searchParams.delete(MAP_PARAM);
+	} else if (mapId && isValidMapId(mapId)) {
+		url.searchParams.set(MAP_PARAM, mapId);
+	}
+
+	if (markerId === null) {
+		url.searchParams.delete(MARKER_PARAM);
+	} else if (markerId && validateMarkerId(markerId)) {
+		url.searchParams.set(MARKER_PARAM, markerId);
+	}
+
+	if (zoom === null) {
+		url.searchParams.delete(ZOOM_PARAM);
+	} else if (typeof zoom === "number" && Number.isFinite(zoom)) {
+		url.searchParams.set(ZOOM_PARAM, zoom.toString());
+	}
+
+	return url;
+}
+
 function sanitizeZoomParam(value) {
 	const parsed = Number.parseFloat(value);
 	return Number.isFinite(parsed) ? parsed : null;
@@ -48,29 +70,20 @@ export function updateUrlState({ mapId, markerId, zoom }) {
 		return;
 	}
 
-	const url = getCurrentUrl();
-
-	if (mapId === null) {
-		url.searchParams.delete(MAP_PARAM);
-	} else if (mapId && isValidMapId(mapId)) {
-		url.searchParams.set(MAP_PARAM, mapId);
-	}
-
-	if (markerId === null) {
-		url.searchParams.delete(MARKER_PARAM);
-	} else if (markerId && validateMarkerId(markerId)) {
-		url.searchParams.set(MARKER_PARAM, markerId);
-	}
-
-	if (zoom === null) {
-		url.searchParams.delete(ZOOM_PARAM);
-	} else if (typeof zoom === "number" && Number.isFinite(zoom)) {
-		url.searchParams.set(ZOOM_PARAM, zoom.toString());
-	}
+	const url = applyStateToUrl(getCurrentUrl(), { mapId, markerId, zoom });
 
 	const newUrl = `${url.pathname}${url.search}${url.hash}`;
 	const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
 	if (newUrl !== current) {
 		history.replaceState(null, "", newUrl);
 	}
+}
+
+export function createShareUrl({ mapId, markerId, zoom }) {
+	if (typeof window === "undefined") {
+		return "";
+	}
+
+	const url = applyStateToUrl(getCurrentUrl(), { mapId, markerId, zoom });
+	return url.toString();
 }
