@@ -58,6 +58,13 @@ test.describe("hide collected toggle", () => {
 			"No markers found",
 		);
 
+		await page.evaluate(() => {
+			const url = new URL(window.location.href);
+			url.searchParams.delete("marker");
+			url.searchParams.delete("zoom");
+			history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+		});
+
 		await page.reload();
 
 		const hideToggleAfterReload = page.getByTestId("hide-toggle");
