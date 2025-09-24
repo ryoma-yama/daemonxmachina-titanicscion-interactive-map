@@ -593,6 +593,123 @@
         "name": "Apple",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          394,
+          356
+        ]
+      },
+      "properties": {
+        "id": "forest-044",
+        "name": "Line Art: 7",
+        "category": "decal",
+        "description": "side of iron plate stuck in ground"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          446,
+          347
+        ]
+      },
+      "properties": {
+        "id": "forest-045",
+        "name": "Colony Shop Owner",
+        "category": "shop",
+        "items": [
+          "Card: Hell Banshee",
+          "Card: Nightingale",
+          "Card: Raging Gluttony",
+          "Card: Flamberge (Cuirass)",
+          "Card: Glaive (Greaves)"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          724,
+          271
+        ]
+      },
+      "properties": {
+        "id": "forest-046",
+        "name": "Explorer's Notes 4-1",
+        "category": "log",
+        "description": "on overpass"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          709,
+          345
+        ]
+      },
+      "properties": {
+        "id": "forest-047",
+        "name": "Line Art: 15",
+        "category": "decal",
+        "description": "on upward rubble"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          481,
+          970
+        ]
+      },
+      "properties": {
+        "id": "forest-048",
+        "name": "Emblem: 4",
+        "category": "decal",
+        "description": "on rooftop"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          987,
+          976
+        ]
+      },
+      "properties": {
+        "id": "forest-049",
+        "name": "Block Art: 3",
+        "category": "decal",
+        "description": "mid-wall of building"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          492,
+          126
+        ]
+      },
+      "properties": {
+        "id": "forest-050",
+        "name": "Emblem: 22",
+        "category": "decal"
+      }
     }
   ]
 }

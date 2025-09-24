@@ -806,6 +806,252 @@
         "name": "No.041-A Memorial Monument",
         "category": "log"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          450,
+          254
+        ]
+      },
+      "properties": {
+        "id": "desert-059",
+        "name": "Colony Shop Owner",
+        "category": "shop",
+        "items": [
+          "Card: Absolute Zero",
+          "Card: Futsunomitama",
+          "Card: Demolishing Edge"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          460,
+          254
+        ]
+      },
+      "properties": {
+        "id": "desert-060",
+        "name": "Forge",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          470,
+          254
+        ]
+      },
+      "properties": {
+        "id": "desert-061",
+        "name": "Crius (Vambrace)",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          276,
+          420
+        ]
+      },
+      "properties": {
+        "id": "desert-062",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          308,
+          310
+        ]
+      },
+      "properties": {
+        "id": "desert-063",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          327,
+          517
+        ]
+      },
+      "properties": {
+        "id": "desert-064",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          445,
+          553
+        ]
+      },
+      "properties": {
+        "id": "desert-065",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1008,
+          412
+        ]
+      },
+      "properties": {
+        "id": "desert-066",
+        "name": "Pistis Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1078,
+          352
+        ]
+      },
+      "properties": {
+        "id": "desert-067",
+        "name": "Pistis Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1036,
+          862
+        ]
+      },
+      "properties": {
+        "id": "desert-068",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1036,
+          688
+        ]
+      },
+      "properties": {
+        "id": "desert-069",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1133,
+          1022
+        ]
+      },
+      "properties": {
+        "id": "desert-070",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1101,
+          923
+        ]
+      },
+      "properties": {
+        "id": "desert-071",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          189,
+          839
+        ]
+      },
+      "properties": {
+        "id": "desert-072",
+        "name": "Emblem: 1",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          583,
+          1141
+        ]
+      },
+      "properties": {
+        "id": "desert-073",
+        "name": "Banana",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1003,
+          898
+        ]
+      },
+      "properties": {
+        "id": "desert-074",
+        "name": "Emblem: 23",
+        "category": "decal",
+        "description": "leaning building top wall"
+      }
     }
   ]
 }
