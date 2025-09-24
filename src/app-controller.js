@@ -1,6 +1,8 @@
 // Application controller - Coordinator between all components
 
 import { CollectionManager } from "./collection-store.js";
+import { FilterManager } from "./filter-manager.js";
+import { FilterPane } from "./filter-pane.js";
 import {
 	getAllMapIds,
 	getInitialMapId,
@@ -22,6 +24,7 @@ export class AppController {
 		this.collectionManagers = new Map();
 		this.markerLoadPromise = Promise.resolve(false);
 		this.hideCollected = loadHideCollectedPreference();
+		this.filterManager = new FilterManager();
 
 		// Initialize collection managers for all maps
 		getAllMapIds().forEach((mapId) => {
@@ -36,8 +39,17 @@ export class AppController {
 				this.handleRecordingModeToggle(isRecording),
 		});
 
-		this.searchPanel = new SearchPanel({ appController: this });
+		this.searchPanel = new SearchPanel({
+			appController: this,
+			filterManager: this.filterManager,
+		});
 		this.searchPanel.setHideCollectedState(this.hideCollected);
+		this.filterPane = new FilterPane({ filterManager: this.filterManager });
+
+		document.addEventListener("filter:changed", (event) => {
+			const selected = event.detail?.selectedCategories ?? [];
+			this.handleFilterChanged(selected);
+		});
 
 		// Load initial map and optionally focus marker from URL state
 		void this.switchToMap(this.currentMapId, {
@@ -72,6 +84,12 @@ export class AppController {
 			collectionManager,
 		);
 		const markersLoaded = await this.markerLoadPromise;
+
+		if (this.filterManager.isReady()) {
+			this.mapView.setActiveCategories(
+				this.filterManager.getSelectedCategories(),
+			);
+		}
 
 		let focused = false;
 		if (markersLoaded && focusMarkerId) {
@@ -127,6 +145,11 @@ export class AppController {
 
 	handleRecordingModeToggle(_isRecording) {
 		// Intentionally left blank; implement if needed
+	}
+
+	handleFilterChanged(selectedCategories) {
+		this.mapView.setActiveCategories(selectedCategories);
+		void this.searchPanel.refreshResults();
 	}
 
 	getHideCollected() {

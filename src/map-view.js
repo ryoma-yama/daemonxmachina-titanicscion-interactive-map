@@ -15,6 +15,7 @@ export class MapView {
 		this.markerFetchToken = null;
 		this.currentCollectionState = null;
 		this.hideCollected = false;
+		this.activeCategories = null;
 
 		// Recording mode state
 		this.isRecordingMode = false;
@@ -321,7 +322,7 @@ export class MapView {
 				return false;
 			}
 
-			this.applyHideCollected();
+			this.applyVisibilityFilters();
 			this.currentMarkerLayer.addTo(this.map);
 			console.log(
 				`GeoJSON markers loaded successfully for ${this.currentMapId}`,
@@ -472,7 +473,7 @@ export class MapView {
 				checkbox.checked = isCollected;
 			}
 
-			this.updateMarkerVisibility(markerId, isCollected);
+			this.updateMarkerVisibility(markerId);
 		}
 	}
 
@@ -493,21 +494,31 @@ export class MapView {
 		if (collectionState) {
 			this.currentCollectionState = collectionState;
 		}
-		this.applyHideCollected();
+		this.applyVisibilityFilters();
 	}
 
-	applyHideCollected() {
-		if (!this.currentMarkerLayer || !this.currentCollectionState) {
+	setActiveCategories(categories) {
+		if (Array.isArray(categories)) {
+			this.activeCategories = new Set(categories);
+		} else if (categories === null) {
+			this.activeCategories = null;
+		} else {
+			this.activeCategories = new Set();
+		}
+		this.applyVisibilityFilters();
+	}
+
+	applyVisibilityFilters() {
+		if (!this.currentMarkerLayer) {
 			return;
 		}
 
 		this.markerRefs.forEach((_marker, markerId) => {
-			const isCollected = this.currentCollectionState.isCollected(markerId);
-			this.updateMarkerVisibility(markerId, isCollected);
+			this.updateMarkerVisibility(markerId);
 		});
 	}
 
-	updateMarkerVisibility(markerId, isCollected) {
+	updateMarkerVisibility(markerId) {
 		if (!this.currentMarkerLayer) {
 			return;
 		}
@@ -517,7 +528,13 @@ export class MapView {
 			return;
 		}
 
-		const shouldHide = this.hideCollected && isCollected;
+		const category = marker.feature?.properties?.category;
+		const isCollected = this.currentCollectionState
+			? this.currentCollectionState.isCollected(markerId)
+			: false;
+		const categoryAllowed =
+			!this.activeCategories || this.activeCategories.has(category);
+		const shouldHide = !categoryAllowed || (this.hideCollected && isCollected);
 		const hasLayer = this.currentMarkerLayer.hasLayer(marker);
 
 		if (shouldHide && hasLayer) {

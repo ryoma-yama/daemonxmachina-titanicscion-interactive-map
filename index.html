@@ -109,11 +109,25 @@
         aria-label="Toggle search panel" type="button">
         <span class="search-toggle-control__icon" aria-hidden="true"></span>
       </button>
+      <button id="filter-toggle" class="search-toggle-control__button filter-toggle-control__button"
+        aria-expanded="false" aria-controls="filter-pane" aria-label="Toggle category filters" type="button"
+        data-testid="filter-toggle">
+        <span class="filter-toggle-control__icon" aria-hidden="true"></span>
+      </button>
       <button id="hide-collected-toggle" class="search-toggle-control__button hide-toggle-control__button"
         data-testid="hide-toggle" aria-pressed="false" aria-label="Hide collected markers" type="button">
         <span class="hide-toggle-control__icon" aria-hidden="true"></span>
       </button>
     </div>
+    <aside id="filter-pane" class="filter-pane" aria-hidden="true" aria-label="Marker category filters" hidden inert
+      data-testid="filter-pane">
+      <div class="filter-pane__actions">
+        <button type="button" class="filter-pane__action-button" data-testid="filter-all">All</button>
+        <button type="button" class="filter-pane__action-button" data-testid="filter-none">None</button>
+      </div>
+      <ul class="filter-pane__list" role="list"></ul>
+      <div class="filter-pane__live" aria-live="polite" aria-atomic="true"></div>
+    </aside>
 
     <!-- Footer -->
     <footer class="site-footer">

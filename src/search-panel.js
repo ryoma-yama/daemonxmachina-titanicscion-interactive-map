@@ -16,10 +16,11 @@ function normalizeText(text) {
 }
 
 export class SearchPanel {
-	constructor({ appController }) {
+	constructor({ appController, filterManager }) {
 		this.appController = appController;
 		this.mapView = appController.mapView;
 		this.map = this.mapView.getLeafletMap();
+		this.filterManager = filterManager;
 
 		this.isPanelOpen = false;
 		this.markerIndex = [];
@@ -83,6 +84,10 @@ export class SearchPanel {
 			this.appController.setHideCollected(nextState);
 		});
 
+		document.addEventListener("filter:changed", () => {
+			void this.refreshResults();
+		});
+
 		L.DomEvent.disableClickPropagation(this.toggleButton);
 		L.DomEvent.disableScrollPropagation(this.toggleButton);
 		L.DomEvent.disableClickPropagation(this.hideToggleButton);
@@ -104,6 +109,7 @@ export class SearchPanel {
 	async loadMarkerIndex() {
 		const entries = Object.entries(mapDefinitions);
 		const index = [];
+		const categoriesInOrder = [];
 
 		await Promise.all(
 			entries.map(async ([mapId, definition]) => {
@@ -142,6 +148,10 @@ export class SearchPanel {
 							descriptionNormalized: normalizeText(description),
 							iconUrl,
 						});
+
+						if (!categoriesInOrder.includes(category)) {
+							categoriesInOrder.push(category);
+						}
 					});
 				} catch (error) {
 					console.error(`Failed to load markers for ${mapId}:`, error);
@@ -154,6 +164,10 @@ export class SearchPanel {
 		this.messageElement.textContent = index.length
 			? "Type to search markers"
 			: "No markers available";
+
+		if (this.filterManager && categoriesInOrder.length) {
+			this.filterManager.initializeCategories(categoriesInOrder);
+		}
 	}
 
 	getFilteredMarkers(query) {
@@ -212,6 +226,7 @@ export class SearchPanel {
 		results.forEach((entry) => {
 			const item = document.createElement("li");
 			item.className = "search-panel__result";
+			item.setAttribute("data-testid", "search-result-item");
 			item.dataset.mapId = entry.mapId;
 			item.dataset.markerId = entry.markerId;
 			item.title = `${entry.name} (${entry.category})`;
@@ -312,6 +327,13 @@ export class SearchPanel {
 	}
 
 	shouldIncludeEntry(entry) {
+		if (
+			this.filterManager &&
+			!this.filterManager.shouldIncludeCategory(entry.category)
+		) {
+			return false;
+		}
+
 		if (!this.hideCollected) {
 			return true;
 		}
