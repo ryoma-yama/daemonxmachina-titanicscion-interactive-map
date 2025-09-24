@@ -6,9 +6,6 @@ function formatCategoryLabel(category) {
 	if (typeof category !== "string" || !category.length) {
 		return "Unknown";
 	}
-	if (category.toLowerCase() === "npc") {
-		return "NPC";
-	}
 	return category
 		.split(/[\s_-]+/)
 		.filter(Boolean)

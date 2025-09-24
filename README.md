@@ -119,6 +119,7 @@ The application includes a "Recording mode" for easily capturing marker coordina
   - Rhombus
   - Square
   - Square Check
+  - Cart Shopping
 - Card Casino Games — SVG Repo — [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## License

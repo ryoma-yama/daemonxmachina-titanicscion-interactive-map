@@ -70,13 +70,13 @@ describe("FilterManager storage handling", () => {
 		storage.setItem(FILTER_STORAGE_KEY, "not-json");
 		const manager = new FilterManager({ storage, eventTarget });
 
-		manager.initializeCategories(["boss", "npc"]);
+		manager.initializeCategories(["boss", "duelist"]);
 
-		expect(manager.getSelectedCategories()).toEqual(["boss", "npc"]);
+		expect(manager.getSelectedCategories()).toEqual(["boss", "duelist"]);
 		expect(storage.getItem(FILTER_STORAGE_KEY)).toBe(
 			JSON.stringify({
-				selected: ["boss", "npc"],
-				known: ["boss", "npc"],
+				selected: ["boss", "duelist"],
+				known: ["boss", "duelist"],
 			}),
 		);
 

@@ -7,5 +7,6 @@ export const colors = {
 	boss: "#FF0000",
 	dungeon: "#800080",
 	log: "#FF6E00",
-	npc: "#1E90FF",
+	duelist: "#1E90FF",
+	shop: "#1E90FF",
 };

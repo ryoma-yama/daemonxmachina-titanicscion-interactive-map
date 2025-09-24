@@ -486,9 +486,13 @@
       },
       "properties": {
         "id": "forest-037",
-        "name": "Duel: Card Keeper",
-        "category": "npc",
-        "description": "Rewards:\\n- Card: Bloodsucker\\n- Decal: Six"
+        "name": "Card Keeper",
+        "category": "duelist",
+        "description": "Rewards:\\n- Card: Bloodsucker\\n- Decal: Six",
+        "items": [
+          "Card: Bloodsucker",
+          "Decal: Six"
+        ]
       }
     },
     {
@@ -517,8 +521,8 @@
       },
       "properties": {
         "id": "forest-039",
-        "name": "Duel: Enamored Card Player",
-        "category": "npc",
+        "name": "Enamored Card Player",
+        "category": "duelist",
         "description": "Rewards:\\n- Card: Avaron\\n- Decal: Seven"
       }
     },
@@ -533,8 +537,8 @@
       },
       "properties": {
         "id": "forest-040",
-        "name": "Shop: Colony Shop Owner",
-        "category": "npc",
+        "name": "Colony Shop Owner",
+        "category": "shop",
         "description": "Cards:\\n- Berserk (Vambrace)\\n- Futsunushi (Vambrace)\\n- Strider X"
       }
     },
