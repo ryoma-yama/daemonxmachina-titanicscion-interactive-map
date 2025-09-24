@@ -9,7 +9,7 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 - Screenshots, map images, and other in-game assets are used in accordance with the official guidelines.
 - Please check the official guidelines (Japanese): [Video / Streaming / Screenshot Guidelines](https://jp.daemonxmachina.com/titanicscion/news/article/32682) (Last checked: 2025-09-21)
 
-Detailed credits, asset licenses, and support information are available on the [About page](./about.html).
+Detailed credits and support information are available on the [About page](./about.html).
 
 ## Features
 - Interactive maps for Forest, Desert, and Mountains areas
@@ -100,6 +100,24 @@ The application includes a "Recording mode" for easily capturing marker coordina
 1. Add image to `public/assets/maps/`
 2. Update `mapDefinitions` in `src/map-definitions.js`
 3. Create corresponding GeoJSON file in `public/assets/data/markers/`
+
+## Assets License
+
+- Dungeon Solid — Icons8 — [MIT](https://opensource.org/licenses/MIT)
+- Dazzle UI — [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+  - Music 186
+  - File Alt 8
+  - Search
+  - Xmark
+  - User Alt 1
+  - Eye Slash Alt
+  - Eye Alt
+  - Filter
+  - Link Alt 1
+  - Circle
+  - Triangle
+  - Rhombus
+- Card Casino Games — SVG Repo — [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## License
 - The **source code** of this repository is licensed under the [MIT License](./LICENSE).
