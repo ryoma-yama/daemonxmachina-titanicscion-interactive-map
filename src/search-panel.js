@@ -16,15 +16,16 @@ function normalizeText(text) {
 }
 
 export class SearchPanel {
-	constructor({ appController }) {
-		this.appController = appController;
-		this.mapView = appController.mapView;
-		this.map = this.mapView.getLeafletMap();
+        constructor({ appController, filterManager }) {
+                this.appController = appController;
+                this.mapView = appController.mapView;
+                this.map = this.mapView.getLeafletMap();
+                this.filterManager = filterManager;
 
 		this.isPanelOpen = false;
 		this.markerIndex = [];
-		this.indexPromise = this.loadMarkerIndex();
-		this.hideCollected = false;
+                this.indexPromise = this.loadMarkerIndex();
+                this.hideCollected = false;
 
 		this.panelElement = document.getElementById("search-panel");
 		this.searchInput = document.getElementById("search-input");
@@ -76,12 +77,16 @@ export class SearchPanel {
 			}
 		});
 
-		this.hideToggleButton.addEventListener("click", (event) => {
-			event.preventDefault();
-			event.stopPropagation();
-			const nextState = !this.appController.getHideCollected();
-			this.appController.setHideCollected(nextState);
-		});
+                this.hideToggleButton.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        const nextState = !this.appController.getHideCollected();
+                        this.appController.setHideCollected(nextState);
+                });
+
+                document.addEventListener("filter:changed", () => {
+                        void this.refreshResults();
+                });
 
 		L.DomEvent.disableClickPropagation(this.toggleButton);
 		L.DomEvent.disableScrollPropagation(this.toggleButton);
@@ -103,7 +108,8 @@ export class SearchPanel {
 
 	async loadMarkerIndex() {
 		const entries = Object.entries(mapDefinitions);
-		const index = [];
+                const index = [];
+                const categoriesInOrder = [];
 
 		await Promise.all(
 			entries.map(async ([mapId, definition]) => {
@@ -117,44 +123,52 @@ export class SearchPanel {
 						throw new Error("Invalid GeoJSON structure");
 					}
 
-					data.features.forEach((feature, featureIndex) => {
-						if (!validateGeoJSONFeature(feature)) {
-							console.warn(
-								`Skipping invalid search feature ${mapId}#${featureIndex}`,
-							);
-							return;
-						}
+                                        data.features.forEach((feature, featureIndex) => {
+                                                if (!validateGeoJSONFeature(feature)) {
+                                                        console.warn(
+                                                                `Skipping invalid search feature ${mapId}#${featureIndex}`,
+                                                        );
+                                                        return;
+                                                }
 
-						const props = feature.properties;
-						const name = props.name || props.id;
-						const category = props.category || "unknown";
-						const description = props.description || "";
-						const iconUrl = getAssetPath(`/assets/icons/${category}.svg`);
+                                                const props = feature.properties;
+                                                const name = props.name || props.id;
+                                                const category = props.category || "unknown";
+                                                const description = props.description || "";
+                                                const iconUrl = getAssetPath(`/assets/icons/${category}.svg`);
 
-						index.push({
-							mapId,
-							markerId: props.id,
-							name,
-							nameNormalized: normalizeText(name),
-							category,
-							categoryNormalized: normalizeText(category),
-							description,
-							descriptionNormalized: normalizeText(description),
-							iconUrl,
-						});
-					});
-				} catch (error) {
-					console.error(`Failed to load markers for ${mapId}:`, error);
-				}
+                                                index.push({
+                                                        mapId,
+                                                        markerId: props.id,
+                                                        name,
+                                                        nameNormalized: normalizeText(name),
+                                                        category,
+                                                        categoryNormalized: normalizeText(category),
+                                                        description,
+                                                        descriptionNormalized: normalizeText(description),
+                                                        iconUrl,
+                                                });
+
+                                                if (!categoriesInOrder.includes(category)) {
+                                                        categoriesInOrder.push(category);
+                                                }
+                                        });
+                                } catch (error) {
+                                        console.error(`Failed to load markers for ${mapId}:`, error);
+                                }
 			}),
 		);
 
 		index.sort((a, b) => a.name.localeCompare(b.name));
-		this.markerIndex = index;
-		this.messageElement.textContent = index.length
-			? "Type to search markers"
-			: "No markers available";
-	}
+                this.markerIndex = index;
+                this.messageElement.textContent = index.length
+                        ? "Type to search markers"
+                        : "No markers available";
+
+                if (this.filterManager && categoriesInOrder.length) {
+                        this.filterManager.initializeCategories(categoriesInOrder);
+                }
+        }
 
 	getFilteredMarkers(query) {
 		const normalized = normalizeText(query);
@@ -162,16 +176,16 @@ export class SearchPanel {
 			return [];
 		}
 
-		return this.markerIndex
-			.filter(
+                return this.markerIndex
+                        .filter(
 				(entry) =>
 					entry.nameNormalized.includes(normalized) ||
 					entry.categoryNormalized.includes(normalized) ||
 					entry.descriptionNormalized.includes(normalized),
 			)
-			.filter((entry) => this.shouldIncludeEntry(entry))
-			.slice(0, MAX_RESULTS);
-	}
+                        .filter((entry) => this.shouldIncludeEntry(entry))
+                        .slice(0, MAX_RESULTS);
+        }
 
 	async handleSearchInput() {
 		const query = this.searchInput.value;
@@ -209,10 +223,11 @@ export class SearchPanel {
 			results.length === 1 ? "" : "s"
 		}`;
 
-		results.forEach((entry) => {
-			const item = document.createElement("li");
-			item.className = "search-panel__result";
-			item.dataset.mapId = entry.mapId;
+                results.forEach((entry) => {
+                        const item = document.createElement("li");
+                        item.className = "search-panel__result";
+                        item.setAttribute("data-testid", "search-result-item");
+                        item.dataset.mapId = entry.mapId;
 			item.dataset.markerId = entry.markerId;
 			item.title = `${entry.name} (${entry.category})`;
 
@@ -312,10 +327,14 @@ export class SearchPanel {
 	}
 
 	shouldIncludeEntry(entry) {
-		if (!this.hideCollected) {
-			return true;
-		}
-		return !this.appController.isMarkerCollected(entry.mapId, entry.markerId);
+                if (this.filterManager && !this.filterManager.shouldIncludeCategory(entry.category)) {
+                        return false;
+                }
+
+                if (!this.hideCollected) {
+                        return true;
+                }
+                return !this.appController.isMarkerCollected(entry.mapId, entry.markerId);
 	}
 
 	setHideCollectedState(hideCollected) {

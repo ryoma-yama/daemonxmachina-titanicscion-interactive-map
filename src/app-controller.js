@@ -14,14 +14,17 @@ import {
 } from "./preferences-store.js";
 import { SearchPanel } from "./search-panel.js";
 import { parseUrlState, updateUrlState } from "./url-state.js";
+import { FilterManager } from "./filter-manager.js";
+import { FilterPane } from "./filter-pane.js";
 
 export class AppController {
 	constructor() {
 		this.urlState = parseUrlState();
 		this.currentMapId = this.urlState.mapId || getInitialMapId();
-		this.collectionManagers = new Map();
-		this.markerLoadPromise = Promise.resolve(false);
-		this.hideCollected = loadHideCollectedPreference();
+                this.collectionManagers = new Map();
+                this.markerLoadPromise = Promise.resolve(false);
+                this.hideCollected = loadHideCollectedPreference();
+                this.filterManager = new FilterManager();
 
 		// Initialize collection managers for all maps
 		getAllMapIds().forEach((mapId) => {
@@ -36,8 +39,17 @@ export class AppController {
 				this.handleRecordingModeToggle(isRecording),
 		});
 
-		this.searchPanel = new SearchPanel({ appController: this });
-		this.searchPanel.setHideCollectedState(this.hideCollected);
+                this.searchPanel = new SearchPanel({
+                        appController: this,
+                        filterManager: this.filterManager,
+                });
+                this.searchPanel.setHideCollectedState(this.hideCollected);
+                this.filterPane = new FilterPane({ filterManager: this.filterManager });
+
+                document.addEventListener("filter:changed", (event) => {
+                        const selected = event.detail?.selectedCategories ?? [];
+                        this.handleFilterChanged(selected);
+                });
 
 		// Load initial map and optionally focus marker from URL state
 		void this.switchToMap(this.currentMapId, {
@@ -67,11 +79,17 @@ export class AppController {
 
 		const collectionManager = this.getCurrentCollectionManager();
 		this.mapView.setHideCollected(this.hideCollected, collectionManager);
-		this.markerLoadPromise = this.mapView.loadMarkers(
-			mapDefinition.markersPath,
-			collectionManager,
-		);
-		const markersLoaded = await this.markerLoadPromise;
+                this.markerLoadPromise = this.mapView.loadMarkers(
+                        mapDefinition.markersPath,
+                        collectionManager,
+                );
+                const markersLoaded = await this.markerLoadPromise;
+
+                if (this.filterManager.isReady()) {
+                        this.mapView.setActiveCategories(
+                                this.filterManager.getSelectedCategories(),
+                        );
+                }
 
 		let focused = false;
 		if (markersLoaded && focusMarkerId) {
@@ -125,9 +143,14 @@ export class AppController {
 		}
 	}
 
-	handleRecordingModeToggle(_isRecording) {
-		// Intentionally left blank; implement if needed
-	}
+        handleRecordingModeToggle(_isRecording) {
+                // Intentionally left blank; implement if needed
+        }
+
+        handleFilterChanged(selectedCategories) {
+                this.mapView.setActiveCategories(selectedCategories);
+                void this.searchPanel.refreshResults();
+        }
 
 	getHideCollected() {
 		return this.hideCollected;

@@ -11,10 +11,11 @@ export class MapView {
 		this.currentMapId = null;
 		this.markerRefs = new Map();
 		this.currentImageOverlay = null;
-		this.currentMarkerLayer = null;
-		this.markerFetchToken = null;
-		this.currentCollectionState = null;
-		this.hideCollected = false;
+                this.currentMarkerLayer = null;
+                this.markerFetchToken = null;
+                this.currentCollectionState = null;
+                this.hideCollected = false;
+                this.activeCategories = null;
 
 		// Recording mode state
 		this.isRecordingMode = false;
@@ -321,7 +322,7 @@ export class MapView {
 				return false;
 			}
 
-			this.applyHideCollected();
+                        this.applyVisibilityFilters();
 			this.currentMarkerLayer.addTo(this.map);
 			console.log(
 				`GeoJSON markers loaded successfully for ${this.currentMapId}`,
@@ -472,9 +473,9 @@ export class MapView {
 				checkbox.checked = isCollected;
 			}
 
-			this.updateMarkerVisibility(markerId, isCollected);
-		}
-	}
+                        this.updateMarkerVisibility(markerId);
+                }
+        }
 
 	getCurrentMapId() {
 		return this.currentMapId;
@@ -488,37 +489,53 @@ export class MapView {
 		return this.map;
 	}
 
-	setHideCollected(hideCollected, collectionState) {
-		this.hideCollected = Boolean(hideCollected);
-		if (collectionState) {
-			this.currentCollectionState = collectionState;
-		}
-		this.applyHideCollected();
-	}
+        setHideCollected(hideCollected, collectionState) {
+                this.hideCollected = Boolean(hideCollected);
+                if (collectionState) {
+                        this.currentCollectionState = collectionState;
+                }
+                this.applyVisibilityFilters();
+        }
 
-	applyHideCollected() {
-		if (!this.currentMarkerLayer || !this.currentCollectionState) {
-			return;
-		}
+        setActiveCategories(categories) {
+                if (Array.isArray(categories)) {
+                        this.activeCategories = new Set(categories);
+                } else if (categories === null) {
+                        this.activeCategories = null;
+                } else {
+                        this.activeCategories = new Set();
+                }
+                this.applyVisibilityFilters();
+        }
 
-		this.markerRefs.forEach((_marker, markerId) => {
-			const isCollected = this.currentCollectionState.isCollected(markerId);
-			this.updateMarkerVisibility(markerId, isCollected);
-		});
-	}
+        applyVisibilityFilters() {
+                if (!this.currentMarkerLayer) {
+                        return;
+                }
 
-	updateMarkerVisibility(markerId, isCollected) {
-		if (!this.currentMarkerLayer) {
-			return;
-		}
+                this.markerRefs.forEach((_marker, markerId) => {
+                        this.updateMarkerVisibility(markerId);
+                });
+        }
 
-		const marker = this.markerRefs.get(markerId);
-		if (!marker) {
-			return;
-		}
+        updateMarkerVisibility(markerId) {
+                if (!this.currentMarkerLayer) {
+                        return;
+                }
 
-		const shouldHide = this.hideCollected && isCollected;
-		const hasLayer = this.currentMarkerLayer.hasLayer(marker);
+                const marker = this.markerRefs.get(markerId);
+                if (!marker) {
+                        return;
+                }
+
+                const category = marker.feature?.properties?.category;
+                const isCollected = this.currentCollectionState
+                        ? this.currentCollectionState.isCollected(markerId)
+                        : false;
+                const categoryAllowed =
+                        !this.activeCategories || this.activeCategories.has(category);
+                const shouldHide = !categoryAllowed || (this.hideCollected && isCollected);
+                const hasLayer = this.currentMarkerLayer.hasLayer(marker);
 
 		if (shouldHide && hasLayer) {
 			this.currentMarkerLayer.removeLayer(marker);
