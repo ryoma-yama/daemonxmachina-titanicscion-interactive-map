@@ -10,3 +10,10 @@ export const colors = {
 	duelist: "#1E90FF",
 	shop: "#1E90FF",
 };
+
+export const categoryItemLabels = {
+	duelist: "Rewards",
+	enemy: "Drops",
+	dungeon: "Loot",
+	shop: "Items",
+};

@@ -135,6 +135,21 @@ export class SearchPanel {
 						const name = props.name || props.id;
 						const category = props.category || "unknown";
 						const description = props.description || "";
+						const items = [];
+						const itemsNormalized = [];
+						if (Array.isArray(props.items)) {
+							for (const rawItem of props.items) {
+								if (typeof rawItem !== "string") {
+									continue;
+								}
+								const trimmedItem = rawItem.trim();
+								if (!trimmedItem) {
+									continue;
+								}
+								items.push(trimmedItem);
+								itemsNormalized.push(normalizeText(trimmedItem));
+							}
+						}
 						const iconUrl = getAssetPath(`/assets/icons/${category}.svg`);
 
 						index.push({
@@ -146,6 +161,8 @@ export class SearchPanel {
 							categoryNormalized: normalizeText(category),
 							description,
 							descriptionNormalized: normalizeText(description),
+							items,
+							itemsNormalized,
 							iconUrl,
 						});
 
@@ -177,12 +194,19 @@ export class SearchPanel {
 		}
 
 		return this.markerIndex
-			.filter(
-				(entry) =>
-					entry.nameNormalized.includes(normalized) ||
-					entry.categoryNormalized.includes(normalized) ||
-					entry.descriptionNormalized.includes(normalized),
-			)
+			.filter((entry) => {
+				const matchesName = entry.nameNormalized.includes(normalized);
+				const matchesCategory = entry.categoryNormalized.includes(normalized);
+				const matchesDescription =
+					entry.descriptionNormalized.includes(normalized);
+				const matchesItem = entry.itemsNormalized.some((item) =>
+					item.includes(normalized),
+				);
+
+				return (
+					matchesName || matchesCategory || matchesDescription || matchesItem
+				);
+			})
 			.filter((entry) => this.shouldIncludeEntry(entry))
 			.slice(0, MAX_RESULTS);
 	}
