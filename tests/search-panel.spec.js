@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 const MUSIC_MARKER_13 = "No.013-Engage";
 const MUSIC_MARKER_14 = "No.014-Overkill";
@@ -20,7 +20,9 @@ test.describe("search panel", () => {
 
 		await page.goto("/");
 
-		const toggleButton = page.getByRole("button", { name: "Toggle search panel" });
+		const toggleButton = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
 		await toggleButton.click();
 
 		const searchInput = page.getByPlaceholder("Search markers");
@@ -34,17 +36,24 @@ test.describe("search panel", () => {
 		await expect(page).toHaveURL(/marker=.+/);
 		await page.waitForTimeout(200);
 
-		expect(pageErrors, "No errors expected when focusing single marker").toEqual([]);
+		expect(
+			pageErrors,
+			"No errors expected when focusing single marker",
+		).toEqual([]);
 	});
 
-	test("navigating between markers after filtering does not recurse", async ({ page }) => {
+	test("navigating between markers after filtering does not recurse", async ({
+		page,
+	}) => {
 		const pageErrors = [];
 		page.on("pageerror", (error) => pageErrors.push(error));
 		page.on("console", captureConsole(pageErrors));
 
 		await page.goto("/");
 
-		const toggleButton = page.getByRole("button", { name: "Toggle search panel" });
+		const toggleButton = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
 		await toggleButton.click();
 
 		const searchInput = page.getByPlaceholder("Search markers");
@@ -63,7 +72,10 @@ test.describe("search panel", () => {
 		await secondResult.click();
 		await page.waitForTimeout(250);
 
-		expect(pageErrors, "No recursion errors expected when focusing multiple markers").toEqual([]);
+		expect(
+			pageErrors,
+			"No recursion errors expected when focusing multiple markers",
+		).toEqual([]);
 	});
 
 	test("later music markers in sequence avoid recursion", async ({ page }) => {
@@ -73,7 +85,9 @@ test.describe("search panel", () => {
 
 		await page.goto("/");
 
-		const toggleButton = page.getByRole("button", { name: "Toggle search panel" });
+		const toggleButton = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
 		await toggleButton.click();
 
 		const searchInput = page.getByPlaceholder("Search markers");
@@ -92,7 +106,10 @@ test.describe("search panel", () => {
 		await secondResult.click();
 		await page.waitForTimeout(250);
 
-		expect(pageErrors, "No errors expected when moving between later music markers").toEqual([]);
+		expect(
+			pageErrors,
+			"No errors expected when moving between later music markers",
+		).toEqual([]);
 	});
 
 	test("reopening the same music marker avoids recursion", async ({ page }) => {
@@ -102,7 +119,9 @@ test.describe("search panel", () => {
 
 		await page.goto("/");
 
-		const toggleButton = page.getByRole("button", { name: "Toggle search panel" });
+		const toggleButton = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
 		await toggleButton.click();
 
 		const searchInput = page.getByPlaceholder("Search markers");
@@ -117,17 +136,24 @@ test.describe("search panel", () => {
 		await targetResult.click();
 		await page.waitForTimeout(250);
 
-		expect(pageErrors, "No errors expected when reopening the same marker").toEqual([]);
+		expect(
+			pageErrors,
+			"No errors expected when reopening the same marker",
+		).toEqual([]);
 	});
 
-	test("rapid repeated clicks on a music marker do not crash", async ({ page }) => {
+	test("rapid repeated clicks on a music marker do not crash", async ({
+		page,
+	}) => {
 		const pageErrors = [];
 		page.on("pageerror", (error) => pageErrors.push(error));
 		page.on("console", captureConsole(pageErrors));
 
 		await page.goto("/");
 
-		const toggleButton = page.getByRole("button", { name: "Toggle search panel" });
+		const toggleButton = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
 		await toggleButton.click();
 
 		const searchInput = page.getByPlaceholder("Search markers");
@@ -146,7 +172,10 @@ test.describe("search panel", () => {
 
 		await page.waitForTimeout(300);
 
-		expect(pageErrors, "No errors expected after rapid repeated clicks").toEqual([]);
+		expect(
+			pageErrors,
+			"No errors expected after rapid repeated clicks",
+		).toEqual([]);
 	});
 
 	test("only the last searched marker popup remains open", async ({ page }) => {
@@ -156,7 +185,9 @@ test.describe("search panel", () => {
 
 		await page.goto("/");
 
-		const toggleButton = page.getByRole("button", { name: "Toggle search panel" });
+		const toggleButton = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
 		await toggleButton.click();
 
 		const searchInput = page.getByPlaceholder("Search markers");
@@ -182,6 +213,9 @@ test.describe("search panel", () => {
 		await expect(popups).toHaveCount(1);
 		await expect(popups.first()).toContainText(MUSIC_MARKER_18);
 
-		expect(pageErrors, "No errors expected when switching marker popups").toEqual([]);
+		expect(
+			pageErrors,
+			"No errors expected when switching marker popups",
+		).toEqual([]);
 	});
 });

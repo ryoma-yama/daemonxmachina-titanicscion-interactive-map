@@ -16,16 +16,16 @@ export function createCategoryIcon(
 	const opacity = isCollected ? 0.5 : 1.0;
 	const filter = isCollected ? "grayscale(50%)" : "none";
 	const border = isCollected ? "2px solid #00FF00" : "none";
-        const dataAttributes = ["data-testid=\"map-marker\""];
-        if (markerId) {
-                dataAttributes.push(`data-marker-id="${markerId}"`);
-        }
-        if (category) {
-                dataAttributes.push(`data-marker-category="${category}"`);
-        }
-        const attributes = dataAttributes.join(" ");
+	const dataAttributes = ['data-testid="map-marker"'];
+	if (markerId) {
+		dataAttributes.push(`data-marker-id="${markerId}"`);
+	}
+	if (category) {
+		dataAttributes.push(`data-marker-category="${category}"`);
+	}
+	const attributes = dataAttributes.join(" ");
 
-        const html = `
+	const html = `
     <div ${attributes} style="
       width:${size}px;height:${size}px;background-color:${color};
       -webkit-mask:url('${url}') center / contain no-repeat;

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 const captureConsole = (pageErrors) => (msg) => {
 	if (msg.type() === "error") {
@@ -7,7 +7,9 @@ const captureConsole = (pageErrors) => (msg) => {
 };
 
 test.describe("hide collected toggle", () => {
-	test("hides collected markers from map and search and persists state", async ({ page }) => {
+	test("hides collected markers from map and search and persists state", async ({
+		page,
+	}) => {
 		const pageErrors = [];
 		page.on("pageerror", (error) => pageErrors.push(error));
 		page.on("console", captureConsole(pageErrors));
@@ -17,12 +19,12 @@ test.describe("hide collected toggle", () => {
 		const hideToggle = page.getByTestId("hide-toggle");
 		await expect(hideToggle).toHaveAttribute("aria-pressed", "false");
 
-		const markerLocator = page.locator(
-			'#map [data-marker-id="desert-006"]',
-		);
+		const markerLocator = page.locator('#map [data-marker-id="desert-006"]');
 		await expect(markerLocator).toHaveCount(1);
 
-		const searchToggle = page.getByRole("button", { name: "Toggle search panel" });
+		const searchToggle = page.getByRole("button", {
+			name: "Toggle search panel",
+		});
 		await searchToggle.click();
 
 		const searchInput = page.getByPlaceholder("Search markers");
@@ -38,7 +40,9 @@ test.describe("hide collected toggle", () => {
 		await expect(popup).toBeVisible();
 		await expect(popup).toContainText("Pierced Heart");
 
-		const collectedCheckbox = popup.getByRole("checkbox", { name: "Collected" });
+		const collectedCheckbox = popup.getByRole("checkbox", {
+			name: "Collected",
+		});
 		await expect(collectedCheckbox).not.toBeChecked();
 		await collectedCheckbox.check();
 
@@ -50,7 +54,9 @@ test.describe("hide collected toggle", () => {
 		await expect(
 			page.locator(".search-panel__result", { hasText: "Pierced Heart" }),
 		).toHaveCount(0);
-		await expect(page.locator("#search-message")).toHaveText("No markers found");
+		await expect(page.locator("#search-message")).toHaveText(
+			"No markers found",
+		);
 
 		await page.reload();
 
@@ -59,7 +65,10 @@ test.describe("hide collected toggle", () => {
 		await expect(markerLocator).toHaveCount(0);
 
 		await hideToggleAfterReload.click();
-		await expect(hideToggleAfterReload).toHaveAttribute("aria-pressed", "false");
+		await expect(hideToggleAfterReload).toHaveAttribute(
+			"aria-pressed",
+			"false",
+		);
 		await expect(markerLocator).toHaveCount(1);
 
 		const searchToggleAfterReload = page.getByRole("button", {
@@ -75,6 +84,8 @@ test.describe("hide collected toggle", () => {
 		).toHaveCount(1);
 		await expect(markerLocator).toHaveCount(1);
 
-		expect(pageErrors, "No errors expected during hide toggle flow").toEqual([]);
+		expect(pageErrors, "No errors expected during hide toggle flow").toEqual(
+			[],
+		);
 	});
 });
