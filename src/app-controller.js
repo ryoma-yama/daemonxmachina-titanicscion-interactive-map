@@ -108,7 +108,7 @@ export class AppController {
 			if (!focused) {
 				console.warn(`Marker ${focusMarkerId} not found on map ${mapId}`);
 				if (forceMarkerVisibility) {
-					this.mapView.showNotification("該当マーカーは存在しません", {
+					this.mapView.showNotification("Marker not found", {
 						type: "error",
 					});
 				}

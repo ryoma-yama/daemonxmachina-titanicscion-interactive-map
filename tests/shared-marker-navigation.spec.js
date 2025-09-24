@@ -96,7 +96,7 @@ test.describe("shared marker navigation", () => {
 
 		const toast = page.locator(".notification-toast");
 		await expect(toast).toHaveClass(/notification-toast--error/);
-		await expect(toast).toContainText("該当マーカーは存在しません");
+		await expect(toast).toContainText("Marker not found");
 	});
 
 	test("respects zoom parameter from shared url", async ({ page }) => {
