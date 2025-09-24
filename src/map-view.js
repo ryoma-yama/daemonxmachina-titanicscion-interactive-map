@@ -16,6 +16,7 @@ export class MapView {
 		this.currentCollectionState = null;
 		this.hideCollected = false;
 		this.activeCategories = null;
+		this.forcedVisibleMarkers = new Set();
 
 		// Recording mode state
 		this.isRecordingMode = false;
@@ -26,7 +27,13 @@ export class MapView {
 			crs: L.CRS.Simple,
 			minZoom: -2,
 			maxZoom: 2,
+			zoomSnap: 0.25,
+			zoomDelta: 0.25,
 		});
+
+		if (typeof window !== "undefined") {
+			window.__DXM_MAP_VIEW__ = this;
+		}
 
 		this.setupEventListeners();
 	}
@@ -133,10 +140,14 @@ export class MapView {
 		}
 	}
 
-	showNotification(message) {
+	showNotification(message, { type = "info" } = {}) {
 		// Create notification element
 		const notification = document.createElement("div");
-		notification.className = "notification-toast";
+		const classes = ["notification-toast"];
+		if (type === "error") {
+			classes.push("notification-toast--error");
+		}
+		notification.className = classes.join(" ");
 		notification.textContent = message;
 
 		// Add to DOM
@@ -195,6 +206,7 @@ export class MapView {
 		// Clear marker references
 		this.markerRefs.clear();
 		this.currentCollectionState = null;
+		this.forcedVisibleMarkers.clear();
 	}
 
 	loadMap(mapDefinition, mapId) {
@@ -350,15 +362,25 @@ export class MapView {
 			return false;
 		}
 
+		const {
+			zoom,
+			openPopup = true,
+			animate = false,
+			panOffset,
+			forceVisibility = false,
+		} = options;
+
+		if (forceVisibility) {
+			this.forceMarkerVisibility(markerId, true);
+		}
+
 		if (
-			this.hideCollected &&
+			!forceVisibility &&
 			this.currentMarkerLayer &&
 			!this.currentMarkerLayer.hasLayer(marker)
 		) {
 			return false;
 		}
-
-		const { zoom, openPopup = true, animate = false, panOffset } = options;
 
 		const currentZoom = this.map.getZoom();
 		const fallbackZoom = Number.isFinite(currentZoom)
@@ -403,6 +425,21 @@ export class MapView {
 		}
 
 		return true;
+	}
+
+	forceMarkerVisibility(markerId, shouldForce) {
+		if (!markerId) {
+			return;
+		}
+
+		if (shouldForce) {
+			this.forcedVisibleMarkers.clear();
+			this.forcedVisibleMarkers.add(markerId);
+		} else {
+			this.forcedVisibleMarkers.delete(markerId);
+		}
+
+		this.updateMarkerVisibility(markerId);
 	}
 
 	createPopupContent(feature, collectionState) {
@@ -534,7 +571,10 @@ export class MapView {
 			: false;
 		const categoryAllowed =
 			!this.activeCategories || this.activeCategories.has(category);
-		const shouldHide = !categoryAllowed || (this.hideCollected && isCollected);
+		const isForcedVisible = this.forcedVisibleMarkers.has(markerId);
+		const shouldHide =
+			!isForcedVisible &&
+			(!categoryAllowed || (this.hideCollected && isCollected));
 		const hasLayer = this.currentMarkerLayer.hasLayer(marker);
 
 		if (shouldHide && hasLayer) {

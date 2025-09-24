@@ -56,6 +56,7 @@ export class AppController {
 			focusMarkerId: this.urlState.markerId,
 			zoom: this.urlState.zoom,
 			skipUrlUpdate: true,
+			forceMarkerVisibility: Boolean(this.urlState.markerId),
 		});
 	}
 
@@ -64,7 +65,13 @@ export class AppController {
 	}
 
 	async switchToMap(mapId, options = {}) {
-		const { focusMarkerId, zoom, skipUrlUpdate = false, panOffset } = options;
+		const {
+			focusMarkerId,
+			zoom,
+			skipUrlUpdate = false,
+			panOffset,
+			forceMarkerVisibility = false,
+		} = options;
 
 		const mapDefinition = getMapDefinition(mapId);
 		if (!mapDefinition) {
@@ -96,9 +103,15 @@ export class AppController {
 			focused = this.mapView.focusMarker(focusMarkerId, {
 				zoom,
 				panOffset,
+				forceVisibility: forceMarkerVisibility,
 			});
 			if (!focused) {
 				console.warn(`Marker ${focusMarkerId} not found on map ${mapId}`);
+				if (forceMarkerVisibility) {
+					this.mapView.showNotification("該当マーカーは存在しません", {
+						type: "error",
+					});
+				}
 			}
 		} else if (focusMarkerId && !markersLoaded) {
 			console.warn(
