@@ -264,6 +264,11 @@ body {
 	pointer-events: none;
 }
 
+.notification-toast--error {
+	background-color: rgba(198, 40, 40, 0.95);
+	border-color: rgba(229, 115, 115, 0.7);
+}
+
 .notification-toast.show {
 	opacity: 1;
 }
