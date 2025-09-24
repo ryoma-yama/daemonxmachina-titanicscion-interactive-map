@@ -2,6 +2,7 @@
 
 import L from "leaflet";
 import { createCategoryIcon } from "./icons.js";
+import { createShareUrl } from "./url-state.js";
 import { validateGeoJSONFeature } from "./validation.js";
 
 export class MapView {
@@ -73,20 +74,49 @@ export class MapView {
 						this.callbacks.onMapSwitch(mapId);
 					}
 				}
+				return;
 			}
-		});
 
-		// Event delegation for popup checkbox interactions
-		document.addEventListener("change", (e) => {
-			if (
-				e.target.type === "checkbox" &&
-				e.target.hasAttribute("data-marker-id")
-			) {
-				const markerId = e.target.getAttribute("data-marker-id");
-				if (this.callbacks.onMarkerToggle) {
+			const doneToggle = e.target.closest(".marker-done-toggle");
+			if (doneToggle) {
+				e.preventDefault();
+				const markerId = doneToggle.getAttribute("data-marker-id");
+				if (markerId && this.callbacks.onMarkerToggle) {
 					this.callbacks.onMarkerToggle(markerId);
 				}
+				return;
 			}
+
+			const shareButton = e.target.closest(".share-link-button");
+			if (!shareButton) {
+				return;
+			}
+
+			const markerId = shareButton.getAttribute("data-marker-id");
+			const mapId =
+				shareButton.getAttribute("data-map-id") || this.currentMapId;
+			if (!markerId || !mapId) {
+				return;
+			}
+
+			if (!navigator.clipboard?.writeText) {
+				this.showNotification("Failed to copy link", { type: "error" });
+				return;
+			}
+
+			const zoom = this.getZoomLevel();
+			const shareUrl = createShareUrl({ mapId, markerId, zoom });
+
+			navigator.clipboard
+				.writeText(shareUrl)
+				.then(() => {
+					this.showNotification("Link copied!");
+				})
+				.catch(() => {
+					this.showNotification("Failed to copy link", {
+						type: "error",
+					});
+				});
 		});
 
 		// Map click handler (debug coordinates + recording mode)
@@ -444,7 +474,6 @@ export class MapView {
 
 	createPopupContent(feature, collectionState) {
 		const isCollected = collectionState.isCollected(feature.properties.id);
-		const checkboxId = `checkbox-${feature.properties.id}`;
 
 		// Create popup content using safe DOM manipulation
 		const container = document.createElement("div");
@@ -466,26 +495,58 @@ export class MapView {
 			container.appendChild(descriptionDiv);
 		}
 
-		// Collection status section
-		const statusDiv = document.createElement("div");
-		statusDiv.className = "collection-status";
+		const doneLabel = isCollected ? "Unmark done" : "Mark as done";
+		const doneTooltipId = `done-tooltip-${feature.properties.id}`;
+		const shareTooltipId = `share-tooltip-${feature.properties.id}`;
 
-		const label = document.createElement("label");
-		label.htmlFor = checkboxId;
-		label.className = "checkbox-label";
+		// Action buttons section
+		const actionsDiv = document.createElement("div");
+		actionsDiv.className = "marker-actions";
 
-		const checkbox = document.createElement("input");
-		checkbox.type = "checkbox";
-		checkbox.id = checkboxId;
-		checkbox.setAttribute("data-marker-id", feature.properties.id);
-		checkbox.checked = isCollected;
+		const doneButton = document.createElement("button");
+		doneButton.type = "button";
+		doneButton.className = "marker-action-button marker-done-toggle";
+		doneButton.setAttribute("data-marker-id", feature.properties.id);
+		doneButton.setAttribute("aria-pressed", isCollected ? "true" : "false");
+		doneButton.setAttribute("aria-label", doneLabel);
+		doneButton.setAttribute("aria-describedby", doneTooltipId);
 
-		const labelText = document.createTextNode(" Collected");
+		const doneIcon = document.createElement("span");
+		doneIcon.className = "marker-action-button__icon marker-done-toggle__icon";
+		doneButton.appendChild(doneIcon);
 
-		label.appendChild(checkbox);
-		label.appendChild(labelText);
-		statusDiv.appendChild(label);
-		container.appendChild(statusDiv);
+		const doneTooltip = document.createElement("span");
+		doneTooltip.id = doneTooltipId;
+		doneTooltip.className = "marker-action-button__tooltip";
+		doneTooltip.setAttribute("role", "tooltip");
+		doneTooltip.textContent = doneLabel;
+		doneButton.appendChild(doneTooltip);
+
+		const shareButton = document.createElement("button");
+		shareButton.type = "button";
+		shareButton.className = "marker-action-button share-link-button";
+		shareButton.setAttribute("aria-label", "Copy marker link");
+		shareButton.setAttribute("data-marker-id", feature.properties.id);
+		if (this.currentMapId) {
+			shareButton.setAttribute("data-map-id", this.currentMapId);
+		}
+
+		shareButton.setAttribute("aria-describedby", shareTooltipId);
+
+		const shareIcon = document.createElement("span");
+		shareIcon.className = "marker-action-button__icon share-link-button__icon";
+		shareButton.appendChild(shareIcon);
+
+		const shareTooltip = document.createElement("span");
+		shareTooltip.id = shareTooltipId;
+		shareTooltip.className = "marker-action-button__tooltip";
+		shareTooltip.setAttribute("role", "tooltip");
+		shareTooltip.textContent = "Copy link";
+		shareButton.appendChild(shareTooltip);
+
+		actionsDiv.appendChild(doneButton);
+		actionsDiv.appendChild(shareButton);
+		container.appendChild(actionsDiv);
 
 		return container.outerHTML;
 	}
@@ -503,11 +564,21 @@ export class MapView {
 			);
 			marker.setIcon(newIcon);
 
-			// Update checkbox in popup if it's currently open
-			const checkboxId = `checkbox-${markerId}`;
-			const checkbox = document.getElementById(checkboxId);
-			if (checkbox) {
-				checkbox.checked = isCollected;
+			const doneButton = document.querySelector(
+				`.marker-done-toggle[data-marker-id="${markerId}"]`,
+			);
+			if (doneButton) {
+				const doneLabel = isCollected ? "Unmark done" : "Mark as done";
+				doneButton.setAttribute("aria-pressed", isCollected ? "true" : "false");
+				doneButton.setAttribute("aria-label", doneLabel);
+
+				const tooltipId = doneButton.getAttribute("aria-describedby");
+				if (tooltipId) {
+					const tooltip = document.getElementById(tooltipId);
+					if (tooltip) {
+						tooltip.textContent = doneLabel;
+					}
+				}
 			}
 
 			this.updateMarkerVisibility(markerId);

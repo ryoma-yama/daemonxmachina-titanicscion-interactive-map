@@ -144,6 +144,9 @@ export class AppController {
 		console.log(`Marker ${markerId} collection status: ${isNowCollected}`);
 
 		this.mapView.updateMarkerState(markerId, isNowCollected);
+		if (isNowCollected) {
+			this.mapView.showNotification("Done!");
+		}
 		if (this.hideCollected) {
 			void this.searchPanel.refreshResults();
 		}

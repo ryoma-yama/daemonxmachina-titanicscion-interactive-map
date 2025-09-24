@@ -64,10 +64,10 @@ test.describe("shared marker navigation", () => {
 		const popup = page.locator(".leaflet-popup");
 		await expect(popup).toBeVisible();
 
-		const collectedCheckbox = popup.getByRole("checkbox", {
-			name: "Collected",
-		});
-		await collectedCheckbox.check();
+		const doneToggle = popup.locator(".marker-done-toggle");
+		await expect(doneToggle).toHaveAttribute("aria-pressed", "false");
+		await doneToggle.click();
+		await expect(doneToggle).toHaveAttribute("aria-pressed", "true");
 
 		const hideToggle = page.getByTestId("hide-toggle");
 		await hideToggle.click();

@@ -40,11 +40,10 @@ test.describe("hide collected toggle", () => {
 		await expect(popup).toBeVisible();
 		await expect(popup).toContainText("Pierced Heart");
 
-		const collectedCheckbox = popup.getByRole("checkbox", {
-			name: "Collected",
-		});
-		await expect(collectedCheckbox).not.toBeChecked();
-		await collectedCheckbox.check();
+		const doneToggle = popup.locator(".marker-done-toggle");
+		await expect(doneToggle).toHaveAttribute("aria-pressed", "false");
+		await doneToggle.click();
+		await expect(doneToggle).toHaveAttribute("aria-pressed", "true");
 
 		await hideToggle.click();
 		await expect(hideToggle).toHaveAttribute("aria-pressed", "true");
