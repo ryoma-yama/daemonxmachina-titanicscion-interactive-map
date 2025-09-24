@@ -117,6 +117,8 @@ The application includes a "Recording mode" for easily capturing marker coordina
   - Circle
   - Triangle
   - Rhombus
+  - Square
+  - Square Check
 - Card Casino Games — SVG Repo — [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## License
