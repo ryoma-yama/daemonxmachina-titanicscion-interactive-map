@@ -1237,6 +1237,7 @@
       "properties": {
         "id": "desert-085",
         "name": "No.47-Explorer's Notes 2-1",
+        "description": "under overpass",
         "category": "log"
       }
     },
@@ -1252,6 +1253,7 @@
       "properties": {
         "id": "desert-086",
         "name": "No.48-Explorer's Notes 2-2",
+        "description": "behind pillar",
         "category": "log"
       }
     },
@@ -1267,6 +1269,81 @@
       "properties": {
         "id": "desert-087",
         "name": "No.49-Explorer's Notes 2-3",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          581,
+          1000
+        ]
+      },
+      "properties": {
+        "id": "desert-088",
+        "name": "No.086",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          509,
+          809
+        ]
+      },
+      "properties": {
+        "id": "desert-089",
+        "name": "No.011",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1008,
+          871
+        ]
+      },
+      "properties": {
+        "id": "desert-090",
+        "name": "No.50-Explorer's Notes 3-1",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          815,
+          1141
+        ]
+      },
+      "properties": {
+        "id": "desert-091",
+        "name": "No.51-Explorer's Notes 3-2",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          530,
+          971
+        ]
+      },
+      "properties": {
+        "id": "desert-092",
+        "name": "No.52-Explorer's Notes 3-3",
         "category": "log"
       }
     }
