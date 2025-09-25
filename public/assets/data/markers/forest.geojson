@@ -710,6 +710,472 @@
         "name": "Emblem: 22",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          601,
+          293
+        ]
+      },
+      "properties": {
+        "id": "forest-051",
+        "name": "Bullet",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          611,
+          293
+        ]
+      },
+      "properties": {
+        "id": "forest-052",
+        "name": "No.036-A Woman's Farewell Note",
+        "category": "log",
+        "description": "on container"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          831,
+          91
+        ]
+      },
+      "properties": {
+        "id": "forest-053",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          383,
+          35
+        ]
+      },
+      "properties": {
+        "id": "forest-054",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          340,
+          53
+        ]
+      },
+      "properties": {
+        "id": "forest-055",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          242,
+          138
+        ]
+      },
+      "properties": {
+        "id": "forest-056",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          335,
+          219
+        ]
+      },
+      "properties": {
+        "id": "forest-057",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          281,
+          326
+        ]
+      },
+      "properties": {
+        "id": "forest-058",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          279,
+          416
+        ]
+      },
+      "properties": {
+        "id": "forest-059",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          365,
+          415
+        ]
+      },
+      "properties": {
+        "id": "forest-060",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133,
+          316
+        ]
+      },
+      "properties": {
+        "id": "forest-061",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72,
+          555
+        ]
+      },
+      "properties": {
+        "id": "forest-062",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          231,
+          634
+        ]
+      },
+      "properties": {
+        "id": "forest-063",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          164,
+          1010
+        ]
+      },
+      "properties": {
+        "id": "forest-064",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          425,
+          1144
+        ]
+      },
+      "properties": {
+        "id": "forest-065",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          567,
+          1153
+        ]
+      },
+      "properties": {
+        "id": "forest-066",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          621,
+          964
+        ]
+      },
+      "properties": {
+        "id": "forest-067",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          729,
+          1084
+        ]
+      },
+      "properties": {
+        "id": "forest-068",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          872,
+          480
+        ]
+      },
+      "properties": {
+        "id": "forest-069",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1042,
+          297
+        ]
+      },
+      "properties": {
+        "id": "forest-070",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          159,
+          831
+        ]
+      },
+      "properties": {
+        "id": "forest-071",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          339,
+          836
+        ]
+      },
+      "properties": {
+        "id": "forest-072",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          393,
+          541
+        ]
+      },
+      "properties": {
+        "id": "forest-073",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          557,
+          403
+        ]
+      },
+      "properties": {
+        "id": "forest-074",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          740,
+          306
+        ]
+      },
+      "properties": {
+        "id": "forest-075",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          894,
+          1012
+        ]
+      },
+      "properties": {
+        "id": "forest-076",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          994,
+          903
+        ]
+      },
+      "properties": {
+        "id": "forest-077",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1016,
+          872
+        ]
+      },
+      "properties": {
+        "id": "forest-078",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1044,
+          611
+        ]
+      },
+      "properties": {
+        "id": "forest-079",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          407,
+          773
+        ]
+      },
+      "properties": {
+        "id": "forest-080",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          493,
+          687
+        ]
+      },
+      "properties": {
+        "id": "forest-081",
+        "name": "Mining Tunnel",
+        "category": "dungeon"
+      }
     }
   ]
 }

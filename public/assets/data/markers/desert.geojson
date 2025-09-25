@@ -1052,6 +1052,83 @@
         "category": "decal",
         "description": "leaning building top wall"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1106,
+          72
+        ]
+      },
+      "properties": {
+        "id": "desert-075",
+        "name": "Card Addict Mechanic",
+        "category": "duelist",
+        "items": [
+          "Card: Fragarach",
+          "Decal: 4"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1126,
+          72
+        ]
+      },
+      "properties": {
+        "id": "desert-076",
+        "name": "Card-Loving Youth",
+        "category": "duelist",
+        "items": [
+          "Card: Agneyastra",
+          "Decal: 5"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1146,
+          72
+        ]
+      },
+      "properties": {
+        "id": "desert-077",
+        "name": "Card Addict Lady",
+        "category": "duelist",
+        "items": [
+          "Card: Iris",
+          "Decal: 6"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1166,
+          72
+        ]
+      },
+      "properties": {
+        "id": "desert-078",
+        "name": "Card Champion",
+        "category": "duelist",
+        "items": [
+          "Card: Osteo",
+          "Decal: 8",
+          "Decal: Best of the Best"
+        ]
+      }
     }
   ]
 }

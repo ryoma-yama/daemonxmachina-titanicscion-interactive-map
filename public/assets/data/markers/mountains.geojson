@@ -561,6 +561,336 @@
         "name": "Cherry",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          172,
+          938
+        ]
+      },
+      "properties": {
+        "id": "mountains-043",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          406,
+          1098
+        ]
+      },
+      "properties": {
+        "id": "mountains-044",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          691,
+          997
+        ]
+      },
+      "properties": {
+        "id": "mountains-045",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          777,
+          1005
+        ]
+      },
+      "properties": {
+        "id": "mountains-046",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          758,
+          856
+        ]
+      },
+      "properties": {
+        "id": "mountains-047",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          914,
+          808
+        ]
+      },
+      "properties": {
+        "id": "mountains-048",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1002,
+          602
+        ]
+      },
+      "properties": {
+        "id": "mountains-049",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          364,
+          658
+        ]
+      },
+      "properties": {
+        "id": "mountains-050",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          764,
+          384
+        ]
+      },
+      "properties": {
+        "id": "mountains-051",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          385,
+          137
+        ]
+      },
+      "properties": {
+        "id": "mountains-052",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          208,
+          208
+        ]
+      },
+      "properties": {
+        "id": "mountains-053",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1040,
+          162
+        ]
+      },
+      "properties": {
+        "id": "mountains-054",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1034,
+          203
+        ]
+      },
+      "properties": {
+        "id": "mountains-055",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          864,
+          469
+        ]
+      },
+      "properties": {
+        "id": "mountains-056",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          804,
+          152
+        ]
+      },
+      "properties": {
+        "id": "mountains-057",
+        "name": "Axiom Facility",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          216,
+          781
+        ]
+      },
+      "properties": {
+        "id": "mountains-058",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          208,
+          357
+        ]
+      },
+      "properties": {
+        "id": "mountains-059",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          375,
+          400
+        ]
+      },
+      "properties": {
+        "id": "mountains-060",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          597,
+          449
+        ]
+      },
+      "properties": {
+        "id": "mountains-061",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          833,
+          278
+        ]
+      },
+      "properties": {
+        "id": "mountains-062",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          918,
+          698
+        ]
+      },
+      "properties": {
+        "id": "mountains-063",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          625,
+          1189
+        ]
+      },
+      "properties": {
+        "id": "mountains-064",
+        "name": "Natural Tunnel",
+        "category": "dungeon"
+      }
     }
   ]
 }
