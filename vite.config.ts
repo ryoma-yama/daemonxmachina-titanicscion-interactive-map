@@ -1,5 +1,8 @@
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
+
+const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig(({ command }) => {
 	const isBuild = command === "build";
@@ -12,8 +15,8 @@ export default defineConfig(({ command }) => {
 			sourcemap: true,
 			rollupOptions: {
 				input: {
-					main: resolve(__dirname, "index.html"),
-					about: resolve(__dirname, "about.html"),
+					main: resolve(projectRoot, "index.html"),
+					about: resolve(projectRoot, "about.html"),
 				},
 				output: {
 					manualChunks: {
