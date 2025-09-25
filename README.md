@@ -44,6 +44,13 @@ Detailed credits and support information are available on the [About page](./abo
 - Node.js 22.19.0 or higher
 - pnpm 10.0.0 or higher
 
+### API Key Setup
+1. Copy the template file into the `.vscode` folder:
+   ```bash
+   cp .vscode/mcp.json.template .vscode/mcp.json
+   ```
+2. Edit `.vscode/mcp.json` and replace `YOUR_API_KEY`.
+
 ### Local Development
 1. Clone this repository
 2. Install dependencies:

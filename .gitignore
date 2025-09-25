@@ -163,3 +163,5 @@ test-results/
 
 # Test coverage reports
 coverage/
+
+.vscode/mcp.json
