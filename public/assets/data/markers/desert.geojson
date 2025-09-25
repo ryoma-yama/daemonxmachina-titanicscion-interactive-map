@@ -696,7 +696,7 @@
         "id": "desert-051",
         "name": "Grausam",
         "category": "boss",
-        "description": "Story progression required"
+        "description": "Required: Story progression"
       }
     },
     {
@@ -727,7 +727,7 @@
         "id": "desert-053",
         "name": "Lapis Lacrima",
         "category": "boss",
-        "description": "Story progression required"
+        "description": "Required: Story progression"
       }
     },
     {

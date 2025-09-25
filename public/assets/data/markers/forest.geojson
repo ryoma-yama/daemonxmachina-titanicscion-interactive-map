@@ -1387,6 +1387,21 @@
         "name": "No.65-Explorer's Notes 6-5",
         "category": "log"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108,
+          150
+        ]
+      },
+      "properties": {
+        "id": "forest-096",
+        "name": "Rebellion",
+        "category": "boss"
+      }
     }
   ]
 }

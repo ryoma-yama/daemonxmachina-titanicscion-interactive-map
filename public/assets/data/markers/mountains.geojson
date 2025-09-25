@@ -1072,6 +1072,54 @@
         "name": "No.76-Explorer's Notes 9-4",
         "category": "log"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          172,
+          282
+        ]
+      },
+      "properties": {
+        "id": "mountains-077",
+        "name": "Eclipse",
+        "category": "boss",
+        "description": "Required: Story Completion"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          281,
+          226
+        ]
+      },
+      "properties": {
+        "id": "mountains-078",
+        "name": "Rebellion RT: Beta",
+        "category": "boss",
+        "description": "Random with Dreadnought RT:β"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          301,
+          226
+        ]
+      },
+      "properties": {
+        "id": "mountains-079",
+        "name": "Dreadnought RT:β",
+        "category": "boss",
+        "description": "Random with Rebellion RT:β"
+      }
     }
   ]
 }
