@@ -12,6 +12,7 @@
 			"tests/**",
 			".vscode/**",
 			"*.js",
+			"*.ts",
 			"*.json",
 			"*.html",
 			"*.css"

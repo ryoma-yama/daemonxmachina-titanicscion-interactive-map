@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
+		"typecheck": "tsc --noEmit",
 		"preview": "vite preview --base /daemonxmachina-titanicscion-interactive-map/",
 		"lint": "biome lint . --write",
 		"format": "biome format . --write",
@@ -29,10 +30,12 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.2.4",
 		"@playwright/test": "^1.55.0",
+		"@types/node": "^24.5.2",
+		"@vitest/coverage-v8": "^2.1.4",
 		"playwright": "^1.55.0",
+		"typescript": "^5.9.2",
 		"vite": "^5.4.0",
-		"vitest": "^2.1.4",
-		"@vitest/coverage-v8": "^2.1.4"
+		"vitest": "^2.1.4"
 	},
 	"engines": {
 		"node": ">=22.19.0",
