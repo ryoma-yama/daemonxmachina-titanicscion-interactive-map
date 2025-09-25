@@ -891,6 +891,187 @@
         "name": "Natural Tunnel",
         "category": "dungeon"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          815,
+          122
+        ]
+      },
+      "properties": {
+        "id": "mountains-065",
+        "name": "No.38",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          610,
+          840
+        ]
+      },
+      "properties": {
+        "id": "mountains-066",
+        "name": "No.66-Explorer's Notes 7-1",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          500,
+          937
+        ]
+      },
+      "properties": {
+        "id": "mountains-067",
+        "name": "No.67-Explorer's Notes 7-2",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          512,
+          1124
+        ]
+      },
+      "properties": {
+        "id": "mountains-068",
+        "name": "No.68-Explorer's Notes 7-3",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          936,
+          1020
+        ]
+      },
+      "properties": {
+        "id": "mountains-069",
+        "name": "No.69-Explorer's Notes 7-4",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          801,
+          894
+        ]
+      },
+      "properties": {
+        "id": "mountains-070",
+        "name": "No.70-Explorer's Notes 8-1",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          852,
+          677
+        ]
+      },
+      "properties": {
+        "id": "mountains-071",
+        "name": "No.71-Explorer's Notes 8-2",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          948,
+          552
+        ]
+      },
+      "properties": {
+        "id": "mountains-072",
+        "name": "No.72-Explorer's Notes 8-3",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          673,
+          389
+        ]
+      },
+      "properties": {
+        "id": "mountains-073",
+        "name": "No.73-Explorer's Notes 9-1",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          691,
+          233
+        ]
+      },
+      "properties": {
+        "id": "mountains-074",
+        "name": "No.74-Explorer's Notes 9-2",
+        "category": "log",
+        "description": "under overpass"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          341,
+          198
+        ]
+      },
+      "properties": {
+        "id": "mountains-075",
+        "name": "No.75-Explorer's Notes 9-3",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          278,
+          415
+        ]
+      },
+      "properties": {
+        "id": "mountains-076",
+        "name": "No.76-Explorer's Notes 9-4",
+        "category": "log"
+      }
     }
   ]
 }

@@ -1176,6 +1176,217 @@
         "name": "Mining Tunnel",
         "category": "dungeon"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          148,
+          700
+        ]
+      },
+      "properties": {
+        "id": "forest-082",
+        "name": "No.23",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          531,
+          145
+        ]
+      },
+      "properties": {
+        "id": "forest-083",
+        "name": "No.37",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          634,
+          355
+        ]
+      },
+      "properties": {
+        "id": "forest-084",
+        "name": "No.54-Explorer's Notes 4-2",
+        "category": "log",
+        "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          575,
+          504
+        ]
+      },
+      "properties": {
+        "id": "forest-085",
+        "name": "No.55-Explorer's Notes 4-3",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          458,
+          659
+        ]
+      },
+      "properties": {
+        "id": "forest-086",
+        "name": "No.56-Explorer's Notes 4-4",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          238,
+          142
+        ]
+      },
+      "properties": {
+        "id": "forest-087",
+        "name": "No.57-Explorer's Notes 5-1",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99,
+          212
+        ]
+      },
+      "properties": {
+        "id": "forest-088",
+        "name": "No.58-Explorer's Notes 5-2",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          262,
+          399
+        ]
+      },
+      "properties": {
+        "id": "forest-089",
+        "name": "No.59-Explorer's Notes 5-3",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          394,
+          404
+        ]
+      },
+      "properties": {
+        "id": "forest-090",
+        "name": "No.60-Explorer's Notes 5-4",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          165,
+          703
+        ]
+      },
+      "properties": {
+        "id": "forest-091",
+        "name": "No.61-Explorer's Notes 6-1",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          160,
+          777
+        ]
+      },
+      "properties": {
+        "id": "forest-092",
+        "name": "No.62-Explorer's Notes 6-2",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          288,
+          770
+        ]
+      },
+      "properties": {
+        "id": "forest-093",
+        "name": "No.63-Explorer's Notes 6-3",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          439,
+          952
+        ]
+      },
+      "properties": {
+        "id": "forest-094",
+        "name": "No.64-Explorer's Notes 6-4",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          640,
+          1059
+        ]
+      },
+      "properties": {
+        "id": "forest-095",
+        "name": "No.65-Explorer's Notes 6-5",
+        "category": "log"
+      }
     }
   ]
 }
