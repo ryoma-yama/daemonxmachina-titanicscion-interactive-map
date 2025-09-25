@@ -1102,7 +1102,7 @@
         "id": "mountains-078",
         "name": "Rebellion RT: Beta",
         "category": "boss",
-        "description": "Random with Dreadnought RT:β"
+        "description": "Random with Dreadnought RT: Beta"
       }
     },
     {
@@ -1116,9 +1116,29 @@
       },
       "properties": {
         "id": "mountains-079",
-        "name": "Dreadnought RT:β",
+        "name": "Dreadnought RT: Beta",
         "category": "boss",
-        "description": "Random with Rebellion RT:β"
+        "description": "Random with Rebellion RT: Beta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          661,
+          587
+        ]
+      },
+      "properties": {
+        "id": "mountains-080",
+        "name": "Colony Shop Owner",
+        "category": "shop",
+        "items": [
+          "Card: No.009",
+          "Card: No.017",
+          "Card: No.028"
+        ]
       }
     }
   ]
