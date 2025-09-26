@@ -2,8 +2,12 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
-import { pathToFileURL } from "node:url";
+import * as nodeUrl from "node:url";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import type {
+	FeatureCollectionLike,
+	FeatureLike,
+} from "../scripts/add_marker.js";
 import {
 	addMarkerToGeojson,
 	checkDuplicates,
@@ -140,6 +144,12 @@ describe("validateInputs", () => {
 		).toThrow("Invalid category");
 	});
 
+	it("rejects non-string categories", () => {
+		expect(() =>
+			validateInputs({ x: 0, y: 0, category: 42 as unknown, name: "Name" }),
+		).toThrow("Invalid category");
+	});
+
 	it("rejects non-string names", () => {
 		expect(() =>
 			validateInputs({ x: 0, y: 0, category: "card", name: null }),
@@ -216,13 +226,24 @@ describe("loadGeojson", () => {
 		});
 		expect(() => loadGeojson("path")).toThrow("Error reading file: boom");
 	});
+
+	it("wraps non-error throws during read", () => {
+		const _spy = vi.spyOn(fs, "existsSync").mockReturnValue(true);
+		vi.spyOn(fs, "readFileSync").mockImplementation(() => {
+			throw "boom";
+		});
+		expect(() => loadGeojson("path")).toThrow("Error reading file: boom");
+	});
 });
 
 describe("saveGeojson", () => {
 	it("writes file with trailing newline", () => {
 		const tempDir = createTempDir();
 		const filePath = path.join(tempDir, "file.geojson");
-		const data = { type: "FeatureCollection", features: [] };
+		const data: FeatureCollectionLike = {
+			type: "FeatureCollection",
+			features: [],
+		};
 		saveGeojson(filePath, data);
 		expect(fs.readFileSync(filePath, "utf-8")).toBe(
 			`${JSON.stringify(data, null, 2)}\n`,
@@ -233,8 +254,38 @@ describe("saveGeojson", () => {
 		const spy = vi.spyOn(fs, "writeFileSync").mockImplementation(() => {
 			throw new Error("fail");
 		});
-		expect(() => saveGeojson("file", {})).toThrow("Error writing file: fail");
+		expect(() =>
+			saveGeojson("file", {
+				type: "FeatureCollection",
+				features: [],
+			} as FeatureCollectionLike),
+		).toThrow("Error writing file: fail");
 		spy.mockRestore();
+	});
+
+	it("wraps non-error throws during write", () => {
+		const spy = vi.spyOn(fs, "writeFileSync").mockImplementation(() => {
+			throw "fail";
+		});
+		expect(() =>
+			saveGeojson("file", {
+				type: "FeatureCollection",
+				features: [],
+			} as FeatureCollectionLike),
+		).toThrow("Error writing file: fail");
+		spy.mockRestore();
+	});
+
+	it("throws when file path is not a string", () => {
+		expect(() =>
+			saveGeojson(
+				42 as unknown as string,
+				{
+					type: "FeatureCollection",
+					features: [],
+				} as FeatureCollectionLike,
+			),
+		).toThrow("filePath must be a string path");
 	});
 });
 
@@ -339,33 +390,39 @@ describe("addMarkerToGeojson", () => {
 	});
 
 	it("keeps markers sorted by id", () => {
-		const data = {
+		const data: FeatureCollectionLike = {
+			type: "FeatureCollection",
 			features: [createMarkerFeature("forest-010", "A", "card", 1, 1)],
 		};
 		addMarkerToGeojson(
 			data,
 			createMarkerFeature("forest-002", "B", "card", 2, 2),
 		);
-		expect(data.features[0].properties.id).toBe("forest-002");
+		expect(data.features[0]?.properties?.id).toBe("forest-002");
 	});
 
 	it("handles items without ids during sorting", () => {
-		const data = { features: [{}] };
+		const data: { features: FeatureLike[] } = { features: [{}] };
 		addMarkerToGeojson(
 			data,
 			createMarkerFeature("forest-002", "Name", "card", 1, 1),
 		);
 		expect(data.features).toHaveLength(2);
 		expect(
-			data.features.some((feature) => feature?.properties?.id === "forest-002"),
+			data.features.some(
+				(feature) =>
+					(feature.properties as { id?: string } | undefined)?.id ===
+					"forest-002",
+			),
 		).toBe(true);
 	});
 
 	it("supports markers without ids", () => {
-		const data = {
+		const data: FeatureCollectionLike = {
+			type: "FeatureCollection",
 			features: [createMarkerFeature("forest-001", "Existing", "card", 0, 0)],
 		};
-		const anonymousFeature = {
+		const anonymousFeature: FeatureLike = {
 			type: "Feature",
 			geometry: { type: "Point", coordinates: [1, 1] },
 			properties: {},
@@ -373,7 +430,10 @@ describe("addMarkerToGeojson", () => {
 		addMarkerToGeojson(data, anonymousFeature);
 		expect(data.features).toHaveLength(2);
 		expect(
-			data.features.some((feature) => feature.properties?.id === undefined),
+			data.features.some(
+				(feature) =>
+					(feature.properties as { id?: string } | undefined)?.id === undefined,
+			),
 		).toBe(true);
 	});
 });
@@ -400,12 +460,13 @@ describe("isExecutedDirectly", () => {
 	});
 
 	it("returns false when path conversion throws", () => {
-		expect(isExecutedDirectly({})).toBe(false);
+		const invalidEntry = {} as unknown as string;
+		expect(isExecutedDirectly(invalidEntry, "file:///module")).toBe(false);
 	});
 
 	it("returns true when entry matches module url", () => {
 		const entry = path.join("tmp", "file.js");
-		const moduleUrl = pathToFileURL(entry).href;
+		const moduleUrl = nodeUrl.pathToFileURL(entry).href;
 		expect(isExecutedDirectly(entry, moduleUrl)).toBe(true);
 	});
 });
@@ -465,13 +526,16 @@ describe("main", () => {
 		expect(error).not.toHaveBeenCalledWith("Error: Duplicate data detected:");
 		expect(process.exitCode).toBeUndefined();
 		expect(log).toHaveBeenCalledWith("✓ Total markers in file: 2");
-		const saved = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+		const saved = JSON.parse(
+			fs.readFileSync(filePath, "utf-8"),
+		) as FeatureCollectionLike;
 		expect(saved.features).toHaveLength(2);
-		expect(
-			saved.features.filter(
-				(feature) => feature.properties?.name === "Duplicate",
-			),
-		).toHaveLength(2);
+		const duplicates = saved.features.filter(
+			(feature: FeatureLike) =>
+				(feature.properties as { name?: string } | undefined)?.name ===
+				"Duplicate",
+		);
+		expect(duplicates).toHaveLength(2);
 	});
 
 	it("prints preview on dry run", () => {
@@ -490,9 +554,17 @@ describe("main", () => {
 		const { log } = captureLogs();
 		main(["forest", "10", "20", "card", "Name"], markersDir);
 		const markerPath = getFilePath("forest", markersDir);
-		const saved = JSON.parse(fs.readFileSync(markerPath, "utf-8"));
+		const saved = JSON.parse(
+			fs.readFileSync(markerPath, "utf-8"),
+		) as FeatureCollectionLike;
 		expect(saved.features).toHaveLength(1);
 		expect(log).toHaveBeenCalledWith("✓ Total markers in file: 1");
 		expect(saved.features[0].properties).not.toHaveProperty("description");
+	});
+
+	it("throws when map id resolves to empty string", () => {
+		expect(() => main(["", "10", "20", "card", "Name"])).toThrow(
+			"Map ID is required",
+		);
 	});
 });

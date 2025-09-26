@@ -1,14 +1,10 @@
-// Map definitions - Static data only
-
 import { getAssetPath } from "./asset-path.js";
+import type { MapDefinition, MapDefinitions, MapId } from "./types";
 
-// Default configuration constants
-/** @type {import("./types").MapId} */
-export const DEFAULT_MAP_ID = "desert";
+export const DEFAULT_MAP_ID: MapId = "desert";
 export const LAST_MAP_STORAGE_KEY = "last-selected-map:v1";
 
-/** @type {import("./types").MapDefinitions} */
-export const mapDefinitions = {
+export const mapDefinitions: MapDefinitions = {
 	forest: {
 		name: "Forest Map",
 		imagePath: getAssetPath("/assets/maps/forest.jpg"),
@@ -38,53 +34,23 @@ export const mapDefinitions = {
 	},
 };
 
-/**
- * Get map definition by ID
- */
-/**
- * @param {import("./types").MapId} mapId
- * @returns {import("./types").MapDefinition | null}
- */
-export function getMapDefinition(mapId) {
-	return mapDefinitions[mapId] || null;
+export function getMapDefinition(mapId: MapId): MapDefinition | null {
+	return mapDefinitions[mapId] ?? null;
 }
 
-/**
- * Get all available map IDs
- */
-/**
- * @returns {import("./types").MapId[]}
- */
-export function getAllMapIds() {
-	return Object.keys(mapDefinitions);
+export function getAllMapIds(): MapId[] {
+	return Object.keys(mapDefinitions) as MapId[];
 }
 
-/**
- * Validate map ID
- */
-/**
- * @param {unknown} mapId
- * @returns {mapId is import("./types").MapId}
- */
-export function isValidMapId(mapId) {
-	return mapId && Object.hasOwn(mapDefinitions, mapId);
+export function isValidMapId(mapId: unknown): mapId is MapId {
+	return typeof mapId === "string" && Object.hasOwn(mapDefinitions, mapId);
 }
 
-/**
- * Get default map ID
- */
-/**
- * @returns {import("./types").MapId}
- */
-export function getDefaultMapId() {
+export function getDefaultMapId(): MapId {
 	return DEFAULT_MAP_ID;
 }
 
-/**
- * Get last selected map from localStorage, fallback to default
- * @returns {import("./types").MapId}
- */
-export function getInitialMapId() {
+export function getInitialMapId(): MapId {
 	try {
 		const stored = localStorage.getItem(LAST_MAP_STORAGE_KEY);
 		if (stored && isValidMapId(stored)) {
@@ -100,14 +66,7 @@ export function getInitialMapId() {
 	return DEFAULT_MAP_ID;
 }
 
-/**
- * Save map selection to localStorage
- */
-/**
- * @param {import("./types").MapId} mapId
- * @returns {boolean}
- */
-export function saveSelectedMap(mapId) {
+export function saveSelectedMap(mapId: MapId): boolean {
 	if (!isValidMapId(mapId)) {
 		console.error(`Invalid map ID: ${mapId}`);
 		return false;

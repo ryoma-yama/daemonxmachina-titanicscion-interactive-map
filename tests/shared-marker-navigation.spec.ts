@@ -1,9 +1,9 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 const markerId = "desert-054";
 const markerName = "Gunfort";
 
-async function clearStorage(page) {
+async function clearStorage(page: Page): Promise<void> {
 	await page.evaluate(() => {
 		localStorage.clear();
 		sessionStorage.clear();

@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { AppController } from "./app-controller.js";
 import "./styles.css";
 
-function init() {
+function init(): void {
 	// Hide loading screen and show app
 	const loadingElement = document.getElementById("loading");
 	const appElement = document.getElementById("app");

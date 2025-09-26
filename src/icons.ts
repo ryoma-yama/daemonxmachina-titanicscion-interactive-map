@@ -1,18 +1,19 @@
 import L from "leaflet";
 import { getAssetPath } from "./asset-path.js";
 import { colors } from "./constants.js";
+import type { MarkerCategory, MarkerId } from "./types";
 
-// DivIcon that uses SVG as mask and colors with background color
+type MarkerCategoryLike = MarkerCategory | (string & Record<never, never>);
+
 export function createCategoryIcon(
-	category,
+	category: MarkerCategoryLike,
 	size = 24,
 	isCollected = false,
-	markerId,
-) {
-	const color = colors[category] || "#FFFFFF";
+	markerId?: MarkerId,
+): L.DivIcon {
+	const color = colors[category as MarkerCategory] ?? "#FFFFFF";
 	const url = getAssetPath(`/assets/icons/${category}.svg`);
 
-	// Collection state styling
 	const opacity = isCollected ? 0.5 : 1.0;
 	const filter = isCollected ? "grayscale(50%)" : "none";
 	const border = isCollected ? "2px solid #00FF00" : "none";
@@ -37,6 +38,7 @@ export function createCategoryIcon(
       box-sizing:border-box;
       ">
     </div>`;
+
 	return L.divIcon({
 		html,
 		className: "dmx-icon",

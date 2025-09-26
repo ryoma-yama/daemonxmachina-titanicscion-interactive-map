@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
+import { type ConsoleMessage, expect, test } from "@playwright/test";
 
-const captureConsole = (pageErrors) => (msg) => {
+const captureConsole = (pageErrors: string[]) => (msg: ConsoleMessage) => {
 	if (msg.type() === "error") {
 		pageErrors.push(msg.text());
 	}
@@ -10,8 +10,8 @@ test.describe("hide collected toggle", () => {
 	test("hides collected markers from map and search and persists state", async ({
 		page,
 	}) => {
-		const pageErrors = [];
-		page.on("pageerror", (error) => pageErrors.push(error));
+		const pageErrors: string[] = [];
+		page.on("pageerror", (error) => pageErrors.push(String(error)));
 		page.on("console", captureConsole(pageErrors));
 
 		await page.goto("/");

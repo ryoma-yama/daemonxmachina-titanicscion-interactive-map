@@ -1,18 +1,15 @@
-// Persistent preferences stored in localStorage
-
 const HIDE_COLLECTED_KEY = "hide-collected:v1";
 
-function isBoolean(value) {
-	return typeof value === "boolean";
-}
+const isBoolean = (value: unknown): value is boolean =>
+	typeof value === "boolean";
 
-export function loadHideCollectedPreference() {
+export function loadHideCollectedPreference(): boolean {
 	try {
 		const stored = localStorage.getItem(HIDE_COLLECTED_KEY);
 		if (stored === null) {
 			return false;
 		}
-		const parsed = JSON.parse(stored);
+		const parsed = JSON.parse(stored) as unknown;
 		if (isBoolean(parsed)) {
 			return parsed;
 		}
@@ -28,7 +25,7 @@ export function loadHideCollectedPreference() {
 	return false;
 }
 
-export function saveHideCollectedPreference(hideCollected) {
+export function saveHideCollectedPreference(hideCollected: unknown): boolean {
 	try {
 		localStorage.setItem(
 			HIDE_COLLECTED_KEY,

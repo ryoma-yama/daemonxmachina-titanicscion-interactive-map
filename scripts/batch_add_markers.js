@@ -4,10 +4,36 @@ import process from 'node:process';
 import { pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
+/**
+ * @typedef {Object} MarkerCommand
+ * @property {string} mapId
+ * @property {string} x
+ * @property {string} y
+ * @property {string} category
+ * @property {string} name
+ * @property {string} description
+ */
+
+/**
+ * @typedef {Object} BatchArguments
+ * @property {string} inputFile
+ * @property {boolean} dryRun
+ */
+
+/**
+ * @typedef {Object} AddMarkerResult
+ * @property {boolean} success
+ * @property {string} output
+ */
+
 const ADD_MARKER_SCRIPT = path.resolve('scripts/add_marker.js');
 
 const markerPattern = /^(\w+)\s+(\d+)\s+(\d+)\s+(\w+)\s+"([^"]*)"(?:\s+"([^"]*)")?$/u;
 
+/**
+ * @param {string} line
+ * @returns {MarkerCommand | null}
+ */
 function parseMarkerLine(line) {
   const trimmed = line.trim();
   if (trimmed === '' || trimmed.startsWith('#')) {
@@ -21,16 +47,21 @@ function parseMarkerLine(line) {
   }
 
   const [, mapId, x, y, category, name, description] = match;
-  return {
+  return /** @type {MarkerCommand} */ ({
     mapId,
     x,
     y,
     category,
     name,
     description: description ?? '',
-  };
+  });
 }
 
+/**
+ * @param {MarkerCommand} markerData
+ * @param {boolean} dryRun
+ * @returns {AddMarkerResult}
+ */
 function runAddMarker(markerData, dryRun) {
   const args = [
     ADD_MARKER_SCRIPT,
@@ -57,6 +88,10 @@ function runAddMarker(markerData, dryRun) {
   };
 }
 
+/**
+ * @param {string[]} [argv]
+ * @returns {BatchArguments}
+ */
 function parseArguments(argv = process.argv.slice(2)) {
   if (argv.length === 0) {
     throw new Error('Usage: node scripts/batch_add_markers.js <input_file> [--dry-run]');
@@ -78,12 +113,17 @@ function parseArguments(argv = process.argv.slice(2)) {
   return { inputFile: path.resolve(inputFile), dryRun };
 }
 
+/**
+ * @param {string[]} [argv]
+ * @returns {void}
+ */
 export function main(argv = process.argv.slice(2)) {
   let parsed;
   try {
     parsed = parseArguments(argv);
   } catch (error) {
-    console.error(error.message);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(message);
     process.exitCode = 1;
     return;
   }
@@ -142,6 +182,11 @@ export function main(argv = process.argv.slice(2)) {
   console.log(`  Total processed: ${totalProcessed}`);
 }
 
+/**
+ * @param {string | null | undefined} [entry]
+ * @param {string} [moduleUrl]
+ * @returns {boolean}
+ */
 function isExecutedDirectly(entry = process.argv[1], moduleUrl = import.meta.url) {
   if (!entry) {
     return false;
@@ -158,7 +203,8 @@ if (isExecutedDirectly()) {
   try {
     main();
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`Error: ${message}`);
     process.exit(1);
   }
 }

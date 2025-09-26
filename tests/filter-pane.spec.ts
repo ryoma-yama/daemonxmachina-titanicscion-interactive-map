@@ -1,14 +1,20 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, "..");
 const MARKERS_DIR = path.join(ROOT_DIR, "public", "assets", "data", "markers");
 
-const categoryToMarkers = new Map();
+interface MarkerSummary {
+	mapId: string;
+	id: string;
+	name: string;
+}
+
+const categoryToMarkers = new Map<string, MarkerSummary[]>();
 
 for (const file of fs.readdirSync(MARKERS_DIR)) {
 	if (!file.endsWith(".geojson")) {
@@ -22,7 +28,7 @@ for (const file of fs.readdirSync(MARKERS_DIR)) {
 		if (!categoryToMarkers.has(category)) {
 			categoryToMarkers.set(category, []);
 		}
-		categoryToMarkers.get(category).push({
+		categoryToMarkers.get(category)?.push({
 			mapId,
 			id: feature.properties.id,
 			name: feature.properties.name || feature.properties.id,
@@ -37,18 +43,31 @@ const PRIMARY_CATEGORY = ALL_CATEGORIES.includes("music")
 const PRIMARY_DESERT_MARKER =
 	categoryToMarkers
 		.get(PRIMARY_CATEGORY)
-		.find((marker) => marker.mapId === "desert") ||
-	categoryToMarkers.get(PRIMARY_CATEGORY)[0];
+		?.find((marker) => marker.mapId === "desert") ||
+	categoryToMarkers.get(PRIMARY_CATEGORY)?.[0];
+if (!PRIMARY_DESERT_MARKER) {
+	throw new Error("No markers available for primary category");
+}
+const PRIMARY_MARKER: MarkerSummary = PRIMARY_DESERT_MARKER;
 const SECONDARY_MAP_ID =
-	PRIMARY_DESERT_MARKER.mapId === "forest" ? "mountains" : "forest";
+	PRIMARY_MARKER.mapId === "forest" ? "mountains" : "forest";
 const SECONDARY_MARKER = categoryToMarkers
 	.get(PRIMARY_CATEGORY)
-	.find((marker) => marker.mapId === SECONDARY_MAP_ID);
+	?.find((marker) => marker.mapId === SECONDARY_MAP_ID);
 const CARD_MARKER = categoryToMarkers
 	.get("card")
 	?.find((marker) => marker.mapId === "desert");
 
-async function openFilterPane(page) {
+declare global {
+	interface Window {
+		__filterEvents?: Array<{ selectedCategories?: string[] }>;
+		__filterListener?: (
+			event: CustomEvent<{ selectedCategories?: string[] }>,
+		) => void;
+	}
+}
+
+async function openFilterPane(page: Page): Promise<void> {
 	await page.getByTestId("filter-toggle").click();
 	await expect(page.getByTestId("filter-pane")).toBeVisible();
 	for (const category of ALL_CATEGORIES) {
@@ -56,7 +75,7 @@ async function openFilterPane(page) {
 	}
 }
 
-async function openSearchPanel(page) {
+async function openSearchPanel(page: Page) {
 	const toggle = page.getByRole("button", { name: "Toggle search panel" });
 	await toggle.click();
 	const input = page.getByPlaceholder("Search markers");
@@ -91,24 +110,19 @@ test.describe("filter pane", () => {
 			await expect(checkbox).toBeChecked();
 		}
 
-		if (PRIMARY_DESERT_MARKER) {
-			await expect(
-				page.locator(`[data-marker-id="${PRIMARY_DESERT_MARKER.id}"]`),
-			).toBeVisible();
-		}
+		await expect(
+			page.locator(`[data-marker-id="${PRIMARY_MARKER.id}"]`),
+		).toBeVisible();
 
 		const searchInput = await openSearchPanel(page);
-		await searchInput.fill(PRIMARY_DESERT_MARKER.name.slice(0, 5));
+		await searchInput.fill(PRIMARY_MARKER.name.slice(0, 5));
 		await expect(page.getByTestId("search-result-item").first()).toBeVisible();
 	});
 
 	test("toggling a single category hides related markers and results", async ({
 		page,
 	}) => {
-		test.skip(
-			!PRIMARY_DESERT_MARKER,
-			"No marker available for primary category",
-		);
+		test.skip(!PRIMARY_MARKER, "No marker available for primary category");
 
 		await openFilterPane(page);
 		const targetRow = page.getByTestId(`filter-item-${PRIMARY_CATEGORY}`);
@@ -116,11 +130,11 @@ test.describe("filter pane", () => {
 
 		await expect(targetRow.locator("input[type=checkbox]")).not.toBeChecked();
 		await expect(
-			page.locator(`[data-marker-id="${PRIMARY_DESERT_MARKER.id}"]`),
+			page.locator(`[data-marker-id="${PRIMARY_MARKER.id}"]`),
 		).toHaveCount(0);
 
 		const searchInput = await openSearchPanel(page);
-		await searchInput.fill(PRIMARY_DESERT_MARKER.name);
+		await searchInput.fill(PRIMARY_MARKER.name);
 		await expect(page.getByTestId("search-result-item")).toHaveCount(0);
 		await expect(page.locator("#search-message")).toContainText(
 			"No markers found",
@@ -149,11 +163,9 @@ test.describe("filter pane", () => {
 			).toBeChecked();
 		}
 
-		if (PRIMARY_DESERT_MARKER) {
-			await expect(
-				page.locator(`[data-marker-id="${PRIMARY_DESERT_MARKER.id}"]`),
-			).toBeVisible();
-		}
+		await expect(
+			page.locator(`[data-marker-id="${PRIMARY_MARKER.id}"]`),
+		).toBeVisible();
 	});
 
 	test("none button clears all markers and results", async ({ page }) => {
@@ -171,7 +183,7 @@ test.describe("filter pane", () => {
 		await expect(page.getByTestId("map-marker")).toHaveCount(0);
 
 		const searchInput = await openSearchPanel(page);
-		await searchInput.fill(PRIMARY_DESERT_MARKER.name);
+		await searchInput.fill(PRIMARY_MARKER.name);
 		await expect(page.getByTestId("search-result-item")).toHaveCount(0);
 		await expect(page.locator("#search-message")).toContainText(
 			"No markers found",
@@ -182,7 +194,7 @@ test.describe("filter pane", () => {
 		await openFilterPane(page);
 		await page.getByTestId(`filter-item-${PRIMARY_CATEGORY}`).click();
 		await expect(
-			page.locator(`[data-marker-id="${PRIMARY_DESERT_MARKER.id}"]`),
+			page.locator(`[data-marker-id="${PRIMARY_MARKER.id}"]`),
 		).toHaveCount(0);
 
 		await page.reload();
@@ -194,7 +206,7 @@ test.describe("filter pane", () => {
 				.locator("input[type=checkbox]"),
 		).not.toBeChecked();
 		await expect(
-			page.locator(`[data-marker-id="${PRIMARY_DESERT_MARKER.id}"]`),
+			page.locator(`[data-marker-id="${PRIMARY_MARKER.id}"]`),
 		).toHaveCount(0);
 	});
 
@@ -203,13 +215,14 @@ test.describe("filter pane", () => {
 			!SECONDARY_MARKER,
 			"No secondary marker available for selected category",
 		);
+		const secondaryMarker = SECONDARY_MARKER as MarkerSummary;
 		await openFilterPane(page);
 		await page.getByTestId(`filter-item-${PRIMARY_CATEGORY}`).click();
 
 		await page.locator(`.map-link[data-map="${SECONDARY_MAP_ID}"]`).click();
 
 		await expect(
-			page.locator(`[data-marker-id="${SECONDARY_MARKER.id}"]`),
+			page.locator(`[data-marker-id="${secondaryMarker.id}"]`),
 		).toHaveCount(0);
 		await expect(
 			page
@@ -237,17 +250,22 @@ test.describe("filter pane", () => {
 	test("filter changed event emits payload", async ({ page }) => {
 		await page.evaluate(() => {
 			window.__filterEvents = [];
-			window.__filterListener = (event) => {
-				window.__filterEvents.push(event.detail);
+			const listener = (
+				event: CustomEvent<{ selectedCategories?: string[] }>,
+			) => {
+				const events = window.__filterEvents ?? [];
+				events.push(event.detail);
+				window.__filterEvents = events;
 			};
-			document.addEventListener("filter:changed", window.__filterListener);
+			window.__filterListener = listener;
+			document.addEventListener("filter:changed", listener as EventListener);
 		});
 
 		await openFilterPane(page);
 		await page.getByTestId(`filter-item-${PRIMARY_CATEGORY}`).click();
 		await page.getByTestId("filter-all").click();
 
-		const events = await page.evaluate(() => window.__filterEvents);
+		const events = await page.evaluate(() => window.__filterEvents ?? []);
 		expect(events.length).toBeGreaterThanOrEqual(2);
 		expect(events[events.length - 1]?.selectedCategories).toBeDefined();
 		expect(Array.isArray(events[events.length - 1].selectedCategories)).toBe(
@@ -260,12 +278,12 @@ test.describe("filter pane", () => {
 		await page.getByTestId(`filter-item-${PRIMARY_CATEGORY}`).click();
 
 		const searchInput = await openSearchPanel(page);
-		await searchInput.fill(PRIMARY_DESERT_MARKER.name);
+		await searchInput.fill(PRIMARY_MARKER.name);
 		await expect(page.getByTestId("search-result-item")).toHaveCount(0);
 
 		await page.getByTestId("filter-all").click();
 		await searchInput.fill("");
-		await searchInput.fill(PRIMARY_DESERT_MARKER.name);
+		await searchInput.fill(PRIMARY_MARKER.name);
 		await expect(page.getByTestId("search-result-item").first()).toBeVisible();
 	});
 });
