@@ -20,7 +20,7 @@ Detailed credits and support information are available on the [About page](./abo
 - Mobile-friendly responsive design
 
 ## Technical Stack
-- **Frontend**: Vanilla HTML/CSS/JavaScript (ES modules)
+- **Frontend**: Vanilla HTML/CSS/TypeScript (ES modules)
 - **Build Tool**: Vite
 - **Map Library**: [Leaflet.js](https://leafletjs.com/) v1.9.4 (npm package)
 - **Data Storage**: Browser localStorage
@@ -70,8 +70,15 @@ pnpm build
 
 ### Code Quality
 ```bash
-# Run linting and formatting checks
+# Static analysis and formatting
 pnpm check
+
+# TypeScript type-checking
+pnpm typecheck
+
+# Run the automated test suites
+pnpm test
+pnpm exec playwright test
 
 # Auto-fix issues
 pnpm fix
@@ -139,13 +146,15 @@ This is primarily a personal project for game progress tracking.
 While contributions are welcome, please note the scope is intentionally limited to maintain simplicity.
 
 ### Development Guidelines
-- Use vanilla JavaScript (ES6+ modules)
-- Console logging for debugging is standard practice
-- Follow existing code style and patterns
-- Use Biome for code formatting and linting
-- Test changes across different browsers
-- Ensure mobile compatibility
-- Run `pnpm check` before committing changes
+- Use TypeScript modules with ES2022 syntax.
+- Prefer explicit types for public exports; allow inference for narrow-scope locals when it keeps intent clear.
+- Console logging for debugging is standard practice.
+- Follow existing code style and patterns.
+- Use Biome for code formatting and linting.
+- Keep shared type definitions in `src/types/` so modules can import stable contracts.
+- Run `pnpm check`, `pnpm typecheck`, `pnpm test`, and `pnpm exec playwright test` before committing changes.
+- Test changes across different browsers and ensure mobile compatibility.
+- Refer to [`docs/typescript-migration/wrap-up.md`](./docs/typescript-migration/wrap-up.md) for post-migration conventions and lessons learned.
 
 #### CSS Important Rules
 This project uses `!important` declarations in CSS for the following justified reasons:
@@ -164,4 +173,4 @@ The detailed module-by-module conversion order lives in [`docs/typescript-migrat
 
 ---
 
-*This project is maintained as a fan project and learning exercise. It uses a modern Vite-based development workflow while maintaining vanilla JavaScript for the core application logic.*
+*This project is maintained as a fan project and learning exercise. It uses a modern Vite-based development workflow while keeping the core application logic in TypeScript modules that compile to vanilla JavaScript for the browser.*
