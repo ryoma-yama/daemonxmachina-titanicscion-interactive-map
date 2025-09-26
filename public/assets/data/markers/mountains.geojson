@@ -513,7 +513,7 @@
       },
       "properties": {
         "id": "mountains-039",
-        "name": "War Scythe (Helm)",
+        "name": "No.097-War Scythe (Helm)",
         "category": "card"
       }
     },
@@ -528,7 +528,7 @@
       },
       "properties": {
         "id": "mountains-040",
-        "name": "Thousand Cuts",
+        "name": "No.157-Thousand Cuts",
         "category": "card"
       }
     },
@@ -1139,6 +1139,59 @@
           "Card: No.017",
           "Card: No.028"
         ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          809,
+          861
+        ]
+      },
+      "properties": {
+        "id": "mountains-081",
+        "name": "Junior Card Champ",
+        "category": "duelist",
+        "items": [
+          "Card: Great Horn II",
+          "Decal: Eight"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          819,
+          861
+        ]
+      },
+      "properties": {
+        "id": "mountains-082",
+        "name": "Colony Shop Owner",
+        "category": "shop",
+        "items": [
+          "Card: No.126-Explorer (Vambrace)",
+          "Card: No.162-Grappling Chain"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          829,
+          861
+        ]
+      },
+      "properties": {
+        "id": "mountains-083",
+        "name": "No.60-Caladrius",
+        "category": "card"
       }
     }
   ]

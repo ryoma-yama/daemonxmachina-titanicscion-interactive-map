@@ -1141,7 +1141,8 @@
       },
       "properties": {
         "id": "forest-078",
-        "name": "Mining Tunnel",
+        "name": "Natural Tunnel",
+        "description": "Progress advances when entering B1F",
         "category": "dungeon"
       }
     },
@@ -1156,7 +1157,8 @@
       },
       "properties": {
         "id": "forest-079",
-        "name": "Mining Tunnel",
+        "name": "Natural Tunnel",
+        "description": "Progress advances when entering B1F",
         "category": "dungeon"
       }
     },
@@ -1478,6 +1480,21 @@
         "name": "No.084",
         "category": "card",
         "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          787,
+          1043
+        ]
+      },
+      "properties": {
+        "id": "forest-101",
+        "name": "No.82-Request for Transport of Femto Survey Device",
+        "category": "log"
       }
     }
   ]
