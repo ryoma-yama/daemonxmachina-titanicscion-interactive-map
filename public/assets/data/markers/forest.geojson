@@ -12,7 +12,8 @@
       },
       "properties": {
         "id": "forest-006",
-        "name": "Emblem: 14",
+        "name": "No.132 Graffiti: 3",
+        "description": "turtle",
         "category": "decal"
       }
     },
@@ -227,7 +228,7 @@
       },
       "properties": {
         "id": "forest-020",
-        "name": "Emblem: 20",
+        "name": "No.192-Emblem: 20",
         "category": "decal"
       }
     },
@@ -242,7 +243,7 @@
       },
       "properties": {
         "id": "forest-021",
-        "name": "Rose",
+        "name": "No.206-Rose",
         "category": "decal"
       }
     },
@@ -287,7 +288,8 @@
       },
       "properties": {
         "id": "forest-024",
-        "name": "Sword",
+        "name": "No.205-Sword",
+        "description": "upper rock wall",
         "category": "decal"
       }
     },
@@ -317,7 +319,8 @@
       },
       "properties": {
         "id": "forest-026",
-        "name": "Peach",
+        "name": "No.201-Peach",
+        "description": "pier underside",
         "category": "decal"
       }
     },
@@ -347,8 +350,8 @@
       },
       "properties": {
         "id": "forest-028",
-        "name": "Graffiti: 1",
-        "description": "mid-wall of building",
+        "name": "No.130 Graffiti: 1",
+        "description": "mid-wall of building. mushroom",
         "category": "decal"
       }
     },
@@ -1203,7 +1206,8 @@
       },
       "properties": {
         "id": "forest-082",
-        "name": "No.23",
+        "name": "No.023 Divine Trigger Construction Plan",
+        "description": "under embedded iron plate",
         "category": "log"
       }
     },
@@ -1462,7 +1466,7 @@
       },
       "properties": {
         "id": "forest-099",
-        "name": "No.081",
+        "name": "No.081 One Drop",
         "category": "card"
       }
     },
@@ -1471,13 +1475,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          341,
-          794
+          348,
+          846
         ]
       },
       "properties": {
         "id": "forest-100",
-        "name": "No.084",
+        "name": "No.084 Albireo",
         "category": "card",
         "description": "Unconfirmed"
       }
@@ -1487,13 +1491,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          787,
+          777,
           1043
         ]
       },
       "properties": {
         "id": "forest-101",
-        "name": "No.82-Request for Transport of Femto Survey Device",
+        "name": "No.82 Caution Request for Transport of Femto Survey Device",
         "category": "log"
       }
     }

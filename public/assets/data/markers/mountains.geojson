@@ -12,7 +12,7 @@
       },
       "properties": {
         "id": "mountains-006",
-        "name": "Graffiti: 7",
+        "name": "No.136 Graffiti: 7",
         "name_jp": "ウォールアート: 7",
         "category": "decal"
       }
@@ -59,6 +59,7 @@
       "properties": {
         "id": "mountains-009",
         "name": "No.015-Deviant",
+        "description": "lower floor of building",
         "category": "music"
       }
     },
@@ -144,12 +145,13 @@
         "type": "Point",
         "coordinates": [
           1066,
-          1008
+          1015
         ]
       },
       "properties": {
         "id": "mountains-015",
         "name": "No.023-Legion",
+        "description": "between containers",
         "category": "music"
       }
     },
@@ -165,7 +167,8 @@
       "properties": {
         "id": "mountains-016",
         "name": "No.025-Arachne",
-        "category": "music"
+        "category": "music",
+        "description": "on ground"
       }
     },
     {
@@ -203,13 +206,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          980,
+          987,
           919
         ]
       },
       "properties": {
         "id": "mountains-019",
         "name": "No.032-Hostility",
+        "description": "upper floor of building",
         "category": "music"
       }
     },
@@ -269,7 +273,7 @@
       },
       "properties": {
         "id": "mountains-023",
-        "name": "Kraken",
+        "name": "No.209-Kraken",
         "category": "decal"
       }
     },
@@ -315,7 +319,7 @@
       },
       "properties": {
         "id": "mountains-026",
-        "name": "Graffiti: 8",
+        "name": "No.137 Graffiti: 8",
         "category": "decal"
       }
     },
@@ -360,7 +364,8 @@
       },
       "properties": {
         "id": "mountains-029",
-        "name": "Graffiti: 2",
+        "name": "No.131 Graffiti: 2",
+        "description": "skull",
         "category": "decal"
       }
     },
@@ -452,7 +457,8 @@
       },
       "properties": {
         "id": "mountains-035",
-        "name": "Emblem: 13",
+        "name": "No.185-Emblem: 13",
+        "description": "south wall",
         "category": "decal"
       }
     },
@@ -461,13 +467,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          991,
+          990,
           919
         ]
       },
       "properties": {
         "id": "mountains-036",
-        "name": "Line Art: 11",
+        "name": "No.150-Line Art: 11",
         "category": "decal"
       }
     },
@@ -482,7 +488,7 @@
       },
       "properties": {
         "id": "mountains-037",
-        "name": "Emblem: 3",
+        "name": "No.175-Emblem: 3",
         "category": "decal"
       }
     },
@@ -934,6 +940,7 @@
       "properties": {
         "id": "mountains-067",
         "name": "No.67-Explorer's Notes 7-2",
+        "description": "under rock arch",
         "category": "log"
       }
     },
@@ -1009,6 +1016,7 @@
       "properties": {
         "id": "mountains-072",
         "name": "No.72-Explorer's Notes 8-3",
+        "description": "by puddle. Reward: Wing Shift Speed Up Lv3",
         "category": "log"
       }
     },
@@ -1135,9 +1143,9 @@
         "name": "Colony Shop Owner",
         "category": "shop",
         "items": [
-          "Card: No.009",
-          "Card: No.017",
-          "Card: No.028"
+          "Card: No.009-Noble Pride",
+          "Card: No.017-Claiomh Solais",
+          "Card: No.028-Vargr Greed"
         ]
       }
     },
