@@ -61,4 +61,4 @@ Capture full-screen PNGs in `docs/typescript-migration/screenshots/` before the 
   4. **Controller + entry point** – Convert `app-controller.js` and `main.js`, ensuring build output stays tree-shakeable.
   5. **Final clean-up** – Remove unused `.js` stubs, enable `noImplicitAny`, and rerun the baseline quality gates.
 
-Document the results of each checkpoint (tests, lint, build, screenshots) in follow-up entries under this directory to keep the migration auditable.
+Document the results of each checkpoint (tests, lint, build, screenshots) in follow-up entries under this directory to keep the migration auditable. The final clean-up summary and long-term conventions live in [`wrap-up.md`](./wrap-up.md).
