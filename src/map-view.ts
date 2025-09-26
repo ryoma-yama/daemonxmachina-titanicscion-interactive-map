@@ -434,88 +434,95 @@ export class MapView {
 		container.className = "marker-popup";
 		container.setAttribute("data-marker-id", feature.properties.id);
 
-		const header = document.createElement("div");
-		header.className = "marker-popup__header";
+		const checkboxId = `checkbox-${feature.properties.id}`;
 
-		const title = document.createElement("h3");
-		title.className = "marker-popup__title";
+		const title = document.createElement("h4");
 		title.textContent = feature.properties.name || feature.properties.id;
+		container.appendChild(title);
 
-                const checkboxLabel = document.createElement("label");
-                checkboxLabel.className = "marker-popup__checkbox-label checkbox-label";
-
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.className = "marker-popup__checkbox";
-                checkbox.checked = collectionState.isCollected(feature.properties.id);
-                checkbox.setAttribute("data-marker-id", feature.properties.id);
-
-                const checkboxText = document.createElement("span");
-                checkboxText.textContent = "Collected";
-
-                checkboxLabel.appendChild(checkbox);
-                checkboxLabel.appendChild(checkboxText);
-
-                const shareButton = document.createElement("button");
-                shareButton.type = "button";
-                shareButton.className = "share-link-button";
-                shareButton.setAttribute("aria-label", "Copy marker link");
-                shareButton.setAttribute("data-marker-id", feature.properties.id);
-                if (this.currentMapId) {
-                        shareButton.setAttribute("data-map-id", this.currentMapId);
-                }
-
-                const tooltipId = `share-tooltip-${feature.properties.id}`;
-                shareButton.setAttribute("aria-describedby", tooltipId);
-
-                const iconSpan = document.createElement("span");
-                iconSpan.className = "share-link-button__icon";
-                shareButton.appendChild(iconSpan);
-
-                const tooltip = document.createElement("span");
-                tooltip.id = tooltipId;
-                tooltip.className = "share-link-button__tooltip";
-                tooltip.setAttribute("role", "tooltip");
-                tooltip.textContent = "Copy link";
-                shareButton.appendChild(tooltip);
-
-                header.appendChild(title);
-                header.appendChild(checkboxLabel);
-                header.appendChild(shareButton);
-                container.appendChild(header);
-
-		if (feature.properties.description) {
-			const description = document.createElement("p");
-			description.className = "marker-popup__description";
+		if (feature.properties.description?.trim()) {
+			const description = document.createElement("div");
+			description.className = "marker-description";
 			description.textContent = feature.properties.description;
 			container.appendChild(description);
 		}
 
-		const items = feature.properties.items;
-		if (Array.isArray(items) && items.length) {
-			const section = document.createElement("section");
-			section.className = "marker-popup__items";
-
-			const sectionTitle = document.createElement("h4");
-			sectionTitle.className = "marker-popup__items-title";
-			const label = categoryItemLabels[feature.properties.category];
-			sectionTitle.textContent = label || "Items";
-
-			const list = document.createElement("ul");
-			list.className = "marker-popup__items-list";
-			items.forEach((item) => {
+		const itemsLabel = categoryItemLabels[feature.properties.category];
+		const rawItems = feature.properties.items;
+		const items: string[] = [];
+		if (Array.isArray(rawItems)) {
+			for (const item of rawItems) {
 				if (typeof item !== "string") {
-					return;
+					continue;
 				}
-				const listItem = document.createElement("li");
-				listItem.textContent = item;
-				list.appendChild(listItem);
-			});
-
-			section.appendChild(sectionTitle);
-			section.appendChild(list);
-			container.appendChild(section);
+				const trimmedItem = item.trim();
+				if (trimmedItem) {
+					items.push(trimmedItem);
+				}
+			}
 		}
+
+		if (itemsLabel && items.length > 0) {
+			const itemsContainer = document.createElement("div");
+			itemsContainer.className = "marker-items";
+
+			const labelLine = document.createElement("div");
+			labelLine.textContent = `${itemsLabel}:`;
+			itemsContainer.appendChild(labelLine);
+
+			for (const item of items) {
+				const itemLine = document.createElement("div");
+				itemLine.textContent = `- ${item}`;
+				itemsContainer.appendChild(itemLine);
+			}
+
+			container.appendChild(itemsContainer);
+		}
+
+		const status = document.createElement("div");
+		status.className = "collection-status";
+
+		const checkboxLabel = document.createElement("label");
+		checkboxLabel.className = "checkbox-label";
+		checkboxLabel.htmlFor = checkboxId;
+
+		const checkbox = document.createElement("input");
+		checkbox.type = "checkbox";
+		checkbox.id = checkboxId;
+		checkbox.setAttribute("data-marker-id", feature.properties.id);
+		checkbox.checked = collectionState.isCollected(feature.properties.id);
+
+		const checkboxText = document.createTextNode(" Collected");
+
+		checkboxLabel.appendChild(checkbox);
+		checkboxLabel.appendChild(checkboxText);
+
+		const shareButton = document.createElement("button");
+		shareButton.type = "button";
+		shareButton.className = "share-link-button";
+		shareButton.setAttribute("aria-label", "Copy marker link");
+		shareButton.setAttribute("data-marker-id", feature.properties.id);
+		if (this.currentMapId) {
+			shareButton.setAttribute("data-map-id", this.currentMapId);
+		}
+
+		const tooltipId = `share-tooltip-${feature.properties.id}`;
+		shareButton.setAttribute("aria-describedby", tooltipId);
+
+		const icon = document.createElement("span");
+		icon.className = "share-link-button__icon";
+		shareButton.appendChild(icon);
+
+		const tooltip = document.createElement("span");
+		tooltip.id = tooltipId;
+		tooltip.className = "share-link-button__tooltip";
+		tooltip.setAttribute("role", "tooltip");
+		tooltip.textContent = "Copy link";
+		shareButton.appendChild(tooltip);
+
+		status.appendChild(checkboxLabel);
+		status.appendChild(shareButton);
+		container.appendChild(status);
 
 		return container;
 	}
@@ -531,82 +538,86 @@ export class MapView {
 		this.applyVisibilityFilters();
 	}
 
-        private applyVisibilityFilters(): void {
-                if (!this.currentMarkerLayer) {
-                        return;
-                }
+	private applyVisibilityFilters(): void {
+		if (!this.currentMarkerLayer) {
+			return;
+		}
 
-                this.markerRefs.forEach((_, markerId) => {
-                        this.updateMarkerVisibility(markerId);
-                });
-        }
+		this.markerRefs.forEach((_, markerId) => {
+			this.updateMarkerVisibility(markerId);
+		});
+	}
 
-        private updateMarkerVisibility(markerId: MarkerId): void {
-                if (!this.currentMarkerLayer) {
-                        return;
-                }
+	private updateMarkerVisibility(markerId: MarkerId): void {
+		if (!this.currentMarkerLayer) {
+			return;
+		}
 
-                const marker = this.markerRefs.get(markerId);
-                if (!marker) {
-                        return;
-                }
+		const marker = this.markerRefs.get(markerId);
+		if (!marker) {
+			return;
+		}
 
-                const feature = (marker as L.Marker & { feature?: MarkerFeature }).feature;
-                if (!feature) {
-                        return;
-                }
+		const feature = (marker as L.Marker & { feature?: MarkerFeature }).feature;
+		if (!feature) {
+			return;
+		}
 
-                const category = feature.properties.category;
-                const isForcedVisible = this.forcedVisibleMarkers.has(markerId);
-                const categoryAllowed =
-                        !this.activeCategories || this.activeCategories.has(category);
-                const isCollected = this.currentCollectionState?.isCollected(markerId) ?? false;
-                const shouldHide =
-                        !isForcedVisible &&
-                        (!categoryAllowed || (this.hideCollected && isCollected));
-                const hasLayer = this.currentMarkerLayer.hasLayer(marker);
+		const category = feature.properties.category;
+		const isForcedVisible = this.forcedVisibleMarkers.has(markerId);
+		const categoryAllowed =
+			!this.activeCategories || this.activeCategories.has(category);
+		const isCollected =
+			this.currentCollectionState?.isCollected(markerId) ?? false;
+		const shouldHide =
+			!isForcedVisible &&
+			(!categoryAllowed || (this.hideCollected && isCollected));
+		const hasLayer = this.currentMarkerLayer.hasLayer(marker);
 
-                if (shouldHide && hasLayer) {
-                        this.currentMarkerLayer.removeLayer(marker);
-                        marker.closePopup();
-                } else if (!shouldHide && !hasLayer) {
-                        this.currentMarkerLayer.addLayer(marker);
-                }
-        }
+		if (shouldHide && hasLayer) {
+			this.currentMarkerLayer.removeLayer(marker);
+			marker.closePopup();
+		} else if (!shouldHide && !hasLayer) {
+			this.currentMarkerLayer.addLayer(marker);
+		}
+	}
 
-        private forceMarkerVisibility(markerId: MarkerId, shouldForce: boolean): void {
-                if (!markerId) {
-                        return;
-                }
+	private forceMarkerVisibility(
+		markerId: MarkerId,
+		shouldForce: boolean,
+	): void {
+		if (!markerId) {
+			return;
+		}
 
-                if (shouldForce) {
-                        this.forcedVisibleMarkers.clear();
-                        this.forcedVisibleMarkers.add(markerId);
-                } else {
-                        this.forcedVisibleMarkers.delete(markerId);
-                }
+		if (shouldForce) {
+			this.forcedVisibleMarkers.clear();
+			this.forcedVisibleMarkers.add(markerId);
+		} else {
+			this.forcedVisibleMarkers.delete(markerId);
+		}
 
-                this.updateMarkerVisibility(markerId);
-        }
+		this.updateMarkerVisibility(markerId);
+	}
 
-        focusMarker(markerId: MarkerId, options: FocusOptions = {}): boolean {
-                const marker = this.markerRefs.get(markerId);
-                if (!marker) {
-                        return false;
-                }
+	focusMarker(markerId: MarkerId, options: FocusOptions = {}): boolean {
+		const marker = this.markerRefs.get(markerId);
+		if (!marker) {
+			return false;
+		}
 
-                if (options.forceVisibility) {
-                        this.forceMarkerVisibility(markerId, true);
-                } else if (
-                        this.currentMarkerLayer &&
-                        !this.currentMarkerLayer.hasLayer(marker)
-                ) {
-                        return false;
-                }
+		if (options.forceVisibility) {
+			this.forceMarkerVisibility(markerId, true);
+		} else if (
+			this.currentMarkerLayer &&
+			!this.currentMarkerLayer.hasLayer(marker)
+		) {
+			return false;
+		}
 
-                const latlng = marker.getLatLng();
-                const zoom =
-                        typeof options.zoom === "number" ? options.zoom : this.map.getZoom();
+		const latlng = marker.getLatLng();
+		const zoom =
+			typeof options.zoom === "number" ? options.zoom : this.map.getZoom();
 
 		if (options.panOffset) {
 			const point = this.map.latLngToContainerPoint(latlng);
@@ -647,8 +658,15 @@ export class MapView {
 			),
 		);
 
-                this.updateMarkerVisibility(markerId);
-        }
+		const checkbox = document.getElementById(
+			`checkbox-${markerId}`,
+		) as HTMLInputElement | null;
+		if (checkbox) {
+			checkbox.checked = isCollected;
+		}
+
+		this.updateMarkerVisibility(markerId);
+	}
 
 	highlightMarker(markerId: MarkerId): void {
 		const marker = this.markerRefs.get(markerId);
