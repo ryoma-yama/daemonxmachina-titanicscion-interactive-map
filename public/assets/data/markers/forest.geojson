@@ -1500,6 +1500,66 @@
         "name": "No.82 Caution Request for Transport of Femto Survey Device",
         "category": "log"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151,
+          626
+        ]
+      },
+      "properties": {
+        "id": "forest-102",
+        "name": "Melan RT: Alpha",
+        "category": "enemy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          143,
+          562
+        ]
+      },
+      "properties": {
+        "id": "forest-103",
+        "name": "No.134 Acropolis (Vambrace)",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          142,
+          575
+        ]
+      },
+      "properties": {
+        "id": "forest-104",
+        "name": "No.050 Blue Shark",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          337,
+          948
+        ]
+      },
+      "properties": {
+        "id": "forest-105",
+        "name": "No.027 Mind Crusher",
+        "category": "card"
+      }
     }
   ]
 }

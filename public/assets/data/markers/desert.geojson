@@ -1346,6 +1346,37 @@
         "name": "No.52-Explorer's Notes 3-3",
         "category": "log"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          193,
+          673
+        ]
+      },
+      "properties": {
+        "id": "desert-093",
+        "name": "Emblem: 14",
+        "category": "decal",
+        "description": "pier underside"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          164,
+          528
+        ]
+      },
+      "properties": {
+        "id": "desert-094",
+        "name": "No.187 Emblem: 15",
+        "category": "decal"
+      }
     }
   ]
 }

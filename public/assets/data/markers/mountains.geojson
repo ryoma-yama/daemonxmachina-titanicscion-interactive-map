@@ -1201,6 +1201,53 @@
         "name": "No.60-Caladrius",
         "category": "card"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          173,
+          1038
+        ]
+      },
+      "properties": {
+        "id": "mountains-084",
+        "name": "No.051 Grim Reaper II",
+        "category": "card",
+        "description": "on rooftop"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          974,
+          976
+        ]
+      },
+      "properties": {
+        "id": "mountains-085",
+        "name": "No.016 Baldur's Edge",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          306,
+          167
+        ]
+      },
+      "properties": {
+        "id": "mountains-086",
+        "name": "Colony Shop Owner",
+        "category": "shop",
+        "description": "items: Memory Slot Expansions, Drill Enhancement Chips"
+      }
     }
   ]
 }
