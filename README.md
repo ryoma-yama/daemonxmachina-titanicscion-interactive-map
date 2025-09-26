@@ -160,6 +160,8 @@ The `complexity.noImportantStyles` rule is disabled in `biome.json` for this rea
 Planning for the TypeScript migration is documented in [`docs/typescript-migration/baseline.md`](./docs/typescript-migration/baseline.md).
 It records the pre-migration quality gates, storage keys that must remain stable, and the recommended checkpoints for the multi-phase conversion.
 
+The detailed module-by-module conversion order lives in [`docs/typescript-migration/phase-3-module-conversion-order.md`](./docs/typescript-migration/phase-3-module-conversion-order.md) so contributors can tackle the migration in review-friendly waves.
+
 ---
 
 *This project is maintained as a fan project and learning exercise. It uses a modern Vite-based development workflow while maintaining vanilla JavaScript for the core application logic.*
