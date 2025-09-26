@@ -1,19 +1,25 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
+
+declare global {
+	interface Window {
+		__clipboardCalls?: string[];
+	}
+}
 
 const mapId = "desert";
 const markerId = "desert-054";
 
-async function setupClipboardMock(page) {
+async function setupClipboardMock(page: Page): Promise<void> {
 	await page.addInitScript(() => {
-		const calls = [];
+		const calls: string[] = [];
 		const existing = window.navigator.clipboard ?? {};
 		const clipboard = {
 			...existing,
-			writeText: (text) => {
+			writeText: (text: string) => {
 				calls.push(text);
 				return Promise.resolve();
 			},
-		};
+		} as Pick<Clipboard, "writeText">;
 		Object.defineProperty(window.navigator, "clipboard", {
 			configurable: true,
 			value: clipboard,
@@ -39,12 +45,14 @@ test.describe("marker popup share link", () => {
 		const describedBy = await button.getAttribute("aria-describedby");
 		expect(describedBy).toBeTruthy();
 
-		const tooltip = popup.locator(`#${describedBy}`);
-		await expect(tooltip).toHaveAttribute("role", "tooltip");
-		await expect(tooltip).toHaveText("Copy link");
+		if (describedBy) {
+			const tooltip = popup.locator(`#${describedBy}`);
+			await expect(tooltip).toHaveAttribute("role", "tooltip");
+			await expect(tooltip).toHaveText("Copy link");
+		}
 
-		const sharesParentWithLabel = await button.evaluate((el) => {
-			const parent = el.parentElement;
+		const sharesParentWithLabel = await button.evaluate((element) => {
+			const parent = element.parentElement;
 			if (!parent) {
 				return false;
 			}
@@ -67,7 +75,7 @@ test.describe("marker popup share link", () => {
 		);
 		expect(clipboardCalls).toHaveLength(1);
 
-		const copiedUrl = clipboardCalls[0];
+		const [copiedUrl] = clipboardCalls;
 		const parsed = new URL(copiedUrl);
 		expect(parsed.searchParams.get("map")).toBe(mapId);
 		expect(parsed.searchParams.get("marker")).toBe(markerId);

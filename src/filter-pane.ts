@@ -1,8 +1,9 @@
 import L from "leaflet";
 import { getAssetPath } from "./asset-path.js";
 import { colors } from "./constants.js";
+import type { FilterChangedDetail, FilterManager } from "./filter-manager.js";
 
-function formatCategoryLabel(category) {
+function formatCategoryLabel(category: string): string {
 	if (typeof category !== "string" || !category.length) {
 		return "Unknown";
 	}
@@ -13,35 +14,80 @@ function formatCategoryLabel(category) {
 		.join(" ");
 }
 
-function clampOpacity(value) {
+function clampOpacity(value: number): string {
 	return Math.min(Math.max(value, 0), 1).toString();
 }
 
+interface CategoryElements {
+	item: HTMLLIElement;
+	icon: HTMLSpanElement;
+	label: HTMLSpanElement;
+	checkbox: HTMLInputElement;
+}
+
+function isFilterChangedEvent(
+	event: Event,
+): event is CustomEvent<FilterChangedDetail> {
+	return event instanceof CustomEvent;
+}
+
 export class FilterPane {
-	constructor({ filterManager }) {
+	private filterManager: FilterManager | undefined;
+
+	private isOpen: boolean;
+
+	private categoryElements: Map<string, CategoryElements>;
+
+	private renderedCategories: string[];
+
+	private rowOrder: HTMLLIElement[];
+
+	private container!: HTMLElement;
+
+	private toggleButton!: HTMLButtonElement;
+
+	private allButton!: HTMLButtonElement;
+
+	private noneButton!: HTMLButtonElement;
+
+	private listElement!: HTMLElement;
+
+	private liveRegion: HTMLElement | null = null;
+
+	constructor({ filterManager }: { filterManager?: FilterManager }) {
 		this.filterManager = filterManager;
 		this.isOpen = false;
 		this.categoryElements = new Map();
 		this.renderedCategories = [];
 		this.rowOrder = [];
 
-		this.container = document.getElementById("filter-pane");
-		this.toggleButton = document.getElementById("filter-toggle");
-		this.allButton = document.querySelector("[data-testid=filter-all]");
-		this.noneButton = document.querySelector("[data-testid=filter-none]");
-		this.listElement = this.container?.querySelector(".filter-pane__list");
-		this.liveRegion = this.container?.querySelector(".filter-pane__live");
+		const container = document.getElementById("filter-pane");
+		const toggleButton = document.getElementById("filter-toggle");
+		const allButton = document.querySelector("[data-testid=filter-all]");
+		const noneButton = document.querySelector("[data-testid=filter-none]");
+		const listElement = container?.querySelector(".filter-pane__list");
+		const liveRegionElement =
+			container?.querySelector(".filter-pane__live") ?? null;
+		const liveRegion =
+			liveRegionElement instanceof HTMLElement ? liveRegionElement : null;
 
 		if (
-			!this.container ||
-			!this.toggleButton ||
-			!this.listElement ||
-			!this.allButton ||
-			!this.noneButton
+			!(container instanceof HTMLElement) ||
+			!(toggleButton instanceof HTMLButtonElement) ||
+			!(listElement instanceof HTMLElement) ||
+			!(allButton instanceof HTMLButtonElement) ||
+			!(noneButton instanceof HTMLButtonElement)
 		) {
 			console.error("Filter pane markup is incomplete");
 			return;
 		}
+
+		this.container = container;
+		this.toggleButton = toggleButton;
+		this.allButton = allButton;
+		this.noneButton = noneButton;
+		this.listElement = listElement;
+		this.liveRegion = liveRegion;
 
 		this.allButton.disabled = true;
 		this.noneButton.disabled = true;
@@ -69,6 +115,9 @@ export class FilterPane {
 		});
 
 		document.addEventListener("filter:changed", (event) => {
+			if (!isFilterChangedEvent(event)) {
+				return;
+			}
 			const selected = event.detail?.selectedCategories ?? [];
 			this.handleFilterChanged(selected);
 		});
@@ -86,7 +135,7 @@ export class FilterPane {
 		this.close({ skipFocus: true });
 	}
 
-	open() {
+	open(): void {
 		if (this.isOpen) {
 			return;
 		}
@@ -106,7 +155,7 @@ export class FilterPane {
 		}
 	}
 
-	close({ skipFocus = false } = {}) {
+	close({ skipFocus = false }: { skipFocus?: boolean } = {}): void {
 		this.isOpen = false;
 		this.container.classList.remove("filter-pane--open");
 		this.container.setAttribute("hidden", "");
@@ -119,7 +168,7 @@ export class FilterPane {
 		}
 	}
 
-	handleFilterChanged(selectedCategories) {
+	private handleFilterChanged(selectedCategories: string[]): void {
 		if (this.filterManager?.isReady()) {
 			const available = this.filterManager.getAvailableCategories();
 			if (!this.hasRenderedCategories(available)) {
@@ -131,7 +180,7 @@ export class FilterPane {
 		this.updateActionStates(selectedCategories);
 	}
 
-	hasRenderedCategories(categories) {
+	private hasRenderedCategories(categories: string[]): boolean {
 		if (this.renderedCategories.length !== categories.length) {
 			return false;
 		}
@@ -140,7 +189,7 @@ export class FilterPane {
 		);
 	}
 
-	renderCategories(categories) {
+	private renderCategories(categories: string[]): void {
 		this.listElement.innerHTML = "";
 		this.categoryElements.clear();
 		this.rowOrder = [];
@@ -160,7 +209,7 @@ export class FilterPane {
 			const icon = document.createElement("span");
 			icon.className = "filter-pane__icon";
 			const iconUrl = getAssetPath(`/assets/icons/${category}.svg`);
-			const color = colors[category] || "#ffffff";
+			const color = colors[category as keyof typeof colors] || "#ffffff";
 			icon.style.backgroundColor = color;
 			icon.style.mask = `url('${iconUrl}') center / contain no-repeat`;
 			icon.style.webkitMask = `url('${iconUrl}') center / contain no-repeat`;
@@ -205,12 +254,12 @@ export class FilterPane {
 		});
 	}
 
-	handleRowKeydown(event, category) {
+	private handleRowKeydown(event: KeyboardEvent, category: string): void {
 		if (!this.rowOrder.length) {
 			return;
 		}
 		const currentIndex = this.rowOrder.findIndex(
-			(row) => row.dataset.category === category,
+			(row) => row instanceof HTMLElement && row.dataset.category === category,
 		);
 		if (currentIndex === -1) {
 			return;
@@ -240,7 +289,7 @@ export class FilterPane {
 		}
 	}
 
-	updateCategoryStates(selectedCategories) {
+	private updateCategoryStates(selectedCategories: string[]): void {
 		const selectedSet = new Set(selectedCategories);
 		this.categoryElements.forEach((elements, category) => {
 			const isSelected = selectedSet.has(category);
@@ -257,7 +306,7 @@ export class FilterPane {
 		});
 	}
 
-	updateActionStates(selectedCategories) {
+	private updateActionStates(selectedCategories: string[]): void {
 		const totalCategories = this.renderedCategories.length;
 		const selectedCount = selectedCategories.length;
 		const allActive = selectedCount === totalCategories && totalCategories > 0;
@@ -268,7 +317,7 @@ export class FilterPane {
 		this.noneButton.disabled = totalCategories === 0;
 	}
 
-	announce(message) {
+	private announce(message: string): void {
 		if (!this.liveRegion) {
 			return;
 		}

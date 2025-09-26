@@ -1,31 +1,42 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { FILTER_STORAGE_KEY, FilterManager } from "../src/filter-manager.js";
 
-class MemoryStorage {
-	constructor(initial = {}) {
+class MemoryStorage implements Storage {
+	private store: Record<string, string>;
+
+	constructor(initial: Record<string, string> = {}) {
 		this.store = { ...initial };
 	}
 
-	getItem(key) {
+	get length(): number {
+		return Object.keys(this.store).length;
+	}
+
+	clear(): void {
+		this.store = {};
+	}
+
+	getItem(key: string): string | null {
 		return Object.hasOwn(this.store, key) ? this.store[key] : null;
 	}
 
-	setItem(key, value) {
-		this.store[key] = String(value);
+	key(index: number): string | null {
+		const keys = Object.keys(this.store);
+		return keys[index] ?? null;
 	}
 
-	removeItem(key) {
+	removeItem(key: string): void {
 		delete this.store[key];
 	}
 
-	clear() {
-		this.store = {};
+	setItem(key: string, value: string): void {
+		this.store[key] = String(value);
 	}
 }
 
 describe("FilterManager storage handling", () => {
-	let storage;
-	let eventTarget;
+	let storage: MemoryStorage;
+	let eventTarget: EventTarget;
 
 	beforeEach(() => {
 		storage = new MemoryStorage();
@@ -104,9 +115,9 @@ describe("FilterManager storage handling", () => {
 });
 
 describe("FilterManager state transitions", () => {
-	let manager;
-	let storage;
-	let eventTarget;
+	let manager: FilterManager;
+	let storage: MemoryStorage;
+	let eventTarget: EventTarget;
 
 	beforeEach(() => {
 		storage = new MemoryStorage();
@@ -141,9 +152,11 @@ describe("FilterManager event dispatch", () => {
 	it("emits filter:changed with selected categories", () => {
 		const storage = new MemoryStorage();
 		const eventTarget = new EventTarget();
-		const received = [];
+		const received: string[][] = [];
 		eventTarget.addEventListener("filter:changed", (event) => {
-			received.push(event.detail?.selectedCategories);
+			const detail = (event as CustomEvent<{ selectedCategories?: string[] }>)
+				.detail;
+			received.push(detail?.selectedCategories ?? []);
 		});
 
 		const manager = new FilterManager({ storage, eventTarget });

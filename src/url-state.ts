@@ -1,17 +1,31 @@
-// URL query parameter helpers for map, marker, and zoom state
-
 import { isValidMapId } from "./map-definitions.js";
+import type { MapId, MarkerId } from "./types";
 import { validateMarkerId } from "./validation.js";
+
+export interface UrlState {
+	mapId?: MapId;
+	markerId?: MarkerId;
+	zoom?: number;
+}
+
+export interface UrlStateUpdate {
+	mapId?: MapId | null;
+	markerId?: MarkerId | null;
+	zoom?: number | null;
+}
 
 const MAP_PARAM = "map";
 const MARKER_PARAM = "marker";
 const ZOOM_PARAM = "zoom";
 
-function getCurrentUrl() {
+function getCurrentUrl(): URL {
 	return new URL(window.location.href);
 }
 
-function applyStateToUrl(url, { mapId, markerId, zoom }) {
+function applyStateToUrl(
+	url: URL,
+	{ mapId, markerId, zoom }: UrlStateUpdate,
+): URL {
 	if (mapId === null) {
 		url.searchParams.delete(MAP_PARAM);
 	} else if (mapId && isValidMapId(mapId)) {
@@ -33,18 +47,21 @@ function applyStateToUrl(url, { mapId, markerId, zoom }) {
 	return url;
 }
 
-function sanitizeZoomParam(value) {
+function sanitizeZoomParam(value: string | null): number | null {
+	if (typeof value !== "string") {
+		return null;
+	}
 	const parsed = Number.parseFloat(value);
 	return Number.isFinite(parsed) ? parsed : null;
 }
 
-export function parseUrlState() {
+export function parseUrlState(): UrlState {
 	if (typeof window === "undefined") {
 		return {};
 	}
 
 	const url = getCurrentUrl();
-	const state = {};
+	const state: UrlState = {};
 
 	const mapId = url.searchParams.get(MAP_PARAM);
 	if (mapId && isValidMapId(mapId)) {
@@ -57,7 +74,7 @@ export function parseUrlState() {
 	}
 
 	const zoomParam = url.searchParams.get(ZOOM_PARAM);
-	const zoom = zoomParam ? sanitizeZoomParam(zoomParam) : null;
+	const zoom = sanitizeZoomParam(zoomParam);
 	if (zoom !== null) {
 		state.zoom = zoom;
 	}
@@ -65,7 +82,11 @@ export function parseUrlState() {
 	return state;
 }
 
-export function updateUrlState({ mapId, markerId, zoom }) {
+export function updateUrlState({
+	mapId,
+	markerId,
+	zoom,
+}: UrlStateUpdate): void {
 	if (typeof window === "undefined") {
 		return;
 	}
@@ -79,7 +100,11 @@ export function updateUrlState({ mapId, markerId, zoom }) {
 	}
 }
 
-export function createShareUrl({ mapId, markerId, zoom }) {
+export function createShareUrl({
+	mapId,
+	markerId,
+	zoom,
+}: UrlStateUpdate): string {
 	if (typeof window === "undefined") {
 		return "";
 	}

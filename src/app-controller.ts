@@ -1,5 +1,3 @@
-// Application controller - Coordinator between all components
-
 import { CollectionManager } from "./collection-store.js";
 import { FilterManager } from "./filter-manager.js";
 import { FilterPane } from "./filter-pane.js";
@@ -15,26 +13,48 @@ import {
 	saveHideCollectedPreference,
 } from "./preferences-store.js";
 import { SearchPanel } from "./search-panel.js";
+import type { MapId, MarkerFocusOptions, MarkerId } from "./types";
 import { parseUrlState, updateUrlState } from "./url-state.js";
 
+interface SwitchMapOptions {
+	focusMarkerId?: MarkerId;
+	zoom?: number | null;
+	skipUrlUpdate?: boolean;
+	panOffset?: [number, number];
+	forceMarkerVisibility?: boolean;
+}
+
 export class AppController {
+	private urlState = parseUrlState();
+
+	public currentMapId: MapId;
+
+	public mapView: MapView;
+
+	private collectionManagers: Map<MapId, CollectionManager>;
+
+	private markerLoadPromise: Promise<boolean>;
+
+	private hideCollected: boolean;
+
+	private filterManager: FilterManager;
+
+	private searchPanel: SearchPanel;
+
 	constructor() {
-		this.urlState = parseUrlState();
 		this.currentMapId = this.urlState.mapId || getInitialMapId();
 		this.collectionManagers = new Map();
 		this.markerLoadPromise = Promise.resolve(false);
 		this.hideCollected = loadHideCollectedPreference();
 		this.filterManager = new FilterManager();
 
-		// Initialize collection managers for all maps
 		getAllMapIds().forEach((mapId) => {
 			this.collectionManagers.set(mapId, new CollectionManager(mapId));
 		});
 
-		// Initialize map view with callbacks
 		this.mapView = new MapView("map", {
 			onMarkerToggle: (markerId) => this.handleMarkerToggle(markerId),
-			onMapSwitch: (mapId) => this.handleMapNavigation(mapId),
+			onMapSwitch: (mapId) => this.handleMapNavigation(mapId as MapId),
 			onRecordingModeToggle: (isRecording) =>
 				this.handleRecordingModeToggle(isRecording),
 		});
@@ -44,27 +64,37 @@ export class AppController {
 			filterManager: this.filterManager,
 		});
 		this.searchPanel.setHideCollectedState(this.hideCollected);
-		this.filterPane = new FilterPane({ filterManager: this.filterManager });
+		new FilterPane({ filterManager: this.filterManager });
 
 		document.addEventListener("filter:changed", (event) => {
-			const selected = event.detail?.selectedCategories ?? [];
+			const customEvent = event as CustomEvent<{
+				selectedCategories?: string[];
+			}>;
+			const selected = customEvent.detail?.selectedCategories ?? [];
 			this.handleFilterChanged(selected);
 		});
 
-		// Load initial map and optionally focus marker from URL state
 		void this.switchToMap(this.currentMapId, {
 			focusMarkerId: this.urlState.markerId,
-			zoom: this.urlState.zoom,
+			zoom: this.urlState.zoom ?? null,
 			skipUrlUpdate: true,
 			forceMarkerVisibility: Boolean(this.urlState.markerId),
 		});
 	}
 
-	getCurrentCollectionManager() {
-		return this.collectionManagers.get(this.currentMapId);
+	private getCurrentCollectionManager(): CollectionManager {
+		let manager = this.collectionManagers.get(this.currentMapId);
+		if (!manager) {
+			manager = new CollectionManager(this.currentMapId);
+			this.collectionManagers.set(this.currentMapId, manager);
+		}
+		return manager;
 	}
 
-	async switchToMap(mapId, options = {}) {
+	async switchToMap(
+		mapId: MapId,
+		options: SwitchMapOptions = {},
+	): Promise<void> {
 		const {
 			focusMarkerId,
 			zoom,
@@ -101,7 +131,7 @@ export class AppController {
 		let focused = false;
 		if (markersLoaded && focusMarkerId) {
 			focused = this.mapView.focusMarker(focusMarkerId, {
-				zoom,
+				zoom: zoom ?? undefined,
 				panOffset,
 				forceVisibility: forceMarkerVisibility,
 			});
@@ -138,7 +168,7 @@ export class AppController {
 		}
 	}
 
-	handleMarkerToggle(markerId) {
+	private handleMarkerToggle(markerId: MarkerId): void {
 		const collectionManager = this.getCurrentCollectionManager();
 		const isNowCollected = collectionManager.toggleCollection(markerId);
 		console.log(`Marker ${markerId} collection status: ${isNowCollected}`);
@@ -149,27 +179,27 @@ export class AppController {
 		}
 	}
 
-	handleMapNavigation(mapId) {
+	private handleMapNavigation(mapId: MapId): void {
 		if (mapId !== this.currentMapId) {
 			void this.switchToMap(mapId);
 			saveSelectedMap(mapId);
 		}
 	}
 
-	handleRecordingModeToggle(_isRecording) {
-		// Intentionally left blank; implement if needed
+	private handleRecordingModeToggle(_isRecording: boolean): void {
+		// Placeholder for future behaviour
 	}
 
-	handleFilterChanged(selectedCategories) {
+	private handleFilterChanged(selectedCategories: string[]): void {
 		this.mapView.setActiveCategories(selectedCategories);
 		void this.searchPanel.refreshResults();
 	}
 
-	getHideCollected() {
+	getHideCollected(): boolean {
 		return this.hideCollected;
 	}
 
-	setHideCollected(hideCollected) {
+	setHideCollected(hideCollected: boolean): void {
 		const normalized = Boolean(hideCollected);
 		const previous = this.hideCollected;
 		this.hideCollected = normalized;
@@ -182,17 +212,18 @@ export class AppController {
 			this.mapView.setHideCollected(normalized, collectionManager);
 		}
 
-		if (this.searchPanel) {
-			this.searchPanel.setHideCollectedState(normalized);
-		}
+		this.searchPanel.setHideCollectedState(normalized);
 	}
 
-	isMarkerCollected(mapId, markerId) {
+	isMarkerCollected(mapId: MapId, markerId: MarkerId): boolean {
 		const manager = this.collectionManagers.get(mapId);
 		return manager ? manager.isCollected(markerId) : false;
 	}
 
-	async focusMarkerOnCurrentMap(markerId, options = {}) {
+	async focusMarkerOnCurrentMap(
+		markerId: MarkerId,
+		options: MarkerFocusOptions = {},
+	): Promise<boolean> {
 		const markersLoaded = await this.markerLoadPromise;
 		if (!markersLoaded) {
 			console.warn(

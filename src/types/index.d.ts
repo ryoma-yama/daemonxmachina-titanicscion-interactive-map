@@ -68,3 +68,10 @@ export interface MapViewCallbacks {
 	onMapSwitch?: (mapId: MapId) => void;
 	onRecordingModeToggle?: (isRecording: boolean) => void;
 }
+
+declare global {
+	interface Window {
+		__DXM_MAP_VIEW__?: import("../map-view").MapView;
+		__clipboardCalls?: string[];
+	}
+}

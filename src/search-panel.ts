@@ -1,9 +1,11 @@
-// Search panel for locating markers across maps
-
 import L from "leaflet";
+import type { AppController } from "./app-controller.js";
 import { getAssetPath } from "./asset-path.js";
 import { colors } from "./constants.js";
-import { mapDefinitions } from "./map-definitions.js";
+import type { FilterManager } from "./filter-manager.js";
+import { isValidMapId, mapDefinitions } from "./map-definitions.js";
+import type { MapView } from "./map-view.js";
+import type { MapId, MarkerCategory, MarkerId } from "./types";
 import { updateUrlState } from "./url-state.js";
 import { validateGeoJSONFeature } from "./validation.js";
 
@@ -11,59 +13,143 @@ const MAX_RESULTS = 100;
 const FOCUS_ZOOM = 1;
 const MAX_VERTICAL_OFFSET = 220;
 
-function normalizeText(text) {
-	return text?.toLowerCase() ?? "";
+const normalizeText = (text?: string | null): string =>
+	text?.toLowerCase() ?? "";
+
+interface SearchPanelDependencies {
+	appController: AppController;
+	filterManager?: FilterManager;
+}
+
+interface MarkerIndexEntry {
+	mapId: MapId;
+	markerId: MarkerId;
+	name: string;
+	nameNormalized: string;
+	category: MarkerCategory;
+	categoryNormalized: string;
+	description: string;
+	descriptionNormalized: string;
+	items: string[];
+	itemsNormalized: string[];
+	iconUrl: string;
 }
 
 export class SearchPanel {
-	constructor({ appController, filterManager }) {
+	private appController: AppController;
+
+	private filterManager?: FilterManager;
+
+	private mapView: MapView;
+
+	private map: L.Map;
+
+	private isPanelOpen: boolean;
+
+	private markerIndex: MarkerIndexEntry[];
+
+	private indexPromise: Promise<void>;
+
+	private hideCollected: boolean;
+
+	private panelElement!: HTMLElement;
+
+	private searchInput!: HTMLInputElement;
+
+	private messageElement!: HTMLElement;
+
+	private resultsList!: HTMLElement;
+
+	private toggleButton!: HTMLButtonElement;
+
+	private toggleWrapper: HTMLElement | null;
+
+	private hideToggleButton!: HTMLButtonElement;
+
+	private hideToggleIcon!: HTMLElement;
+
+	constructor({ appController, filterManager }: SearchPanelDependencies) {
 		this.appController = appController;
+		this.filterManager = filterManager;
 		this.mapView = appController.mapView;
 		this.map = this.mapView.getLeafletMap();
-		this.filterManager = filterManager;
 
 		this.isPanelOpen = false;
 		this.markerIndex = [];
 		this.indexPromise = this.loadMarkerIndex();
 		this.hideCollected = false;
 
-		this.panelElement = document.getElementById("search-panel");
-		this.searchInput = document.getElementById("search-input");
-		this.messageElement = document.getElementById("search-message");
-		this.resultsList = document.getElementById("search-results");
-		this.toggleButton = document.getElementById("search-toggle");
-		this.toggleWrapper = this.toggleButton?.closest(".search-toggle-control");
-		this.hideToggleButton = document.getElementById("hide-collected-toggle");
-		this.hideToggleIcon = this.hideToggleButton?.querySelector(
+		this.toggleWrapper = null;
+
+		this.initializeDomReferences();
+		this.attachGlobalHandlers();
+		this.bindEvents();
+	}
+
+	private initializeDomReferences(): void {
+		const panelElement = document.getElementById("search-panel");
+		const searchInput = document.getElementById("search-input");
+		const messageElement = document.getElementById("search-message");
+		const resultsList = document.getElementById("search-results");
+		const toggleButton = document.getElementById("search-toggle");
+		const hideToggleButton = document.getElementById("hide-collected-toggle");
+		const hideToggleIcon = hideToggleButton?.querySelector(
 			".hide-toggle-control__icon",
 		);
 		const closeButton = document.getElementById("search-close");
 
 		if (
-			!this.panelElement ||
-			!this.searchInput ||
-			!this.messageElement ||
-			!this.resultsList ||
-			!this.toggleButton ||
-			!this.toggleWrapper ||
-			!this.hideToggleButton ||
-			!this.hideToggleIcon ||
-			!closeButton
+			!(panelElement instanceof HTMLElement) ||
+			!(searchInput instanceof HTMLInputElement) ||
+			!(messageElement instanceof HTMLElement) ||
+			!(resultsList instanceof HTMLElement) ||
+			!(toggleButton instanceof HTMLButtonElement) ||
+			!(hideToggleButton instanceof HTMLButtonElement) ||
+			!(hideToggleIcon instanceof HTMLElement) ||
+			!(closeButton instanceof HTMLButtonElement)
 		) {
 			throw new Error("Search panel markup is missing required elements");
 		}
 
-		const leafLetTopLeft = this.map
-			.getContainer()
-			.querySelector(".leaflet-top.leaflet-left");
-		if (leafLetTopLeft && !leafLetTopLeft.contains(this.toggleWrapper)) {
-			leafLetTopLeft.appendChild(this.toggleWrapper);
+		this.panelElement = panelElement;
+		this.searchInput = searchInput;
+		this.messageElement = messageElement;
+		this.resultsList = resultsList;
+		this.toggleButton = toggleButton;
+		this.hideToggleButton = hideToggleButton;
+		this.hideToggleIcon = hideToggleIcon;
+
+		this.toggleWrapper = this.toggleButton.closest(".search-toggle-control");
+		const container = this.map.getContainer();
+		const topLeft = container.querySelector(".leaflet-top.leaflet-left");
+		if (
+			this.toggleWrapper &&
+			topLeft instanceof HTMLElement &&
+			!topLeft.contains(this.toggleWrapper)
+		) {
+			topLeft.appendChild(this.toggleWrapper);
 		}
 
-		this.attachGlobalHandlers();
-
 		closeButton.addEventListener("click", () => this.closePanel());
-		this.searchInput.addEventListener("input", () => this.handleSearchInput());
+	}
+
+	private attachGlobalHandlers(): void {
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape" && this.isPanelOpen) {
+				event.stopPropagation();
+				this.closePanel();
+			}
+		});
+
+		L.DomEvent.disableScrollPropagation(this.panelElement);
+		L.DomEvent.disableClickPropagation(this.panelElement);
+	}
+
+	private bindEvents(): void {
+		this.searchInput.addEventListener(
+			"input",
+			() => void this.handleSearchInput(),
+		);
 		this.searchInput.addEventListener("keydown", (event) =>
 			this.handleSearchKeydown(event),
 		);
@@ -94,22 +180,13 @@ export class SearchPanel {
 		L.DomEvent.disableScrollPropagation(this.hideToggleButton);
 	}
 
-	attachGlobalHandlers() {
-		document.addEventListener("keydown", (event) => {
-			if (event.key === "Escape" && this.isPanelOpen) {
-				event.stopPropagation();
-				this.closePanel();
-			}
-		});
-
-		L.DomEvent.disableScrollPropagation(this.panelElement);
-		L.DomEvent.disableClickPropagation(this.panelElement);
-	}
-
-	async loadMarkerIndex() {
-		const entries = Object.entries(mapDefinitions);
-		const index = [];
-		const categoriesInOrder = [];
+	private async loadMarkerIndex(): Promise<void> {
+		const entries = Object.entries(mapDefinitions) as [
+			MapId,
+			(typeof mapDefinitions)[MapId],
+		][];
+		const index: MarkerIndexEntry[] = [];
+		const categoriesInOrder: MarkerCategory[] = [];
 
 		await Promise.all(
 			entries.map(async ([mapId, definition]) => {
@@ -118,58 +195,64 @@ export class SearchPanel {
 					if (!response.ok) {
 						throw new Error(`HTTP ${response.status}`);
 					}
-					const data = await response.json();
-					if (!data?.features || !Array.isArray(data.features)) {
+					const data = (await response.json()) as unknown;
+					if (
+						!data ||
+						typeof data !== "object" ||
+						!Array.isArray((data as { features?: unknown[] }).features)
+					) {
 						throw new Error("Invalid GeoJSON structure");
 					}
 
-					data.features.forEach((feature, featureIndex) => {
-						if (!validateGeoJSONFeature(feature)) {
-							console.warn(
-								`Skipping invalid search feature ${mapId}#${featureIndex}`,
-							);
-							return;
-						}
-
-						const props = feature.properties;
-						const name = props.name || props.id;
-						const category = props.category || "unknown";
-						const description = props.description || "";
-						const items = [];
-						const itemsNormalized = [];
-						if (Array.isArray(props.items)) {
-							for (const rawItem of props.items) {
-								if (typeof rawItem !== "string") {
-									continue;
-								}
-								const trimmedItem = rawItem.trim();
-								if (!trimmedItem) {
-									continue;
-								}
-								items.push(trimmedItem);
-								itemsNormalized.push(normalizeText(trimmedItem));
+					(data as { features: unknown[] }).features.forEach(
+						(feature, featureIndex) => {
+							if (!validateGeoJSONFeature(feature)) {
+								console.warn(
+									`Skipping invalid search feature ${mapId}#${featureIndex}`,
+								);
+								return;
 							}
-						}
-						const iconUrl = getAssetPath(`/assets/icons/${category}.svg`);
 
-						index.push({
-							mapId,
-							markerId: props.id,
-							name,
-							nameNormalized: normalizeText(name),
-							category,
-							categoryNormalized: normalizeText(category),
-							description,
-							descriptionNormalized: normalizeText(description),
-							items,
-							itemsNormalized,
-							iconUrl,
-						});
+							const props = feature.properties;
+							const name = props.name || props.id;
+							const category = props.category as MarkerCategory;
+							const description = props.description || "";
+							const items: string[] = [];
+							const itemsNormalized: string[] = [];
+							if (Array.isArray(props.items)) {
+								for (const rawItem of props.items) {
+									if (typeof rawItem !== "string") {
+										continue;
+									}
+									const trimmedItem = rawItem.trim();
+									if (!trimmedItem) {
+										continue;
+									}
+									items.push(trimmedItem);
+									itemsNormalized.push(normalizeText(trimmedItem));
+								}
+							}
+							const iconUrl = getAssetPath(`/assets/icons/${category}.svg`);
 
-						if (!categoriesInOrder.includes(category)) {
-							categoriesInOrder.push(category);
-						}
-					});
+							index.push({
+								mapId,
+								markerId: props.id,
+								name,
+								nameNormalized: normalizeText(name),
+								category,
+								categoryNormalized: normalizeText(category),
+								description,
+								descriptionNormalized: normalizeText(description),
+								items,
+								itemsNormalized,
+								iconUrl,
+							});
+
+							if (!categoriesInOrder.includes(category)) {
+								categoriesInOrder.push(category);
+							}
+						},
+					);
 				} catch (error) {
 					console.error(`Failed to load markers for ${mapId}:`, error);
 				}
@@ -187,7 +270,7 @@ export class SearchPanel {
 		}
 	}
 
-	getFilteredMarkers(query) {
+	private getFilteredMarkers(query: string): MarkerIndexEntry[] {
 		const normalized = normalizeText(query);
 		if (!normalized) {
 			return [];
@@ -211,7 +294,7 @@ export class SearchPanel {
 			.slice(0, MAX_RESULTS);
 	}
 
-	async handleSearchInput() {
+	private async handleSearchInput(): Promise<void> {
 		const query = this.searchInput.value;
 		await this.indexPromise;
 
@@ -219,21 +302,22 @@ export class SearchPanel {
 		this.renderResults(results);
 	}
 
-	handleSearchKeydown(event) {
+	private handleSearchKeydown(event: KeyboardEvent): void {
 		if (event.key === "Enter") {
 			const firstResult = this.resultsList.querySelector(
 				".search-panel__result",
-			);
+			) as HTMLElement | null;
 			if (firstResult) {
-				this.activateResult(
-					firstResult.dataset.mapId,
-					firstResult.dataset.markerId,
-				);
+				const mapId = firstResult.dataset.mapId;
+				const markerId = firstResult.dataset.markerId;
+				if (mapId && markerId) {
+					void this.activateResult(mapId, markerId);
+				}
 			}
 		}
 	}
 
-	renderResults(results) {
+	private renderResults(results: MarkerIndexEntry[]): void {
 		this.resultsList.innerHTML = "";
 
 		if (!results.length) {
@@ -272,23 +356,27 @@ export class SearchPanel {
 		});
 
 		this.resultsList
-			.querySelectorAll(".search-panel__result")
+			.querySelectorAll<HTMLElement>(".search-panel__result")
 			.forEach((resultItem) => {
-				resultItem.addEventListener("click", () =>
-					this.activateResult(
-						resultItem.dataset.mapId,
-						resultItem.dataset.markerId,
-					),
-				);
+				resultItem.addEventListener("click", () => {
+					const { mapId, markerId } = resultItem.dataset;
+					void this.activateResult(mapId, markerId);
+				});
 			});
 	}
 
-	async activateResult(mapId, markerId) {
-		if (!mapId || !markerId) {
+	private async activateResult(
+		mapIdValue: string | undefined,
+		markerIdValue: string | undefined,
+	): Promise<void> {
+		if (!mapIdValue || !markerIdValue || !isValidMapId(mapIdValue)) {
 			return;
 		}
 
-		let panOffset;
+		const mapId: MapId = mapIdValue;
+		const markerId = markerIdValue as MarkerId;
+
+		let panOffset: [number, number] | undefined;
 		if (this.isPanelOpen) {
 			const panelHeight = this.panelElement?.offsetHeight ?? 0;
 			const verticalOffset = Math.min(
@@ -302,7 +390,7 @@ export class SearchPanel {
 		const focusOptions = {
 			zoom: FOCUS_ZOOM,
 			panOffset,
-		};
+		} as const;
 
 		if (mapId === this.appController.currentMapId) {
 			const focused = await this.appController.focusMarkerOnCurrentMap(
@@ -322,18 +410,16 @@ export class SearchPanel {
 		}
 	}
 
-	openPanel() {
+	private openPanel(): void {
 		this.isPanelOpen = true;
 		this.panelElement.classList.add("search-panel--open");
 		this.panelElement.removeAttribute("aria-hidden");
 		this.panelElement.removeAttribute("inert");
-		if (this.toggleButton) {
-			this.toggleButton.setAttribute("aria-expanded", "true");
-		}
+		this.toggleButton.setAttribute("aria-expanded", "true");
 		this.searchInput.focus();
 	}
 
-	closePanel() {
+	private closePanel(): void {
 		this.isPanelOpen = false;
 		this.panelElement.classList.remove("search-panel--open");
 		this.panelElement.setAttribute("aria-hidden", "true");
@@ -342,15 +428,13 @@ export class SearchPanel {
 			document.activeElement &&
 			this.panelElement.contains(document.activeElement)
 		) {
-			document.activeElement.blur();
+			(document.activeElement as HTMLElement).blur();
 		}
-		if (this.toggleButton) {
-			this.toggleButton.setAttribute("aria-expanded", "false");
-			this.toggleButton.focus();
-		}
+		this.toggleButton.setAttribute("aria-expanded", "false");
+		this.toggleButton.focus();
 	}
 
-	shouldIncludeEntry(entry) {
+	private shouldIncludeEntry(entry: MarkerIndexEntry): boolean {
 		if (
 			this.filterManager &&
 			!this.filterManager.shouldIncludeCategory(entry.category)
@@ -364,7 +448,7 @@ export class SearchPanel {
 		return !this.appController.isMarkerCollected(entry.mapId, entry.markerId);
 	}
 
-	setHideCollectedState(hideCollected) {
+	setHideCollectedState(hideCollected: boolean): void {
 		this.hideCollected = Boolean(hideCollected);
 		const pressed = this.hideCollected ? "true" : "false";
 		const label = this.hideCollected
@@ -382,7 +466,7 @@ export class SearchPanel {
 		void this.refreshResults();
 	}
 
-	async refreshResults() {
+	async refreshResults(): Promise<void> {
 		await this.indexPromise;
 		const query = this.searchInput.value;
 		const results = this.getFilteredMarkers(query);

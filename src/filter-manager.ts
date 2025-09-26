@@ -1,14 +1,31 @@
+export interface FilterManagerOptions {
+	storageKey?: string;
+	storage?: Storage | null;
+	eventTarget?: EventTarget | null;
+}
+
+interface StoredSelection {
+	selected: string[];
+	known: string[] | null;
+}
+
+export interface FilterChangedDetail {
+	selectedCategories: string[];
+}
+
+type FilterEntry = { category: string } & Record<string, unknown>;
+
 const DEFAULT_STORAGE_KEY = "filter-categories:v1";
 
-function isStringArray(value) {
+function isStringArray(value: unknown): value is string[] {
 	return (
 		Array.isArray(value) && value.every((item) => typeof item === "string")
 	);
 }
 
-function normalizeCategoryList(categories) {
-	const result = [];
-	const seen = new Set();
+function normalizeCategoryList(categories: unknown[]): string[] {
+	const result: string[] = [];
+	const seen = new Set<string>();
 	categories.forEach((category) => {
 		if (typeof category !== "string") {
 			return;
@@ -23,7 +40,7 @@ function normalizeCategoryList(categories) {
 	return result;
 }
 
-function sortCategoryList(categories) {
+function sortCategoryList(categories: string[]): string[] {
 	return [...categories].sort((a, b) => {
 		const aLower = a.toLowerCase();
 		const bLower = b.toLowerCase();
@@ -37,26 +54,32 @@ function sortCategoryList(categories) {
 	});
 }
 
-function createFilterChangedEvent(selectedCategories) {
+function createFilterChangedEvent(
+	selectedCategories: string[],
+): CustomEvent<FilterChangedDetail> {
 	if (typeof CustomEvent === "function") {
-		return new CustomEvent("filter:changed", {
+		return new CustomEvent<FilterChangedDetail>("filter:changed", {
 			detail: { selectedCategories: [...selectedCategories] },
 		});
 	}
 
-	const event = new Event("filter:changed");
-	event.detail = { selectedCategories: [...selectedCategories] };
+	const event = new Event("filter:changed") as CustomEvent<FilterChangedDetail>;
+	Object.defineProperty(event, "detail", {
+		configurable: true,
+		enumerable: true,
+		value: { selectedCategories: [...selectedCategories] },
+	});
 	return event;
 }
 
-function getDefaultStorage() {
+function getDefaultStorage(): Storage | null {
 	if (typeof localStorage !== "undefined") {
 		return localStorage;
 	}
 	return null;
 }
 
-function getDefaultEventTarget() {
+function getDefaultEventTarget(): EventTarget | null {
 	if (typeof document !== "undefined" && document instanceof EventTarget) {
 		return document;
 	}
@@ -66,11 +89,27 @@ function getDefaultEventTarget() {
 export const FILTER_STORAGE_KEY = DEFAULT_STORAGE_KEY;
 
 export class FilterManager {
+	private storageKey: string;
+
+	private storage: Storage | null;
+
+	private eventTarget: EventTarget | null;
+
+	private availableCategories: string[];
+
+	private selectedCategories: string[];
+
+	private initialSelection: string[] | null;
+
+	private initialKnownCategories: string[] | null;
+
+	private ready: boolean;
+
 	constructor({
 		storageKey = DEFAULT_STORAGE_KEY,
 		storage = getDefaultStorage(),
 		eventTarget = getDefaultEventTarget(),
-	} = {}) {
+	}: FilterManagerOptions = {}) {
 		this.storageKey = storageKey;
 		this.storage = storage;
 		this.eventTarget = eventTarget;
@@ -82,37 +121,44 @@ export class FilterManager {
 		this.ready = false;
 	}
 
-	initializeCategories(categories) {
+	initializeCategories(categories: string[]): void {
 		const normalized = sortCategoryList(normalizeCategoryList(categories));
 		this.availableCategories = normalized;
 
-		let initial = this.initialSelection;
-		if (!isStringArray(initial) || !initial.length) {
-			initial = [...normalized];
+		const storedSelection = this.initialSelection;
+		let resolvedInitial: string[];
+		if (!isStringArray(storedSelection) || !storedSelection.length) {
+			resolvedInitial = [...normalized];
 		} else {
-			initial = normalizeCategoryList(initial);
 			const allowed = new Set(normalized);
-			initial = initial.filter((category) => allowed.has(category));
+			const filteredInitial = normalizeCategoryList(storedSelection).filter(
+				(category) => allowed.has(category),
+			);
 
 			if (isStringArray(this.initialKnownCategories)) {
 				const previouslyKnown = new Set(
 					normalizeCategoryList(this.initialKnownCategories),
 				);
 				normalized.forEach((category) => {
-					if (!initial.includes(category) && !previouslyKnown.has(category)) {
-						initial.push(category);
+					if (
+						!filteredInitial.includes(category) &&
+						!previouslyKnown.has(category)
+					) {
+						filteredInitial.push(category);
 					}
 				});
 			}
+
+			resolvedInitial = filteredInitial;
 		}
 
 		this.initialSelection = null;
 		this.initialKnownCategories = null;
 		this.ready = true;
-		this.updateSelection(initial, { force: true });
+		this.updateSelection(resolvedInitial, { force: true });
 	}
 
-	readStoredSelection() {
+	private readStoredSelection(): StoredSelection | null {
 		if (!this.storage || !this.storageKey) {
 			return null;
 		}
@@ -121,20 +167,20 @@ export class FilterManager {
 			if (!raw) {
 				return null;
 			}
-			const parsed = JSON.parse(raw);
+			const parsed = JSON.parse(raw) as unknown;
 			if (isStringArray(parsed)) {
 				return { selected: parsed, known: null };
 			}
 			if (
 				parsed &&
 				typeof parsed === "object" &&
-				isStringArray(parsed.selected)
+				isStringArray((parsed as StoredSelection).selected)
 			) {
-				const known = isStringArray(parsed.known)
-					? normalizeCategoryList(parsed.known)
+				const known = isStringArray((parsed as StoredSelection).known)
+					? normalizeCategoryList((parsed as StoredSelection).known ?? [])
 					: null;
 				return {
-					selected: normalizeCategoryList(parsed.selected),
+					selected: normalizeCategoryList((parsed as StoredSelection).selected),
 					known,
 				};
 			}
@@ -147,7 +193,7 @@ export class FilterManager {
 		return null;
 	}
 
-	persistSelection() {
+	private persistSelection(): void {
 		if (!this.storage || !this.storageKey) {
 			return;
 		}
@@ -164,7 +210,10 @@ export class FilterManager {
 		}
 	}
 
-	updateSelection(nextSelection, { force = false } = {}) {
+	updateSelection(
+		nextSelection: string[] | null | undefined,
+		{ force = false } = {},
+	): boolean {
 		const normalized = this.normalizeSelection(nextSelection);
 		if (
 			!force &&
@@ -179,10 +228,10 @@ export class FilterManager {
 		return true;
 	}
 
-	normalizeSelection(selection) {
+	private normalizeSelection(selection: string[] | null | undefined): string[] {
 		const allowed = new Set(this.availableCategories);
 		const source = Array.isArray(selection) ? selection : [];
-		const filtered = [];
+		const filtered: string[] = [];
 		this.availableCategories.forEach((category) => {
 			if (source.includes(category) && allowed.has(category)) {
 				filtered.push(category);
@@ -191,7 +240,7 @@ export class FilterManager {
 		return filtered;
 	}
 
-	areSelectionsEqual(a, b) {
+	private areSelectionsEqual(a: string[], b: string[]): boolean {
 		if (a.length !== b.length) {
 			return false;
 		}
@@ -203,7 +252,7 @@ export class FilterManager {
 		return true;
 	}
 
-	emitChange() {
+	private emitChange(): void {
 		if (!this.eventTarget) {
 			return;
 		}
@@ -215,19 +264,19 @@ export class FilterManager {
 		}
 	}
 
-	getSelectedCategories() {
+	getSelectedCategories(): string[] {
 		return [...this.selectedCategories];
 	}
 
-	getAvailableCategories() {
+	getAvailableCategories(): string[] {
 		return [...this.availableCategories];
 	}
 
-	isCategorySelected(category) {
+	isCategorySelected(category: string): boolean {
 		return this.selectedCategories.includes(category);
 	}
 
-	toggleCategory(category) {
+	toggleCategory(category: string): boolean {
 		if (!this.ready || !this.availableCategories.includes(category)) {
 			return false;
 		}
@@ -241,25 +290,25 @@ export class FilterManager {
 		return this.updateSelection(next);
 	}
 
-	selectAll() {
+	selectAll(): boolean {
 		if (!this.ready) {
 			return false;
 		}
 		return this.updateSelection([...this.availableCategories]);
 	}
 
-	selectNone() {
+	selectNone(): boolean {
 		if (!this.ready) {
 			return false;
 		}
 		return this.updateSelection([]);
 	}
 
-	isReady() {
+	isReady(): boolean {
 		return this.ready;
 	}
 
-	shouldIncludeCategory(category) {
+	shouldIncludeCategory(category: string): boolean {
 		if (!this.ready) {
 			return true;
 		}
@@ -269,7 +318,7 @@ export class FilterManager {
 		return this.selectedCategories.includes(category);
 	}
 
-	filterEntries(entries) {
+	filterEntries<T extends FilterEntry>(entries: T[]): T[] {
 		if (!Array.isArray(entries)) {
 			return [];
 		}
