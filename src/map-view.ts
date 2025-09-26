@@ -441,34 +441,48 @@ export class MapView {
 		title.className = "marker-popup__title";
 		title.textContent = feature.properties.name || feature.properties.id;
 
-		const checkboxLabel = document.createElement("label");
-		checkboxLabel.className = "marker-popup__checkbox-label";
+                const checkboxLabel = document.createElement("label");
+                checkboxLabel.className = "marker-popup__checkbox-label checkbox-label";
 
-		const checkbox = document.createElement("input");
-		checkbox.type = "checkbox";
-		checkbox.className = "marker-popup__checkbox";
-		checkbox.checked = collectionState.isCollected(feature.properties.id);
-		checkbox.setAttribute("data-marker-id", feature.properties.id);
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.className = "marker-popup__checkbox";
+                checkbox.checked = collectionState.isCollected(feature.properties.id);
+                checkbox.setAttribute("data-marker-id", feature.properties.id);
 
-		const checkboxText = document.createElement("span");
-		checkboxText.textContent = "Collected";
+                const checkboxText = document.createElement("span");
+                checkboxText.textContent = "Collected";
 
-		checkboxLabel.appendChild(checkbox);
-		checkboxLabel.appendChild(checkboxText);
+                checkboxLabel.appendChild(checkbox);
+                checkboxLabel.appendChild(checkboxText);
 
-		const shareButton = document.createElement("button");
-		shareButton.type = "button";
-		shareButton.className = "share-link-button";
-		shareButton.textContent = "Share";
-		shareButton.setAttribute("data-marker-id", feature.properties.id);
-		if (this.currentMapId) {
-			shareButton.setAttribute("data-map-id", this.currentMapId);
-		}
+                const shareButton = document.createElement("button");
+                shareButton.type = "button";
+                shareButton.className = "share-link-button";
+                shareButton.setAttribute("aria-label", "Copy marker link");
+                shareButton.setAttribute("data-marker-id", feature.properties.id);
+                if (this.currentMapId) {
+                        shareButton.setAttribute("data-map-id", this.currentMapId);
+                }
 
-		header.appendChild(title);
-		header.appendChild(checkboxLabel);
-		header.appendChild(shareButton);
-		container.appendChild(header);
+                const tooltipId = `share-tooltip-${feature.properties.id}`;
+                shareButton.setAttribute("aria-describedby", tooltipId);
+
+                const iconSpan = document.createElement("span");
+                iconSpan.className = "share-link-button__icon";
+                shareButton.appendChild(iconSpan);
+
+                const tooltip = document.createElement("span");
+                tooltip.id = tooltipId;
+                tooltip.className = "share-link-button__tooltip";
+                tooltip.setAttribute("role", "tooltip");
+                tooltip.textContent = "Copy link";
+                shareButton.appendChild(tooltip);
+
+                header.appendChild(title);
+                header.appendChild(checkboxLabel);
+                header.appendChild(shareButton);
+                container.appendChild(header);
 
 		if (feature.properties.description) {
 			const description = document.createElement("p");
@@ -517,60 +531,82 @@ export class MapView {
 		this.applyVisibilityFilters();
 	}
 
-	private applyVisibilityFilters(): void {
-		if (!this.currentMarkerLayer) {
-			return;
-		}
+        private applyVisibilityFilters(): void {
+                if (!this.currentMarkerLayer) {
+                        return;
+                }
 
-		this.currentMarkerLayer.eachLayer((layer) => {
-			const marker = layer as L.Marker & { feature?: MarkerFeature };
-			const feature = marker.feature;
-			if (!feature) {
-				return;
-			}
-			const markerId = feature.properties.id;
-			const category = feature.properties.category;
-			const isForcedVisible = this.forcedVisibleMarkers.has(markerId);
+                this.markerRefs.forEach((_, markerId) => {
+                        this.updateMarkerVisibility(markerId);
+                });
+        }
 
-			let visible = true;
-			if (this.activeCategories && !this.activeCategories.has(category)) {
-				visible = false;
-			}
+        private updateMarkerVisibility(markerId: MarkerId): void {
+                if (!this.currentMarkerLayer) {
+                        return;
+                }
 
-			if (
-				!isForcedVisible &&
-				this.hideCollected &&
-				this.currentCollectionState
-			) {
-				if (this.currentCollectionState.isCollected(markerId)) {
-					visible = false;
-				}
-			}
+                const marker = this.markerRefs.get(markerId);
+                if (!marker) {
+                        return;
+                }
 
-			const element = marker.getElement();
-			if (element) {
-				element.style.display = visible ? "" : "none";
-			}
-		});
-	}
+                const feature = (marker as L.Marker & { feature?: MarkerFeature }).feature;
+                if (!feature) {
+                        return;
+                }
 
-	focusMarker(markerId: MarkerId, options: FocusOptions = {}): boolean {
-		const marker = this.markerRefs.get(markerId);
-		if (!marker) {
-			return false;
-		}
+                const category = feature.properties.category;
+                const isForcedVisible = this.forcedVisibleMarkers.has(markerId);
+                const categoryAllowed =
+                        !this.activeCategories || this.activeCategories.has(category);
+                const isCollected = this.currentCollectionState?.isCollected(markerId) ?? false;
+                const shouldHide =
+                        !isForcedVisible &&
+                        (!categoryAllowed || (this.hideCollected && isCollected));
+                const hasLayer = this.currentMarkerLayer.hasLayer(marker);
 
-		if (options.forceVisibility) {
-			this.forcedVisibleMarkers.add(markerId);
-			const element = marker.getElement();
-			if (element) {
-				element.style.display = "";
-			}
-		}
+                if (shouldHide && hasLayer) {
+                        this.currentMarkerLayer.removeLayer(marker);
+                        marker.closePopup();
+                } else if (!shouldHide && !hasLayer) {
+                        this.currentMarkerLayer.addLayer(marker);
+                }
+        }
 
-		const latlng = marker.getLatLng();
-		const zoom =
-			typeof options.zoom === "number" ? options.zoom : this.map.getZoom();
+        private forceMarkerVisibility(markerId: MarkerId, shouldForce: boolean): void {
+                if (!markerId) {
+                        return;
+                }
+
+                if (shouldForce) {
+                        this.forcedVisibleMarkers.clear();
+                        this.forcedVisibleMarkers.add(markerId);
+                } else {
+                        this.forcedVisibleMarkers.delete(markerId);
+                }
+
+                this.updateMarkerVisibility(markerId);
+        }
+
+        focusMarker(markerId: MarkerId, options: FocusOptions = {}): boolean {
+                const marker = this.markerRefs.get(markerId);
+                if (!marker) {
+                        return false;
+                }
+
+                if (options.forceVisibility) {
+                        this.forceMarkerVisibility(markerId, true);
+                } else if (
+                        this.currentMarkerLayer &&
+                        !this.currentMarkerLayer.hasLayer(marker)
+                ) {
+                        return false;
+                }
+
+                const latlng = marker.getLatLng();
+                const zoom =
+                        typeof options.zoom === "number" ? options.zoom : this.map.getZoom();
 
 		if (options.panOffset) {
 			const point = this.map.latLngToContainerPoint(latlng);
@@ -611,13 +647,8 @@ export class MapView {
 			),
 		);
 
-		if (this.hideCollected && isCollected) {
-			const element = marker.getElement();
-			if (element) {
-				element.style.display = "none";
-			}
-		}
-	}
+                this.updateMarkerVisibility(markerId);
+        }
 
 	highlightMarker(markerId: MarkerId): void {
 		const marker = this.markerRefs.get(markerId);
