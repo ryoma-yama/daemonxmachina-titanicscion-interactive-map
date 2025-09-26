@@ -3,9 +3,11 @@
 import { getAssetPath } from "./asset-path.js";
 
 // Default configuration constants
+/** @type {import("./types").MapId} */
 export const DEFAULT_MAP_ID = "desert";
 export const LAST_MAP_STORAGE_KEY = "last-selected-map:v1";
 
+/** @type {import("./types").MapDefinitions} */
 export const mapDefinitions = {
 	forest: {
 		name: "Forest Map",
@@ -39,12 +41,19 @@ export const mapDefinitions = {
 /**
  * Get map definition by ID
  */
+/**
+ * @param {import("./types").MapId} mapId
+ * @returns {import("./types").MapDefinition | null}
+ */
 export function getMapDefinition(mapId) {
 	return mapDefinitions[mapId] || null;
 }
 
 /**
  * Get all available map IDs
+ */
+/**
+ * @returns {import("./types").MapId[]}
  */
 export function getAllMapIds() {
 	return Object.keys(mapDefinitions);
@@ -53,6 +62,10 @@ export function getAllMapIds() {
 /**
  * Validate map ID
  */
+/**
+ * @param {unknown} mapId
+ * @returns {mapId is import("./types").MapId}
+ */
 export function isValidMapId(mapId) {
 	return mapId && Object.hasOwn(mapDefinitions, mapId);
 }
@@ -60,12 +73,16 @@ export function isValidMapId(mapId) {
 /**
  * Get default map ID
  */
+/**
+ * @returns {import("./types").MapId}
+ */
 export function getDefaultMapId() {
 	return DEFAULT_MAP_ID;
 }
 
 /**
  * Get last selected map from localStorage, fallback to default
+ * @returns {import("./types").MapId}
  */
 export function getInitialMapId() {
 	try {
@@ -85,6 +102,10 @@ export function getInitialMapId() {
 
 /**
  * Save map selection to localStorage
+ */
+/**
+ * @param {import("./types").MapId} mapId
+ * @returns {boolean}
  */
 export function saveSelectedMap(mapId) {
 	if (!isValidMapId(mapId)) {

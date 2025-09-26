@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"target": "ES2020",
 		"module": "ESNext",
-		"lib": ["DOM", "DOM.Iterable", "ES2020"],
+		"lib": ["DOM", "DOM.Iterable", "ES2023"],
 		"moduleResolution": "Bundler",
 		"allowJs": true,
 		"checkJs": false,
@@ -13,7 +13,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"noEmit": true
+		"noEmit": true,
+		"types": ["node"]
 	},
 	"include": ["src/**/*", "tests/**/*"],
 	"exclude": ["dist", "node_modules"],

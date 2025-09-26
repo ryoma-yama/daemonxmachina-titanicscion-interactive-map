@@ -7,17 +7,29 @@ import { createShareUrl } from "./url-state.js";
 import { validateGeoJSONFeature } from "./validation.js";
 
 export class MapView {
+	/**
+	 * @param {string} containerId
+	 * @param {import("./types").MapViewCallbacks} [callbacks]
+	 */
 	constructor(containerId, callbacks = {}) {
 		this.containerId = containerId;
 		this.callbacks = callbacks;
+		/** @type {import("./types").MapId | null} */
 		this.currentMapId = null;
+		/** @type {Map<import("./types").MarkerId, import("leaflet").Marker>} */
 		this.markerRefs = new Map();
+		/** @type {import("leaflet").ImageOverlay | null} */
 		this.currentImageOverlay = null;
+		/** @type {import("leaflet").GeoJSON | null} */
 		this.currentMarkerLayer = null;
+		/** @type {symbol | null} */
 		this.markerFetchToken = null;
+		/** @type {import("./types").CollectionStore | null} */
 		this.currentCollectionState = null;
 		this.hideCollected = false;
+		/** @type {Set<import("./types").MarkerCategory> | null} */
 		this.activeCategories = null;
+		/** @type {Set<import("./types").MarkerId>} */
 		this.forcedVisibleMarkers = new Set();
 
 		// Recording mode state
@@ -25,6 +37,7 @@ export class MapView {
 		this.RECORDING_MODE_KEY = "KeyR"; // R key for Shift+R combination
 
 		// Initialize Leaflet map
+		/** @type {import("leaflet").Map} */
 		this.map = L.map(containerId, {
 			crs: L.CRS.Simple,
 			minZoom: -2,
@@ -243,6 +256,10 @@ export class MapView {
 		this.forcedVisibleMarkers.clear();
 	}
 
+	/**
+	 * @param {import("./types").MapDefinition} mapDefinition
+	 * @param {import("./types").MapId} mapId
+	 */
 	loadMap(mapDefinition, mapId) {
 		console.log(`Loading map: ${mapId}`);
 
@@ -269,6 +286,11 @@ export class MapView {
 		});
 	}
 
+	/**
+	 * @param {string} markersPath
+	 * @param {import("./types").CollectionStore} collectionState
+	 * @returns {Promise<boolean>}
+	 */
 	async loadMarkers(markersPath, collectionState) {
 		const fetchToken = Symbol("markerFetch");
 		this.markerFetchToken = fetchToken;
@@ -294,12 +316,14 @@ export class MapView {
 				return false;
 			}
 
-			const validFeatures = data.features.filter((feature, index) => {
-				const isValid = validateGeoJSONFeature(feature);
-				if (!isValid) {
+			/** @type {import("./types").MarkerFeature[]} */
+			const validFeatures = [];
+			data.features.forEach((feature, index) => {
+				if (validateGeoJSONFeature(feature)) {
+					validFeatures.push(feature);
+				} else {
 					console.warn(`Skipping invalid feature at index ${index}:`, feature);
 				}
-				return isValid;
 			});
 
 			console.log(
@@ -310,6 +334,7 @@ export class MapView {
 				return false;
 			}
 
+			/** @type {import("./types").MarkerFeatureCollection} */
 			const validData = {
 				type: "FeatureCollection",
 				features: validFeatures,
@@ -390,6 +415,11 @@ export class MapView {
 		}
 	}
 
+	/**
+	 * @param {import("./types").MarkerId} markerId
+	 * @param {import("./types").MarkerFocusOptions} [options]
+	 * @returns {boolean}
+	 */
 	focusMarker(markerId, options = {}) {
 		const marker = this.markerRefs.get(markerId);
 		if (!marker) {
@@ -461,6 +491,11 @@ export class MapView {
 		return true;
 	}
 
+	/**
+	 * @param {import("./types").MarkerId} markerId
+	 * @param {boolean} shouldForce
+	 * @returns {void}
+	 */
 	forceMarkerVisibility(markerId, shouldForce) {
 		if (!markerId) {
 			return;
@@ -476,6 +511,11 @@ export class MapView {
 		this.updateMarkerVisibility(markerId);
 	}
 
+	/**
+	 * @param {import("./types").MarkerFeature} feature
+	 * @param {import("./types").CollectionStore} collectionState
+	 * @returns {string}
+	 */
 	createPopupContent(feature, collectionState) {
 		const isCollected = collectionState.isCollected(feature.properties.id);
 		const checkboxId = `checkbox-${feature.properties.id}`;
@@ -578,6 +618,10 @@ export class MapView {
 		return container.outerHTML;
 	}
 
+	/**
+	 * @param {import("./types").MarkerId} markerId
+	 * @param {boolean} isCollected
+	 */
 	updateMarkerState(markerId, isCollected) {
 		const marker = this.markerRefs.get(markerId);
 		if (marker) {
@@ -602,18 +646,31 @@ export class MapView {
 		}
 	}
 
+	/**
+	 * @returns {import("./types").MapId | null}
+	 */
 	getCurrentMapId() {
 		return this.currentMapId;
 	}
 
+	/**
+	 * @returns {number}
+	 */
 	getZoomLevel() {
 		return this.map.getZoom();
 	}
 
+	/**
+	 * @returns {L.Map}
+	 */
 	getLeafletMap() {
 		return this.map;
 	}
 
+	/**
+	 * @param {boolean} hideCollected
+	 * @param {import("./types").CollectionStore} [collectionState]
+	 */
 	setHideCollected(hideCollected, collectionState) {
 		this.hideCollected = Boolean(hideCollected);
 		if (collectionState) {
@@ -622,6 +679,9 @@ export class MapView {
 		this.applyVisibilityFilters();
 	}
 
+	/**
+	 * @param {import("./types").MarkerCategory[] | null} categories
+	 */
 	setActiveCategories(categories) {
 		if (Array.isArray(categories)) {
 			this.activeCategories = new Set(categories);
@@ -643,6 +703,9 @@ export class MapView {
 		});
 	}
 
+	/**
+	 * @param {import("./types").MarkerId} markerId
+	 */
 	updateMarkerVisibility(markerId) {
 		if (!this.currentMarkerLayer) {
 			return;

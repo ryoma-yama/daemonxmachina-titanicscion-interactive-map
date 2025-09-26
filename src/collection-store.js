@@ -4,14 +4,21 @@ import { getDefaultMapId, isValidMapId } from "./map-definitions.js";
 import { validateMarkerId } from "./validation.js";
 
 export class CollectionManager {
+	/**
+	 * @param {import("./types").MapId} [mapId]
+	 */
 	constructor(mapId = getDefaultMapId()) {
+		/** @type {import("./types").MapId} */
 		this.mapId = this.validateMapId(mapId);
 		this.storageKey = `collect-map:v1:${this.mapId}`;
+		/** @type {import("./types").CollectionState} */
 		this.collectedItems = this.loadFromStorage();
 	}
 
 	/**
 	 * Validate map ID
+	 * @param {unknown} mapId
+	 * @returns {import("./types").MapId}
 	 */
 	validateMapId(mapId) {
 		if (!isValidMapId(mapId)) {
@@ -23,6 +30,9 @@ export class CollectionManager {
 		return mapId;
 	}
 
+	/**
+	 * @returns {import("./types").CollectionState}
+	 */
 	loadFromStorage() {
 		try {
 			const stored = localStorage.getItem(this.storageKey);
@@ -46,6 +56,7 @@ export class CollectionManager {
 			}
 
 			// Properties validation
+			/** @type {import("./types").CollectionState} */
 			const validated = {};
 			for (const [key, value] of Object.entries(parsed)) {
 				// Marker ID validation and value type check
@@ -64,6 +75,9 @@ export class CollectionManager {
 		}
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	saveToStorage() {
 		try {
 			// Data size limit (under 5MB)
@@ -96,6 +110,10 @@ export class CollectionManager {
 		}
 	}
 
+	/**
+	 * @param {import("./types").MarkerId} markerId
+	 * @returns {boolean}
+	 */
 	isCollected(markerId) {
 		if (!validateMarkerId(markerId)) {
 			return false;
@@ -103,6 +121,10 @@ export class CollectionManager {
 		return Boolean(this.collectedItems[markerId]);
 	}
 
+	/**
+	 * @param {import("./types").MarkerId} markerId
+	 * @returns {boolean}
+	 */
 	toggleCollection(markerId) {
 		if (!validateMarkerId(markerId)) {
 			console.error(`Invalid marker ID: ${markerId}`);
@@ -121,6 +143,11 @@ export class CollectionManager {
 		return this.collectedItems[markerId];
 	}
 
+	/**
+	 * @param {import("./types").MarkerId} markerId
+	 * @param {boolean} isCollected
+	 * @returns {boolean}
+	 */
 	setCollected(markerId, isCollected) {
 		if (!validateMarkerId(markerId)) {
 			console.error(`Invalid marker ID: ${markerId}`);

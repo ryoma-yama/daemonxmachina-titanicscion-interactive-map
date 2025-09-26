@@ -22,6 +22,8 @@ function containsUnsafeHTML(text) {
 
 /**
  * Validate marker ID format
+ * @param {unknown} markerId
+ * @returns {markerId is import("./types").MarkerId}
  */
 export function validateMarkerId(markerId) {
 	if (typeof markerId !== "string") {
@@ -34,6 +36,8 @@ export function validateMarkerId(markerId) {
 
 /**
  * Validate GeoJSON feature data
+ * @param {unknown} feature
+ * @returns {feature is import("./types").MarkerFeature}
  */
 export function validateGeoJSONFeature(feature) {
 	// Basic structure check
