@@ -1377,6 +1377,118 @@
         "name": "No.187 Emblem: 15",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          490,
+          585
+        ]
+      },
+      "properties": {
+        "id": "desert-095",
+        "name": "Colony Shop Owner",
+        "category": "shop",
+        "description": "items: Card: No.062, No.065, No.127 (Unconfirmed)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          490,
+          600
+        ]
+      },
+      "properties": {
+        "id": "desert-096",
+        "name": "No.39",
+        "category": "card",
+        "description": "(Unconfirmed)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          505,
+          585
+        ]
+      },
+      "properties": {
+        "id": "desert-097",
+        "name": "No.47",
+        "category": "card",
+        "description": "(Unconfirmed)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          505,
+          600
+        ]
+      },
+      "properties": {
+        "id": "desert-098",
+        "name": "No.109",
+        "category": "card",
+        "description": "(Unconfirmed)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          863,
+          1100
+        ]
+      },
+      "properties": {
+        "id": "desert-099",
+        "name": "Colony Shop Owner",
+        "category": "shop",
+        "description": "items: Card: No.052, No.099 (Unconfirmed)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          873,
+          1100
+        ]
+      },
+      "properties": {
+        "id": "desert-100",
+        "name": "No.29",
+        "category": "card",
+        "description": "(Unconfirmed)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1040,
+          1120
+        ]
+      },
+      "properties": {
+        "id": "desert-101",
+        "name": "No.159",
+        "category": "card",
+        "description": "first room, gap in fallen shelf (Unconfirmed)"
+      }
     }
   ]
 }
