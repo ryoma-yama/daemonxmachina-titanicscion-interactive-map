@@ -145,14 +145,15 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          679,
-          342
+          675,
+          347
         ]
       },
       "properties": {
         "id": "forest-015",
         "name": "No.028-Nerve",
-        "category": "music"
+        "category": "music",
+        "description": "right next to supply base"
       }
     },
     {
@@ -176,15 +177,15 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          156,
+          155,
           818
         ]
       },
       "properties": {
         "id": "forest-017",
-        "name": "No.031-Turning Point",
+        "name": "No.031 Turning Point",
         "category": "music",
-        "description": "Axiom Facility B2F"
+        "description": "facility B2F, locked central room"
       }
     },
     {
@@ -1231,15 +1232,14 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          634,
-          355
+          660,
+          348
         ]
       },
       "properties": {
         "id": "forest-084",
-        "name": "No.54-Explorer's Notes 4-2",
-        "category": "log",
-        "description": "Unconfirmed"
+        "name": "No.54 Explorer's Notes 4-2",
+        "category": "log"
       }
     },
     {
@@ -1558,6 +1558,101 @@
       "properties": {
         "id": "forest-105",
         "name": "No.027 Mind Crusher",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150,
+          818
+        ]
+      },
+      "properties": {
+        "id": "forest-106",
+        "name": "No.098 Acropolis (Helm)",
+        "category": "card",
+        "description": "facility B1F, end of corridor after entrance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          160,
+          818
+        ]
+      },
+      "properties": {
+        "id": "forest-107",
+        "name": "No.158 Ricochet Blade",
+        "category": "card",
+        "description": "facility B2F, locked central room"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          680,
+          342
+        ]
+      },
+      "properties": {
+        "id": "forest-108",
+        "name": "No.132 Flamberge (Greaves)",
+        "category": "card",
+        "description": "right next to car"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          987,
+          394
+        ]
+      },
+      "properties": {
+        "id": "forest-109",
+        "name": "No.063 Zealot",
+        "category": "card",
+        "description": "on rubble with iron frames scattered on ground"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          414,
+          339
+        ]
+      },
+      "properties": {
+        "id": "forest-110",
+        "name": "No.139 Raven",
+        "category": "card",
+        "description": "inside tent"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          224,
+          225
+        ]
+      },
+      "properties": {
+        "id": "forest-111",
+        "name": "No.034 Cronus Break",
         "category": "card"
       }
     }

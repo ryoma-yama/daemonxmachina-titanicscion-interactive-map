@@ -1248,6 +1248,38 @@
         "category": "shop",
         "description": "items: Memory Slot Expansions, Drill Enhancement Chips"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          685,
+          158
+        ]
+      },
+      "properties": {
+        "id": "mountains-087",
+        "name": "Nereus RT: Alpha",
+        "category": "enemy",
+        "description": "items: Dev. Data: Deadly Drive, SK1-SK2-SK4, SK2-SK3-SK4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          646,
+          172
+        ]
+      },
+      "properties": {
+        "id": "mountains-088",
+        "name": "Divison RT: Alpha",
+        "category": "enemy",
+        "description": "items: SH2-Sh3, SH2-SH4"
+      }
     }
   ]
 }
