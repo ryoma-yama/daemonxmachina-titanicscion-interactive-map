@@ -12,7 +12,7 @@
       },
       "properties": {
         "id": "desert-006",
-        "name": "Pierced Heart",
+        "name": "No.198 Pierced Heart",
         "name_jp": "ハートを狙い撃ち",
         "category": "decal"
       }
@@ -120,7 +120,7 @@
       },
       "properties": {
         "id": "desert-013",
-        "name": "Block Art: 5",
+        "name": "No.172 Block Art: 5",
         "description": "side of iron plate stuck in ground",
         "category": "decal"
       }
@@ -467,7 +467,7 @@
       },
       "properties": {
         "id": "desert-036",
-        "name": "Emblem: 16",
+        "name": "No.188 Emblem: 16",
         "category": "decal"
       }
     },
@@ -544,7 +544,7 @@
       },
       "properties": {
         "id": "desert-041",
-        "name": "Emblem: 11",
+        "name": "No.183 Emblem: 11",
         "category": "decal"
       }
     },
@@ -559,7 +559,7 @@
       },
       "properties": {
         "id": "desert-042",
-        "name": "Smiling Face",
+        "name": "No.215 Smiling Face",
         "category": "decal"
       }
     },
@@ -574,7 +574,7 @@
       },
       "properties": {
         "id": "desert-043",
-        "name": "Line Art: 1",
+        "name": "No.140 Line Art: 1",
         "category": "decal"
       }
     },
@@ -589,7 +589,7 @@
       },
       "properties": {
         "id": "desert-044",
-        "name": "Line Art: 3",
+        "name": "No.142 Line Art: 3",
         "category": "decal"
       }
     },
@@ -604,7 +604,7 @@
       },
       "properties": {
         "id": "desert-045",
-        "name": "Emblem: 10",
+        "name": "No.182 Emblem: 10",
         "category": "decal"
       }
     },
@@ -619,7 +619,7 @@
       },
       "properties": {
         "id": "desert-046",
-        "name": "Line Art: 9",
+        "name": "No.148 Line Art: 9",
         "category": "decal"
       }
     },
@@ -634,7 +634,7 @@
       },
       "properties": {
         "id": "desert-047",
-        "name": "Emblem: 17",
+        "name": "No.189 Emblem: 17",
         "category": "decal"
       }
     },
@@ -649,7 +649,7 @@
       },
       "properties": {
         "id": "desert-048",
-        "name": "Block Art: 4",
+        "name": "No.171 Block Art: 4",
         "category": "decal"
       }
     },
@@ -679,7 +679,7 @@
       },
       "properties": {
         "id": "desert-050",
-        "name": "Line Art: 17",
+        "name": "No.156 Line Art: 17",
         "category": "decal"
       }
     },
@@ -838,7 +838,7 @@
       },
       "properties": {
         "id": "desert-060",
-        "name": "Forge",
+        "name": "No.141 Forge",
         "category": "card"
       }
     },
@@ -853,7 +853,7 @@
       },
       "properties": {
         "id": "desert-061",
-        "name": "Crius (Vambrace)",
+        "name": "No.113 Crius (Vambrace)",
         "category": "card"
       }
     },
@@ -1018,7 +1018,7 @@
       },
       "properties": {
         "id": "desert-072",
-        "name": "Emblem: 1",
+        "name": "No.173 Emblem: 1",
         "category": "decal"
       }
     },
@@ -1033,7 +1033,7 @@
       },
       "properties": {
         "id": "desert-073",
-        "name": "Banana",
+        "name": "No.200 Banana",
         "category": "decal"
       }
     },
@@ -1048,7 +1048,7 @@
       },
       "properties": {
         "id": "desert-074",
-        "name": "Emblem: 23",
+        "name": "No.195 Emblem: 23",
         "category": "decal",
         "description": "leaning building top wall"
       }
@@ -1358,7 +1358,7 @@
       },
       "properties": {
         "id": "desert-093",
-        "name": "Emblem: 14",
+        "name": "No.186 Emblem: 14",
         "category": "decal",
         "description": "pier underside"
       }

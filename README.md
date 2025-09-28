@@ -119,7 +119,10 @@ The application includes a "Recording mode" for easily capturing marker coordina
 Use the GeoJSON audit script to aggregate marker data, detect numbering gaps, and export filtered reports:
 
 ```bash
-pnpm audit-geojson --start 1 --end 250 --category log
+pnpm audit-geojson --start 4 --end 164 --category card
+pnpm audit-geojson --start 130 --end 216 --category decal
+pnpm audit-geojson --start 10 --end 86 --category log
+pnpm audit-geojson --start 3 --end 37 --category music
 ```
 
 - `--start` / `--end`: inclusive numeric range used for gap detection (`No.xxx` prefix)
