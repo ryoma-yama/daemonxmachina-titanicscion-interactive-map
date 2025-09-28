@@ -1455,7 +1455,11 @@
         "id": "desert-099",
         "name": "Colony Shop Owner",
         "category": "shop",
-        "description": "items: Card: No.052, No.099 Unconfirmed"
+        "description": "items: Card: No.052, No.099 Unconfirmed",
+        "items": [
+          "Card: No.052 Lost Heart",
+          "Card: No.099 Auxo (Helm)"
+        ]
       }
     },
     {
@@ -1469,9 +1473,9 @@
       },
       "properties": {
         "id": "desert-100",
-        "name": "No.29",
+        "name": "No.29 Butcher",
         "category": "card",
-        "description": "Unconfirmed"
+        "description": "inside tent"
       }
     },
     {
