@@ -1,0 +1,31 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [0, 0] },
+      "properties": {
+        "id": "desert-001",
+        "name": "No.005 Desert Log",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [1, 1] },
+      "properties": {
+        "name": "Beta without number",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2, 2] },
+      "properties": {
+        "id": "desert-003",
+        "name": "No.300 Outside Range",
+        "category": "log"
+      }
+    }
+  ]
+}

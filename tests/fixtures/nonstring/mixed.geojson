@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": null
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "id": 123,
+        "category": null
+      }
+    }
+  ]
+}

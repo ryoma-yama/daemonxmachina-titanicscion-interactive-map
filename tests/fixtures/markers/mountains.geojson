@@ -1,0 +1,32 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [20, 20] },
+      "properties": {
+        "id": "mountains-001",
+        "name": "No.007 Zeta",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [21, 21] },
+      "properties": {
+        "id": "mountains-002",
+        "name": "no.008 lowercase",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [22, 22] },
+      "properties": {
+        "id": "mountains-003",
+        "name": "Gamma without number",
+        "category": "log"
+      }
+    }
+  ]
+}

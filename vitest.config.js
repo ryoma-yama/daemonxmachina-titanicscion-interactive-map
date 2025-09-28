@@ -14,7 +14,7 @@ export default defineConfig({
 		coverage: {
 			provider: "v8",
 			all: true,
-			include: ["scripts/add_marker.ts"],
+			include: ["scripts/add_marker.ts", "scripts/audit_geojson_numbers.ts"],
 			reporter: ["text", "json-summary"],
 			thresholds: {
 				branches: 100,
