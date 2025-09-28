@@ -1487,6 +1487,21 @@
         "name": "No.184 Emblem: 12",
         "category": "decal"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          402,
+          346
+        ]
+      },
+      "properties": {
+        "id": "mountains-102",
+        "name": "No.197 Lips",
+        "category": "decal"
+      }
     }
   ]
 }
