@@ -43,7 +43,7 @@
       },
       "properties": {
         "id": "mountains-008",
-        "name": "No.006-Harmonia Valley",
+        "name": "No.006 Harmonia Valley",
         "category": "music"
       }
     },
@@ -58,7 +58,7 @@
       },
       "properties": {
         "id": "mountains-009",
-        "name": "No.015-Deviant",
+        "name": "No.015 Deviant",
         "description": "lower floor of building",
         "category": "music"
       }
@@ -74,7 +74,7 @@
       },
       "properties": {
         "id": "mountains-010",
-        "name": "No.017-Assault Impact",
+        "name": "No.017 Assault Impact",
         "category": "music",
         "description": "Axiom facility B1F, near the red door"
       }
@@ -90,7 +90,7 @@
       },
       "properties": {
         "id": "mountains-011",
-        "name": "No.018-Arms Of Immortal",
+        "name": "No.018 Arms Of Immortal",
         "category": "music"
       }
     },
@@ -105,7 +105,7 @@
       },
       "properties": {
         "id": "mountains-012",
-        "name": "No.019-The Neun",
+        "name": "No.019 The Neun",
         "category": "music"
       }
     },
@@ -120,7 +120,7 @@
       },
       "properties": {
         "id": "mountains-013",
-        "name": "No.021-Gearworm",
+        "name": "No.021 Gearworm",
         "category": "music"
       }
     },
@@ -135,7 +135,7 @@
       },
       "properties": {
         "id": "mountains-014",
-        "name": "No.022-Hex",
+        "name": "No.022 Hex",
         "category": "music"
       }
     },
@@ -150,7 +150,7 @@
       },
       "properties": {
         "id": "mountains-015",
-        "name": "No.023-Legion",
+        "name": "No.023 Legion",
         "description": "between containers",
         "category": "music"
       }
@@ -166,7 +166,7 @@
       },
       "properties": {
         "id": "mountains-016",
-        "name": "No.025-Arachne",
+        "name": "No.025 Arachne",
         "category": "music",
         "description": "on ground"
       }
@@ -182,7 +182,7 @@
       },
       "properties": {
         "id": "mountains-017",
-        "name": "No.026-Gaze",
+        "name": "No.026 Gaze",
         "category": "music"
       }
     },
@@ -197,7 +197,7 @@
       },
       "properties": {
         "id": "mountains-018",
-        "name": "No.027-Yaiba",
+        "name": "No.027 Yaiba",
         "category": "music"
       }
     },
@@ -212,7 +212,7 @@
       },
       "properties": {
         "id": "mountains-019",
-        "name": "No.032-Hostility",
+        "name": "No.032 Hostility",
         "description": "upper floor of building",
         "category": "music"
       }
@@ -228,7 +228,7 @@
       },
       "properties": {
         "id": "mountains-020",
-        "name": "No.033-Emergency",
+        "name": "No.033 Emergency",
         "category": "music"
       }
     },
@@ -243,7 +243,7 @@
       },
       "properties": {
         "id": "mountains-021",
-        "name": "No.034-Despair",
+        "name": "No.034 Despair",
         "category": "music"
       }
     },
@@ -258,7 +258,7 @@
       },
       "properties": {
         "id": "mountains-022",
-        "name": "No.037-Eternal Time",
+        "name": "No.037 Eternal Time",
         "category": "music"
       }
     },
@@ -273,7 +273,7 @@
       },
       "properties": {
         "id": "mountains-023",
-        "name": "No.209-Kraken",
+        "name": "No.209 Kraken",
         "category": "decal"
       }
     },
@@ -457,7 +457,7 @@
       },
       "properties": {
         "id": "mountains-035",
-        "name": "No.185-Emblem: 13",
+        "name": "No.185 Emblem: 13",
         "description": "south wall",
         "category": "decal"
       }
@@ -473,7 +473,7 @@
       },
       "properties": {
         "id": "mountains-036",
-        "name": "No.150-Line Art: 11",
+        "name": "No.150 Line Art: 11",
         "category": "decal"
       }
     },
@@ -488,7 +488,7 @@
       },
       "properties": {
         "id": "mountains-037",
-        "name": "No.175-Emblem: 3",
+        "name": "No.175 Emblem: 3",
         "category": "decal"
       }
     },
@@ -519,7 +519,7 @@
       },
       "properties": {
         "id": "mountains-039",
-        "name": "No.097-War Scythe (Helm)",
+        "name": "No.097 War Scythe (Helm)",
         "category": "card"
       }
     },
@@ -534,7 +534,7 @@
       },
       "properties": {
         "id": "mountains-040",
-        "name": "No.157-Thousand Cuts",
+        "name": "No.157 Thousand Cuts",
         "category": "card"
       }
     },
@@ -909,7 +909,7 @@
       },
       "properties": {
         "id": "mountains-065",
-        "name": "No.38",
+        "name": "No.038",
         "category": "log"
       }
     },
@@ -924,7 +924,7 @@
       },
       "properties": {
         "id": "mountains-066",
-        "name": "No.66-Explorer's Notes 7-1",
+        "name": "No.066 Explorer's Notes 7-1",
         "category": "log"
       }
     },
@@ -939,7 +939,7 @@
       },
       "properties": {
         "id": "mountains-067",
-        "name": "No.67-Explorer's Notes 7-2",
+        "name": "No.067 Explorer's Notes 7-2",
         "description": "under rock arch",
         "category": "log"
       }
@@ -955,7 +955,7 @@
       },
       "properties": {
         "id": "mountains-068",
-        "name": "No.68-Explorer's Notes 7-3",
+        "name": "No.068 Explorer's Notes 7-3",
         "category": "log"
       }
     },
@@ -970,7 +970,7 @@
       },
       "properties": {
         "id": "mountains-069",
-        "name": "No.69-Explorer's Notes 7-4",
+        "name": "No.069 Explorer's Notes 7-4",
         "category": "log"
       }
     },
@@ -985,7 +985,7 @@
       },
       "properties": {
         "id": "mountains-070",
-        "name": "No.70-Explorer's Notes 8-1",
+        "name": "No.070 Explorer's Notes 8-1",
         "category": "log"
       }
     },
@@ -1000,7 +1000,7 @@
       },
       "properties": {
         "id": "mountains-071",
-        "name": "No.71-Explorer's Notes 8-2",
+        "name": "No.071 Explorer's Notes 8-2",
         "category": "log"
       }
     },
@@ -1015,7 +1015,7 @@
       },
       "properties": {
         "id": "mountains-072",
-        "name": "No.72-Explorer's Notes 8-3",
+        "name": "No.072 Explorer's Notes 8-3",
         "description": "by puddle. Reward: Wing Shift Speed Up Lv3",
         "category": "log"
       }
@@ -1031,7 +1031,7 @@
       },
       "properties": {
         "id": "mountains-073",
-        "name": "No.73-Explorer's Notes 9-1",
+        "name": "No.073 Explorer's Notes 9-1",
         "category": "log"
       }
     },
@@ -1046,7 +1046,7 @@
       },
       "properties": {
         "id": "mountains-074",
-        "name": "No.74-Explorer's Notes 9-2",
+        "name": "No.074 Explorer's Notes 9-2",
         "category": "log",
         "description": "under overpass"
       }
@@ -1062,7 +1062,7 @@
       },
       "properties": {
         "id": "mountains-075",
-        "name": "No.75-Explorer's Notes 9-3",
+        "name": "No.075 Explorer's Notes 9-3",
         "category": "log"
       }
     },
@@ -1077,7 +1077,7 @@
       },
       "properties": {
         "id": "mountains-076",
-        "name": "No.76-Explorer's Notes 9-4",
+        "name": "No.076 Explorer's Notes 9-4",
         "category": "log"
       }
     },
@@ -1143,9 +1143,9 @@
         "name": "Colony Shop Owner",
         "category": "shop",
         "items": [
-          "Card: No.009-Noble Pride",
-          "Card: No.017-Claiomh Solais",
-          "Card: No.028-Vargr Greed"
+          "Card: No.009 Noble Pride",
+          "Card: No.017 Claiomh Solais",
+          "Card: No.028 Vargr Greed"
         ]
       }
     },
@@ -1182,8 +1182,8 @@
         "name": "Colony Shop Owner",
         "category": "shop",
         "items": [
-          "Card: No.126-Explorer (Vambrace)",
-          "Card: No.162-Grappling Chain"
+          "Card: No.126 Explorer (Vambrace)",
+          "Card: No.162 Grappling Chain"
         ]
       }
     },
@@ -1198,7 +1198,7 @@
       },
       "properties": {
         "id": "mountains-083",
-        "name": "No.60-Caladrius",
+        "name": "No.060 Caladrius",
         "category": "card"
       }
     },
@@ -1455,6 +1455,22 @@
         "name": "No.075 Orochi",
         "category": "card",
         "description": "1F of collapsed building"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1038,
+          73
+        ]
+      },
+      "properties": {
+        "id": "mountains-100",
+        "name": "No.015 Butterfly Glow",
+        "category": "card",
+        "description": "on ground"
       }
     }
   ]

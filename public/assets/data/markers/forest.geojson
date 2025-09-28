@@ -28,7 +28,7 @@
       },
       "properties": {
         "id": "forest-007",
-        "name": "No.003-War Council",
+        "name": "No.003 War Council",
         "category": "music"
       }
     },
@@ -43,7 +43,7 @@
       },
       "properties": {
         "id": "forest-008",
-        "name": "No.005-Mitera Glastra",
+        "name": "No.005 Mitera Glastra",
         "category": "music",
         "description": "Axiom facility B2F"
       }
@@ -59,7 +59,7 @@
       },
       "properties": {
         "id": "forest-009",
-        "name": "No.007-Deep in the Darkness",
+        "name": "No.007 Deep in the Darkness",
         "category": "music",
         "description": "Inside the tent northeast of the white debris in the center"
       }
@@ -75,7 +75,7 @@
       },
       "properties": {
         "id": "forest-010",
-        "name": "No.012-An Ordinary Day",
+        "name": "No.012 An Ordinary Day",
         "category": "music"
       }
     },
@@ -90,7 +90,7 @@
       },
       "properties": {
         "id": "forest-011",
-        "name": "No.013-Engage",
+        "name": "No.013 Engage",
         "category": "music"
       }
     },
@@ -105,7 +105,7 @@
       },
       "properties": {
         "id": "forest-012",
-        "name": "No.014-Overkill",
+        "name": "No.014 Overkill",
         "category": "music",
         "description": "Western Laboratory B1F, northeast small room"
       }
@@ -121,7 +121,7 @@
       },
       "properties": {
         "id": "forest-013",
-        "name": "No.016-Perfect Raid",
+        "name": "No.016 Perfect Raid",
         "category": "music"
       }
     },
@@ -136,7 +136,7 @@
       },
       "properties": {
         "id": "forest-014",
-        "name": "No.024-Bullet",
+        "name": "No.024 Bullet",
         "category": "music"
       }
     },
@@ -151,7 +151,7 @@
       },
       "properties": {
         "id": "forest-015",
-        "name": "No.028-Nerve",
+        "name": "No.028 Nerve",
         "category": "music",
         "description": "right next to supply base"
       }
@@ -167,7 +167,7 @@
       },
       "properties": {
         "id": "forest-016",
-        "name": "No.030-Way To Go!",
+        "name": "No.030 Way To Go!",
         "category": "music",
         "description": "Western Laboratory B1F, small room at the end of the west side"
       }
@@ -199,7 +199,7 @@
       },
       "properties": {
         "id": "forest-018",
-        "name": "No.035-Remember our Vow",
+        "name": "No.035 Remember our Vow",
         "category": "music"
       }
     },
@@ -229,7 +229,7 @@
       },
       "properties": {
         "id": "forest-020",
-        "name": "No.192-Emblem: 20",
+        "name": "No.192 Emblem: 20",
         "category": "decal"
       }
     },
@@ -244,7 +244,7 @@
       },
       "properties": {
         "id": "forest-021",
-        "name": "No.206-Rose",
+        "name": "No.206 Rose",
         "category": "decal"
       }
     },
@@ -289,7 +289,7 @@
       },
       "properties": {
         "id": "forest-024",
-        "name": "No.205-Sword",
+        "name": "No.205 Sword",
         "description": "upper rock wall",
         "category": "decal"
       }
@@ -320,7 +320,7 @@
       },
       "properties": {
         "id": "forest-026",
-        "name": "No.201-Peach",
+        "name": "No.201 Peach",
         "description": "pier underside",
         "category": "decal"
       }
@@ -653,7 +653,7 @@
       },
       "properties": {
         "id": "forest-046",
-        "name": "No.53-Explorer's Notes 4-1",
+        "name": "No.053 Explorer's Notes 4-1",
         "category": "log",
         "description": "on overpass"
       }
@@ -747,7 +747,7 @@
       },
       "properties": {
         "id": "forest-052",
-        "name": "No.036-A Woman's Farewell Note",
+        "name": "No.036 A Woman's Farewell Note",
         "category": "log",
         "description": "on container"
       }
@@ -1223,7 +1223,7 @@
       },
       "properties": {
         "id": "forest-083",
-        "name": "No.37",
+        "name": "No.037",
         "category": "log"
       }
     },
@@ -1238,7 +1238,7 @@
       },
       "properties": {
         "id": "forest-084",
-        "name": "No.54 Explorer's Notes 4-2",
+        "name": "No.054 Explorer's Notes 4-2",
         "category": "log"
       }
     },
@@ -1253,7 +1253,7 @@
       },
       "properties": {
         "id": "forest-085",
-        "name": "No.55-Explorer's Notes 4-3",
+        "name": "No.055 Explorer's Notes 4-3",
         "category": "log"
       }
     },
@@ -1268,7 +1268,7 @@
       },
       "properties": {
         "id": "forest-086",
-        "name": "No.56-Explorer's Notes 4-4",
+        "name": "No.056 Explorer's Notes 4-4",
         "category": "log"
       }
     },
@@ -1283,7 +1283,7 @@
       },
       "properties": {
         "id": "forest-087",
-        "name": "No.57-Explorer's Notes 5-1",
+        "name": "No.057 Explorer's Notes 5-1",
         "category": "log"
       }
     },
@@ -1298,7 +1298,7 @@
       },
       "properties": {
         "id": "forest-088",
-        "name": "No.58-Explorer's Notes 5-2",
+        "name": "No.058 Explorer's Notes 5-2",
         "category": "log"
       }
     },
@@ -1313,7 +1313,7 @@
       },
       "properties": {
         "id": "forest-089",
-        "name": "No.59-Explorer's Notes 5-3",
+        "name": "No.059 Explorer's Notes 5-3",
         "category": "log"
       }
     },
@@ -1328,7 +1328,7 @@
       },
       "properties": {
         "id": "forest-090",
-        "name": "No.60-Explorer's Notes 5-4",
+        "name": "No.060 Explorer's Notes 5-4",
         "category": "log"
       }
     },
@@ -1343,7 +1343,7 @@
       },
       "properties": {
         "id": "forest-091",
-        "name": "No.61-Explorer's Notes 6-1",
+        "name": "No.061 Explorer's Notes 6-1",
         "category": "log"
       }
     },
@@ -1358,7 +1358,7 @@
       },
       "properties": {
         "id": "forest-092",
-        "name": "No.62-Explorer's Notes 6-2",
+        "name": "No.062 Explorer's Notes 6-2",
         "category": "log"
       }
     },
@@ -1373,7 +1373,7 @@
       },
       "properties": {
         "id": "forest-093",
-        "name": "No.63-Explorer's Notes 6-3",
+        "name": "No.063 Explorer's Notes 6-3",
         "category": "log"
       }
     },
@@ -1388,7 +1388,7 @@
       },
       "properties": {
         "id": "forest-094",
-        "name": "No.64-Explorer's Notes 6-4",
+        "name": "No.064 Explorer's Notes 6-4",
         "category": "log"
       }
     },
@@ -1403,7 +1403,7 @@
       },
       "properties": {
         "id": "forest-095",
-        "name": "No.65-Explorer's Notes 6-5",
+        "name": "No.065 Explorer's Notes 6-5",
         "category": "log"
       }
     },
@@ -1497,7 +1497,7 @@
       },
       "properties": {
         "id": "forest-101",
-        "name": "No.82 Caution Request for Transport of Femto Survey Device",
+        "name": "No.082 Caution Request for Transport of Femto Survey Device",
         "category": "log"
       }
     },

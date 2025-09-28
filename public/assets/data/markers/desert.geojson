@@ -43,7 +43,7 @@
       },
       "properties": {
         "id": "desert-008",
-        "name": "No.004-Teos Omos Desert",
+        "name": "No.004 Teos Omos Desert",
         "category": "music"
       }
     },
@@ -58,7 +58,7 @@
       },
       "properties": {
         "id": "desert-009",
-        "name": "No.009-Fusion",
+        "name": "No.009 Fusion",
         "category": "music",
         "description": "Axiom Facility B1F Small room at the bottom"
       }
@@ -74,7 +74,7 @@
       },
       "properties": {
         "id": "desert-010",
-        "name": "No.010-Ice Cream",
+        "name": "No.010 Ice Cream",
         "category": "music",
         "description": "Axiom facility, 1st floor"
       }
@@ -90,7 +90,7 @@
       },
       "properties": {
         "id": "desert-011",
-        "name": "No.036-Uncertainty",
+        "name": "No.036 Uncertainty",
         "category": "music"
       }
     },
@@ -105,7 +105,7 @@
       },
       "properties": {
         "id": "desert-012",
-        "name": "No.115-War Scythe (Vambrace)",
+        "name": "No.115 War Scythe (Vambrace)",
         "category": "card"
       }
     },
@@ -498,7 +498,7 @@
       },
       "properties": {
         "id": "desert-038",
-        "name": "No.128-Cratos (Greaves)",
+        "name": "No.128 Cratos (Greaves)",
         "category": "card",
         "description": "In the Colony, via the passage just north"
       }
@@ -803,7 +803,7 @@
       },
       "properties": {
         "id": "desert-058",
-        "name": "No.41-A Memorial Monument",
+        "name": "No.041 A Memorial Monument",
         "category": "log"
       }
     },
@@ -1058,8 +1058,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1106,
-          72
+          1081,
+          110
         ]
       },
       "properties": {
@@ -1077,8 +1077,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1126,
-          72
+          1105,
+          108
         ]
       },
       "properties": {
@@ -1096,8 +1096,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1146,
-          72
+          1093,
+          127
         ]
       },
       "properties": {
@@ -1115,8 +1115,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1166,
-          72
+          1110,
+          96
         ]
       },
       "properties": {
@@ -1141,9 +1141,9 @@
       },
       "properties": {
         "id": "desert-079",
-        "name": "No.42",
+        "name": "No.042",
         "category": "log",
-        "description": "Required: Obtaining log No.41"
+        "description": "Required: Obtaining log No.041"
       }
     },
     {
@@ -1159,7 +1159,7 @@
         "id": "desert-080",
         "name": "Ugly Envy",
         "category": "chest",
-        "description": "Required: Obtaining log No.41. Seven Deadly Sins series."
+        "description": "Required: Obtaining log No.041. Seven Deadly Sins series."
       }
     },
     {
@@ -1173,7 +1173,7 @@
       },
       "properties": {
         "id": "desert-081",
-        "name": "No.43-Explorer's Notes 1-1",
+        "name": "No.043 Explorer's Notes 1-1",
         "category": "log",
         "description": "Unconfirmed"
       }
@@ -1189,7 +1189,7 @@
       },
       "properties": {
         "id": "desert-082",
-        "name": "No.44-Explorer's Notes 1-2",
+        "name": "No.044 Explorer's Notes 1-2",
         "category": "log",
         "description": "Unconfirmed"
       }
@@ -1205,7 +1205,7 @@
       },
       "properties": {
         "id": "desert-083",
-        "name": "No.45-Explorer's Notes 1-3",
+        "name": "No.045 Explorer's Notes 1-3",
         "category": "log",
         "description": "Unconfirmed"
       }
@@ -1221,7 +1221,7 @@
       },
       "properties": {
         "id": "desert-084",
-        "name": "No.46-Explorer's Notes 1-4",
+        "name": "No.046 Explorer's Notes 1-4",
         "category": "log"
       }
     },
@@ -1236,7 +1236,7 @@
       },
       "properties": {
         "id": "desert-085",
-        "name": "No.47-Explorer's Notes 2-1",
+        "name": "No.047 Explorer's Notes 2-1",
         "description": "under overpass",
         "category": "log"
       }
@@ -1252,7 +1252,7 @@
       },
       "properties": {
         "id": "desert-086",
-        "name": "No.48-Explorer's Notes 2-2",
+        "name": "No.048 Explorer's Notes 2-2",
         "description": "behind pillar",
         "category": "log"
       }
@@ -1268,7 +1268,7 @@
       },
       "properties": {
         "id": "desert-087",
-        "name": "No.49-Explorer's Notes 2-3",
+        "name": "No.049 Explorer's Notes 2-3",
         "category": "log"
       }
     },
@@ -1298,7 +1298,7 @@
       },
       "properties": {
         "id": "desert-089",
-        "name": "No.011-Ridill",
+        "name": "No.011 Ridill",
         "category": "card"
       }
     },
@@ -1313,7 +1313,7 @@
       },
       "properties": {
         "id": "desert-090",
-        "name": "No.50-Explorer's Notes 3-1",
+        "name": "No.050 Explorer's Notes 3-1",
         "category": "log"
       }
     },
@@ -1328,7 +1328,7 @@
       },
       "properties": {
         "id": "desert-091",
-        "name": "No.51-Explorer's Notes 3-2",
+        "name": "No.051 Explorer's Notes 3-2",
         "category": "log"
       }
     },
@@ -1343,7 +1343,7 @@
       },
       "properties": {
         "id": "desert-092",
-        "name": "No.52-Explorer's Notes 3-3",
+        "name": "No.052 Explorer's Notes 3-3",
         "category": "log"
       }
     },
@@ -1391,7 +1391,11 @@
         "id": "desert-095",
         "name": "Colony Shop Owner",
         "category": "shop",
-        "description": "items: Card: No.062, No.065, No.127 Unconfirmed"
+        "items": [
+          "Card: No.062 Bullet King",
+          "Card: No.065 Faint Hope",
+          "Card: No.127 Iroas (Greaves)"
+        ]
       }
     },
     {
@@ -1405,9 +1409,9 @@
       },
       "properties": {
         "id": "desert-096",
-        "name": "No.39",
+        "name": "No.039 Crystalline Spike",
         "category": "card",
-        "description": "Unconfirmed"
+        "description": "inside tent"
       }
     },
     {
@@ -1421,9 +1425,9 @@
       },
       "properties": {
         "id": "desert-097",
-        "name": "No.47",
+        "name": "No.047 Brilliant Dawn",
         "category": "card",
-        "description": "Unconfirmed"
+        "description": "inside tent"
       }
     },
     {
@@ -1437,9 +1441,9 @@
       },
       "properties": {
         "id": "desert-098",
-        "name": "No.109",
+        "name": "No.109 Iroas (Vambrace)",
         "category": "card",
-        "description": "Unconfirmed"
+        "description": "inside tent"
       }
     },
     {
@@ -1473,7 +1477,7 @@
       },
       "properties": {
         "id": "desert-100",
-        "name": "No.29 Butcher",
+        "name": "No.029 Butcher",
         "category": "card",
         "description": "inside tent"
       }
@@ -1489,9 +1493,225 @@
       },
       "properties": {
         "id": "desert-101",
-        "name": "No.159",
+        "name": "No.159 Demilune Slash",
         "category": "card",
-        "description": "first room, gap in fallen shelf Unconfirmed"
+        "description": "first room, gap in fallen shelf"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          270,
+          555
+        ]
+      },
+      "properties": {
+        "id": "desert-102",
+        "name": "No.013 Blutgang",
+        "category": "card",
+        "description": "facility B1F, room left of Socket (Orange)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          275,
+          555
+        ]
+      },
+      "properties": {
+        "id": "desert-103",
+        "name": "No.094 Glaive (Helm)",
+        "category": "card",
+        "description": "facility B2F, room on the left after descending"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          185,
+          560
+        ]
+      },
+      "properties": {
+        "id": "desert-104",
+        "name": "No.021 Chidori",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          190,
+          560
+        ]
+      },
+      "properties": {
+        "id": "desert-105",
+        "name": "No.112 Glaive (Vambrace)",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          458,
+          56
+        ]
+      },
+      "properties": {
+        "id": "desert-106",
+        "name": "No.025 Rage Loa",
+        "category": "card",
+        "description": "just right after exiting Byway, beside container  "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          453,
+          56
+        ]
+      },
+      "properties": {
+        "id": "desert-107",
+        "name": "No.066 Liberatio",
+        "category": "card",
+        "description": "just right after exiting Byway, beside container  "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          589,
+          275
+        ]
+      },
+      "properties": {
+        "id": "desert-108",
+        "name": "No.058 Redstart",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          589,
+          280
+        ]
+      },
+      "properties": {
+        "id": "desert-109",
+        "name": "No.110 Cratos (Vambrace)",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          262,
+          247
+        ]
+      },
+      "properties": {
+        "id": "desert-110",
+        "name": "No.026 Initium",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          257,
+          247
+        ]
+      },
+      "properties": {
+        "id": "desert-111",
+        "name": "No.131 Crius (Greaves)",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          827,
+          11
+        ]
+      },
+      "properties": {
+        "id": "desert-112",
+        "name": "No.031 Night Sanctuary",
+        "category": "card",
+        "description": "facility B1F, near left console"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          796,
+          29
+        ]
+      },
+      "properties": {
+        "id": "desert-113",
+        "name": "No.100 Iroas (Cuirass)",
+        "category": "card",
+        "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1102,
+          121
+        ]
+      },
+      "properties": {
+        "id": "desert-114",
+        "name": "No.046 Astraeus II",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1116,
+          99
+        ]
+      },
+      "properties": {
+        "id": "desert-115",
+        "name": "No.035 Cronus Break II",
+        "category": "card"
       }
     }
   ]
