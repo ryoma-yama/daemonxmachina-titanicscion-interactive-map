@@ -1280,6 +1280,182 @@
         "category": "enemy",
         "description": "items: SH2-Sh3, SH2-SH4"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          152,
+          999
+        ]
+      },
+      "properties": {
+        "id": "mountains-089",
+        "name": "No.071 Yoichi",
+        "category": "card",
+        "description": "on rubble of collapsed roadside building"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54,
+          918
+        ]
+      },
+      "properties": {
+        "id": "mountains-090",
+        "name": "No.072 Anfang Arger",
+        "category": "card",
+        "description": "1F of collapsed building"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          388,
+          109
+        ]
+      },
+      "properties": {
+        "id": "mountains-091",
+        "name": "No.064 Sugar Rush",
+        "category": "card",
+        "description": "facility B1F, locked room back left"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          448,
+          177
+        ]
+      },
+      "properties": {
+        "id": "mountains-092",
+        "name": "No.072 Gandiva",
+        "category": "card",
+        "description": "on container"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          258,
+          386
+        ]
+      },
+      "properties": {
+        "id": "mountains-093",
+        "name": "No.089 Radar Jammer",
+        "category": "card",
+        "description": "on rooftop"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          269,
+          414
+        ]
+      },
+      "properties": {
+        "id": "mountains-094",
+        "name": "No.023 Murakumo",
+        "category": "card",
+        "description": "center of puddle, under hut"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          704,
+          849
+        ]
+      },
+      "properties": {
+        "id": "mountains-095",
+        "name": "No.108 Auxo (Cuirass)",
+        "category": "card",
+        "description": "inside tent"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1002,
+          573
+        ]
+      },
+      "properties": {
+        "id": "mountains-096",
+        "name": "No.146 Arachne",
+        "category": "card",
+        "description": "facility B1F, end of first right path, behind containers"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          639,
+          380
+        ]
+      },
+      "properties": {
+        "id": "mountains-097",
+        "name": "No.049 Outrider",
+        "category": "card",
+        "description": "on ground"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1041,
+          1004
+        ]
+      },
+      "properties": {
+        "id": "mountains-098",
+        "name": "No.004",
+        "category": "card",
+        "description": "B2F, back left room"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          948,
+          1032
+        ]
+      },
+      "properties": {
+        "id": "mountains-099",
+        "name": "No.075 Orochi",
+        "category": "card",
+        "description": "1F of collapsed building"
+      }
     }
   ]
 }

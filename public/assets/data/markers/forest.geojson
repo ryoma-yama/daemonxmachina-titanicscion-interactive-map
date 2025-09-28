@@ -1655,6 +1655,22 @@
         "name": "No.034 Cronus Break",
         "category": "card"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          494,
+          501
+        ]
+      },
+      "properties": {
+        "id": "forest-112",
+        "name": "No.163 Stealth Camoflouge",
+        "category": "card",
+        "description": "near two trucks"
+      }
     }
   ]
 }
