@@ -13,8 +13,8 @@
 		"check": "biome check .",
 		"fix": "biome check . --write",
 		"test": "vitest run --coverage",
-		"add-marker": "node scripts/add_marker.js",
-		"batch-add-markers": "node scripts/batch_add_markers.js"
+		"add-marker": "tsx scripts/add_marker.ts",
+		"batch-add-markers": "tsx scripts/batch_add_markers.ts"
 	},
 	"keywords": [
 		"daemon-x-machina",
@@ -35,6 +35,7 @@
 		"@types/node": "^24.5.2",
 		"@vitest/coverage-v8": "^2.1.4",
 		"playwright": "^1.55.0",
+		"tsx": "^4.19.2",
 		"typescript": "^5.9.2",
 		"vite": "^5.4.0",
 		"vitest": "^2.1.4"

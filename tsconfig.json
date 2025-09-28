@@ -13,10 +13,11 @@
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
+		"allowImportingTsExtensions": true,
 		"noEmit": true,
 		"types": ["node"]
 	},
-	"include": ["src/**/*", "tests/**/*"],
+	"include": ["src/**/*", "tests/**/*", "scripts/**/*.ts"],
 	"exclude": ["dist", "node_modules"],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }

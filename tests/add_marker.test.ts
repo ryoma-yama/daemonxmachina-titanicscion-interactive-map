@@ -7,7 +7,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type {
 	FeatureCollectionLike,
 	FeatureLike,
-} from "../scripts/add_marker.js";
+} from "../scripts/add_marker.ts";
 import {
 	addMarkerToGeojson,
 	checkDuplicates,
@@ -24,7 +24,7 @@ import {
 	showCategories,
 	VALID_CATEGORIES,
 	validateInputs,
-} from "../scripts/add_marker.js";
+} from "../scripts/add_marker.ts";
 
 const createTempDir = () =>
 	fs.mkdtempSync(path.join(os.tmpdir(), "add-marker-"));

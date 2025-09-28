@@ -12,5 +12,5 @@
 		"isolatedModules": true,
 		"types": ["node"]
 	},
-	"include": ["vite.config.ts", "vitest.config.js", "scripts/**/*.js"]
+	"include": ["vite.config.ts", "vitest.config.js", "scripts/**/*.ts"]
 }
