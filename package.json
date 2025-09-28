@@ -14,7 +14,8 @@
 		"fix": "biome check . --write",
 		"test": "vitest run --coverage",
 		"add-marker": "tsx scripts/add_marker.ts",
-		"batch-add-markers": "tsx scripts/batch_add_markers.ts"
+		"batch-add-markers": "tsx scripts/batch_add_markers.ts",
+		"audit-geojson": "tsx scripts/audit_geojson_numbers.ts"
 	},
 	"keywords": [
 		"daemon-x-machina",

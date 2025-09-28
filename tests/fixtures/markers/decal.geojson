@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [30, 30] },
+      "properties": {
+        "id": "decal-001",
+        "name": "No.011 Vinyl",
+        "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [31, 31] },
+      "properties": {
+        "id": "decal-002",
+        "name": "Sticker",
+        "category": "decal"
+      }
+    }
+  ]
+}

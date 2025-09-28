@@ -115,6 +115,23 @@ The application includes a "Recording mode" for easily capturing marker coordina
 2. Update `mapDefinitions` in `src/map-definitions.js`
 3. Create corresponding GeoJSON file in `public/assets/data/markers/`
 
+### Auditing Marker Numbering
+Use the GeoJSON audit script to aggregate marker data, detect numbering gaps, and export filtered reports:
+
+```bash
+pnpm audit-geojson --start 1 --end 250 --category log
+```
+
+- `--start` / `--end`: inclusive numeric range used for gap detection (`No.xxx` prefix)
+- `--category`: marker category to include in the `output` array
+- `--out`: optional custom path for the written report (defaults to `tmp/<category>/audit.json`)
+
+The command prints the audit result to stdout and writes the same JSON file to the configured path, including:
+- `missingNumbers`: zero-padded gaps within the specified range
+- `noNumberPrefix`: entries whose names do not start with a `No.xxx` prefix
+- `sortedByName`: all markers sorted with `Intl.Collator("ja")`
+- `output`: markers whose `category` matches the provided filter
+
 ## Assets License
 
 - Dungeon Solid — Icons8 — [MIT](https://opensource.org/licenses/MIT)
