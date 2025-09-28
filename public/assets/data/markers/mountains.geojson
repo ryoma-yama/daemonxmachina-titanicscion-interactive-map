@@ -1472,6 +1472,21 @@
         "category": "card",
         "description": "on ground"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          311,
+          1020
+        ]
+      },
+      "properties": {
+        "id": "mountains-101",
+        "name": "No.184 Emblem: 12",
+        "category": "decal"
+      }
     }
   ]
 }

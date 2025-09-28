@@ -1459,7 +1459,6 @@
         "id": "desert-099",
         "name": "Colony Shop Owner",
         "category": "shop",
-        "description": "items: Card: No.052, No.099 Unconfirmed",
         "items": [
           "Card: No.052 Lost Heart",
           "Card: No.099 Auxo (Helm)"
@@ -1712,6 +1711,22 @@
         "id": "desert-115",
         "name": "No.035 Cronus Break II",
         "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          686,
+          894
+        ]
+      },
+      "properties": {
+        "id": "desert-116",
+        "name": "No.079 Caution Request for Transport of Femto Survey Device",
+        "category": "log",
+        "description": "upper side"
       }
     }
   ]
