@@ -222,17 +222,18 @@ export const auditGeojsonNumbers = (options: AuditOptions): AuditResult => {
         const baseDir = resolveMarkersDir(markersDir);
         const targetFiles = resolveFiles(baseDir, files);
         const entries = extractEntries(targetFiles);
+        const scoped = entries.filter((entry) => entry.category === category);
         const collator = new Intl.Collator("ja", { numeric: false, sensitivity: "base" });
-        const sortedByName = [...entries].sort((a, b) => collator.compare(a.name, b.name));
+        const sortedByName = [...scoped].sort((a, b) => collator.compare(a.name, b.name));
 
-        const { missing, noPrefix, withNo } = detectNumbers(entries, start, end);
-        const output = entries.filter((entry) => entry.category === category);
+        const { missing, noPrefix, withNo } = detectNumbers(scoped, start, end);
+        const output = scoped;
 
         const counts: AuditCounts = {
-                total: entries.length,
+                total: scoped.length,
                 withNo,
                 noPrefix: noPrefix.length,
-                outputCategory: output.length,
+                outputCategory: scoped.length,
         };
 
         const writePath = resolveOutPath(category, outPath);

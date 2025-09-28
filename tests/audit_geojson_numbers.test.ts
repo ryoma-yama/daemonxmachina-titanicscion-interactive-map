@@ -28,7 +28,7 @@ describe("auditGeojsonNumbers", () => {
 		process.exitCode = undefined;
 	});
 
-	it("aggregates GeoJSON files, detects gaps, and writes audit report", () => {
+	it("aggregates GeoJSON files, scopes to category, and writes audit report", () => {
 		cwd = createTempDir();
 		const result = auditGeojsonNumbers({
 			start: 1,
@@ -40,29 +40,37 @@ describe("auditGeojsonNumbers", () => {
 
 		expect(result.range).toEqual({ start: 1, end: 10 });
 		expect(result.counts).toEqual({
-			total: 9,
-			withNo: 7,
+			total: 8,
+			withNo: 6,
 			noPrefix: 2,
 			outputCategory: 8,
 		});
-		expect(result.missingNumbers).toEqual(["003", "004", "006", "009"]);
+		expect(result.counts.total).toBe(
+			result.counts.withNo + result.counts.noPrefix,
+		);
+		expect(result.missingNumbers).toEqual(["002", "003", "004", "006", "009"]);
 		expect(result.noNumberPrefix).toEqual([
 			{ id: null, name: "Beta without number", category: "log" },
 			{ id: "mountains-003", name: "Gamma without number", category: "log" },
 		]);
+		expect(
+			result.noNumberPrefix.every((entry) => entry.category === "log"),
+		).toBe(true);
 		expect(result.output).toHaveLength(8);
 		expect(result.output.every((item) => item.category === "log")).toBe(true);
 		expect(result.sortedByName.map((entry) => entry.name)).toEqual([
 			"Beta without number",
 			"Gamma without number",
 			"No.001 Alpha",
-			"No.002 Card",
 			"No.005 Desert Log",
 			"No.007 Zeta",
 			"no.008 lowercase",
 			"No.010 さくら",
 			"No.300 Outside Range",
 		]);
+		expect(result.sortedByName.every((entry) => entry.category === "log")).toBe(
+			true,
+		);
 		expect(result.write.path).toBe("tmp/log/audit.json");
 
 		if (!cwd) {
@@ -84,6 +92,8 @@ describe("auditGeojsonNumbers", () => {
 			outPath,
 		});
 
+		expect(result.counts.total).toBe(1);
+		expect(result.counts.noPrefix).toBe(0);
 		expect(result.counts.outputCategory).toBe(1);
 		expect(result.output).toEqual([
 			{ id: "forest-002", name: "No.002 Card", category: "card" },
@@ -94,6 +104,42 @@ describe("auditGeojsonNumbers", () => {
 		}
 		const saved = readResultFile(result, cwd);
 		expect(saved.output).toEqual(result.output);
+	});
+
+	it("filters decal category independently", () => {
+		cwd = createTempDir();
+		const result = auditGeojsonNumbers({
+			start: 10,
+			end: 12,
+			category: "decal",
+			markersDir: fixturePath("markers"),
+			cwd,
+		});
+
+		expect(result.counts).toEqual({
+			total: 2,
+			withNo: 1,
+			noPrefix: 1,
+			outputCategory: 2,
+		});
+		expect(result.counts.total).toBe(
+			result.counts.withNo + result.counts.noPrefix,
+		);
+		expect(result.missingNumbers).toEqual(["010", "012"]);
+		expect(result.noNumberPrefix).toEqual([
+			{ id: "decal-002", name: "Sticker", category: "decal" },
+		]);
+		expect(result.sortedByName.map((entry) => entry.name)).toEqual([
+			"No.011 Vinyl",
+			"Sticker",
+		]);
+		expect(
+			result.sortedByName.every((entry) => entry.category === "decal"),
+		).toBe(true);
+		expect(result.output).toEqual([
+			{ id: "decal-001", name: "No.011 Vinyl", category: "decal" },
+			{ id: "decal-002", name: "Sticker", category: "decal" },
+		]);
 	});
 
 	it("writes to absolute output paths without rejoining cwd", () => {
@@ -118,7 +164,7 @@ describe("auditGeojsonNumbers", () => {
 		const result = auditGeojsonNumbers({
 			start: 1,
 			end: 5,
-			category: "log",
+			category: "",
 			markersDir: fixturePath("nonstring"),
 			files: ["mixed.geojson"],
 			cwd,
@@ -126,7 +172,10 @@ describe("auditGeojsonNumbers", () => {
 		});
 
 		expect(result.counts.total).toBe(2);
-		expect(result.output).toEqual([]);
+		expect(result.output).toEqual([
+			{ id: null, name: "", category: "" },
+			{ id: null, name: "", category: "" },
+		]);
 		expect(result.noNumberPrefix).toEqual([
 			{ id: null, name: "", category: "" },
 			{ id: null, name: "", category: "" },
