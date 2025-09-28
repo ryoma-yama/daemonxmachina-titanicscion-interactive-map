@@ -94,7 +94,7 @@ function parseArguments(argv: readonly string[] = process.argv.slice(2)): BatchA
                 throw new Error("Usage: tsx scripts/batch_add_markers.ts <input_file> [--dry-run]");
         }
 
-        const args = [...argv];
+        const args = argv.filter((token) => token !== "--");
         const dryRunIndex = args.indexOf("--dry-run");
         const dryRun = dryRunIndex !== -1;
 

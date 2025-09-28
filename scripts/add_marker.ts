@@ -3,7 +3,7 @@ import type { PathLike } from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
-import categoryColors from "../src/data/category-colors.json" assert { type: "json" };
+import categoryColors from "../src/data/category-colors.json" with { type: "json" };
 
 export type CategoryId = string;
 
@@ -251,7 +251,12 @@ export function saveGeojson(filePath: PathLike, data: FeatureCollectionLike): tr
         }
 }
 
-export function extractExistingData(geojsonData: { features?: FeatureLike[] }): {
+export function extractExistingData(
+        geojsonData:
+                | Pick<FeatureCollectionLike, "features">
+                | { features?: FeatureLike[] }
+                | FeatureCollectionLike,
+): {
         existingIds: Set<string>;
         existingCoords: Set<string>;
 } {
