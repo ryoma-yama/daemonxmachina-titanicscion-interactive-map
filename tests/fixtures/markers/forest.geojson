@@ -1,0 +1,32 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "forest-root-1",
+      "geometry": { "type": "Point", "coordinates": [10, 10] },
+      "properties": {
+        "name": "No.001 Alpha",
+        "category": "log"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [11, 11] },
+      "properties": {
+        "id": "forest-002",
+        "name": "No.002 Card",
+        "category": "card"
+      }
+    },
+    {
+      "type": "Feature",
+      "name": "No.010 さくら",
+      "geometry": { "type": "Point", "coordinates": [12, 12] },
+      "properties": {
+        "id": "forest-003",
+        "category": "log"
+      }
+    }
+  ]
+}

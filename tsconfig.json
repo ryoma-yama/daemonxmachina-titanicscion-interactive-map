@@ -1,0 +1,23 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"target": "ES2020",
+		"module": "ESNext",
+		"lib": ["DOM", "DOM.Iterable", "ES2023"],
+		"moduleResolution": "Bundler",
+		"allowJs": true,
+		"checkJs": false,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"types": ["node"]
+	},
+	"include": ["src/**/*", "tests/**/*", "scripts/**/*.ts"],
+	"exclude": ["dist", "node_modules"],
+	"references": [{ "path": "./tsconfig.node.json" }]
+}

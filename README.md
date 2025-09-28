@@ -20,7 +20,7 @@ Detailed credits and support information are available on the [About page](./abo
 - Mobile-friendly responsive design
 
 ## Technical Stack
-- **Frontend**: Vanilla HTML/CSS/JavaScript (ES modules)
+- **Frontend**: Vanilla HTML/CSS/TypeScript (ES modules)
 - **Build Tool**: Vite
 - **Map Library**: [Leaflet.js](https://leafletjs.com/) v1.9.4 (npm package)
 - **Data Storage**: Browser localStorage
@@ -70,8 +70,15 @@ pnpm build
 
 ### Code Quality
 ```bash
-# Run linting and formatting checks
+# Static analysis and formatting
 pnpm check
+
+# TypeScript type-checking
+pnpm typecheck
+
+# Run the automated test suites
+pnpm test
+pnpm exec playwright test
 
 # Auto-fix issues
 pnpm fix
@@ -108,6 +115,23 @@ The application includes a "Recording mode" for easily capturing marker coordina
 2. Update `mapDefinitions` in `src/map-definitions.js`
 3. Create corresponding GeoJSON file in `public/assets/data/markers/`
 
+### Auditing Marker Numbering
+Use the GeoJSON audit script to aggregate marker data, detect numbering gaps, and export filtered reports:
+
+```bash
+pnpm audit-geojson --start 1 --end 250 --category log
+```
+
+- `--start` / `--end`: inclusive numeric range used for gap detection (`No.xxx` prefix)
+- `--category`: marker category to include in the `output` array
+- `--out`: optional custom path for the written report (defaults to `tmp/<category>/audit.json`)
+
+The command prints the audit result to stdout and writes the same JSON file to the configured path, including:
+- `missingNumbers`: zero-padded gaps within the specified range
+- `noNumberPrefix`: entries whose names do not start with a `No.xxx` prefix
+- `sortedByName`: all markers sorted with `Intl.Collator("ja")`
+- `output`: markers whose `category` matches the provided filter
+
 ## Assets License
 
 - Dungeon Solid — Icons8 — [MIT](https://opensource.org/licenses/MIT)
@@ -139,13 +163,15 @@ This is primarily a personal project for game progress tracking.
 While contributions are welcome, please note the scope is intentionally limited to maintain simplicity.
 
 ### Development Guidelines
-- Use vanilla JavaScript (ES6+ modules)
-- Console logging for debugging is standard practice
-- Follow existing code style and patterns
-- Use Biome for code formatting and linting
-- Test changes across different browsers
-- Ensure mobile compatibility
-- Run `pnpm check` before committing changes
+- Use TypeScript modules with ES2022 syntax.
+- Prefer explicit types for public exports; allow inference for narrow-scope locals when it keeps intent clear.
+- Console logging for debugging is standard practice.
+- Follow existing code style and patterns.
+- Use Biome for code formatting and linting.
+- Keep shared type definitions in `src/types/` so modules can import stable contracts.
+- Run `pnpm check`, `pnpm typecheck`, `pnpm test`, and `pnpm exec playwright test` before committing changes.
+- Test changes across different browsers and ensure mobile compatibility.
+- Refer to [`docs/typescript-migration/wrap-up.md`](./docs/typescript-migration/wrap-up.md) for post-migration conventions and lessons learned.
 
 #### CSS Important Rules
 This project uses `!important` declarations in CSS for the following justified reasons:
@@ -160,6 +186,8 @@ The `complexity.noImportantStyles` rule is disabled in `biome.json` for this rea
 Planning for the TypeScript migration is documented in [`docs/typescript-migration/baseline.md`](./docs/typescript-migration/baseline.md).
 It records the pre-migration quality gates, storage keys that must remain stable, and the recommended checkpoints for the multi-phase conversion.
 
+The detailed module-by-module conversion order lives in [`docs/typescript-migration/phase-3-module-conversion-order.md`](./docs/typescript-migration/phase-3-module-conversion-order.md) so contributors can tackle the migration in review-friendly waves.
+
 ---
 
-*This project is maintained as a fan project and learning exercise. It uses a modern Vite-based development workflow while maintaining vanilla JavaScript for the core application logic.*
+*This project is maintained as a fan project and learning exercise. It uses a modern Vite-based development workflow while keeping the core application logic in TypeScript modules that compile to vanilla JavaScript for the browser.*

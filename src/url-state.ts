@@ -1,0 +1,114 @@
+import { isValidMapId } from "./map-definitions.js";
+import type { MapId, MarkerId } from "./types";
+import { validateMarkerId } from "./validation.js";
+
+export interface UrlState {
+	mapId?: MapId;
+	markerId?: MarkerId;
+	zoom?: number;
+}
+
+export interface UrlStateUpdate {
+	mapId?: MapId | null;
+	markerId?: MarkerId | null;
+	zoom?: number | null;
+}
+
+const MAP_PARAM = "map";
+const MARKER_PARAM = "marker";
+const ZOOM_PARAM = "zoom";
+
+function getCurrentUrl(): URL {
+	return new URL(window.location.href);
+}
+
+function applyStateToUrl(
+	url: URL,
+	{ mapId, markerId, zoom }: UrlStateUpdate,
+): URL {
+	if (mapId === null) {
+		url.searchParams.delete(MAP_PARAM);
+	} else if (mapId && isValidMapId(mapId)) {
+		url.searchParams.set(MAP_PARAM, mapId);
+	}
+
+	if (markerId === null) {
+		url.searchParams.delete(MARKER_PARAM);
+	} else if (markerId && validateMarkerId(markerId)) {
+		url.searchParams.set(MARKER_PARAM, markerId);
+	}
+
+	if (zoom === null) {
+		url.searchParams.delete(ZOOM_PARAM);
+	} else if (typeof zoom === "number" && Number.isFinite(zoom)) {
+		url.searchParams.set(ZOOM_PARAM, zoom.toString());
+	}
+
+	return url;
+}
+
+function sanitizeZoomParam(value: string | null): number | null {
+	if (typeof value !== "string") {
+		return null;
+	}
+	const parsed = Number.parseFloat(value);
+	return Number.isFinite(parsed) ? parsed : null;
+}
+
+export function parseUrlState(): UrlState {
+	if (typeof window === "undefined") {
+		return {};
+	}
+
+	const url = getCurrentUrl();
+	const state: UrlState = {};
+
+	const mapId = url.searchParams.get(MAP_PARAM);
+	if (mapId && isValidMapId(mapId)) {
+		state.mapId = mapId;
+	}
+
+	const markerId = url.searchParams.get(MARKER_PARAM);
+	if (markerId && validateMarkerId(markerId)) {
+		state.markerId = markerId;
+	}
+
+	const zoomParam = url.searchParams.get(ZOOM_PARAM);
+	const zoom = sanitizeZoomParam(zoomParam);
+	if (zoom !== null) {
+		state.zoom = zoom;
+	}
+
+	return state;
+}
+
+export function updateUrlState({
+	mapId,
+	markerId,
+	zoom,
+}: UrlStateUpdate): void {
+	if (typeof window === "undefined") {
+		return;
+	}
+
+	const url = applyStateToUrl(getCurrentUrl(), { mapId, markerId, zoom });
+
+	const newUrl = `${url.pathname}${url.search}${url.hash}`;
+	const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+	if (newUrl !== current) {
+		history.replaceState(null, "", newUrl);
+	}
+}
+
+export function createShareUrl({
+	mapId,
+	markerId,
+	zoom,
+}: UrlStateUpdate): string {
+	if (typeof window === "undefined") {
+		return "";
+	}
+
+	const url = applyStateToUrl(getCurrentUrl(), { mapId, markerId, zoom });
+	return url.toString();
+}

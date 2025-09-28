@@ -3,7 +3,7 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
 	test: {
 		environment: "node",
-		include: ["tests/**/*.test.js"],
+		include: ["tests/**/*.test.ts"],
 		pool: "threads",
 		poolOptions: {
 			threads: {
@@ -14,7 +14,7 @@ export default defineConfig({
 		coverage: {
 			provider: "v8",
 			all: true,
-			include: ["scripts/add_marker.js"],
+			include: ["scripts/add_marker.ts", "scripts/audit_geojson_numbers.ts"],
 			reporter: ["text", "json-summary"],
 			thresholds: {
 				branches: 100,
