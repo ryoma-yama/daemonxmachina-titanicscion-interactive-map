@@ -4,13 +4,16 @@
 This is an interactive web-based map application for the game "Daemon X Machina: Titanic Scion" that allows users to track collectible items (dungeons, logs, cards, etc.) across multiple game maps. Users can click markers to toggle collection status, with state persisted in localStorage.
 
 ## Tech Stack
-- **Frontend**: Vanilla HTML/CSS/JavaScript (ES modules)
+- **Frontend**: Vanilla HTML/CSS/TypeScript (ES modules)
 - **Build Tool**: Vite
 - **Map Library**: Leaflet.js v1.9.4 (npm package)
 - **Data Storage**: Browser localStorage
 - **Coordinate System**: Leaflet's L.CRS.Simple (pixel-based, not lat/lng)
 - **Data Format**: GeoJSON for marker definitions
 - **Icons**: SVG icons with CSS mask-based coloring
+  - Uses custom `L.divIcon` with SVG content exclusively
+  - Leaflet default marker icons are **not used** in this application
+- **Testing**: Playwright (E2E), Vitest (Unit)
 - **Linting/Formatting**: Biome
 - **Package Manager**: pnpm
 
@@ -18,13 +21,17 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 ```
 /
 ├── index.html              # Main HTML entry point
-├── README.md              # Comprehensive project documentation
+├── about.html              # About page with credits
+├── README.md              # Comprehensive project documentation  
 ├── LICENSE                # MIT License file
 ├── package.json           # Package dependencies and scripts
 ├── pnpm-lock.yaml         # Package lock file
-├── vite.config.js         # Vite configuration
+├── vite.config.ts         # Vite configuration (TypeScript)
+├── tsconfig.json          # TypeScript configuration
+├── tsconfig.node.json     # Node TypeScript configuration
+├── vitest.config.js       # Vitest unit test configuration
+├── playwright.config.js   # Playwright E2E test configuration
 ├── biome.json             # Biome configuration
-├── test_add_marker.py     # Test file for marker script
 ├── public/                # Static assets
 │   ├── site.webmanifest   # Web app manifest
 │   ├── favicon files      # Various favicon formats
@@ -32,17 +39,35 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 │       ├── data/markers/  # Marker definitions (GeoJSON)
 │       ├── icons/         # SVG icons for categories
 │       └── maps/          # Game map images (JPEG)
-├── scripts/
-│   └── add_marker.py      # Python utility for adding markers
-└── src/                   # Source code
-    ├── main.js            # Application entry point
-    ├── app-controller.js  # Main application controller
-    ├── map-view.js        # Map rendering and interaction
-    ├── map-definitions.js # Map configuration data
-    ├── collection-store.js # Data persistence layer
-    ├── icons.js           # Icon creation utilities
-    ├── validation.js      # Data validation utilities
-    └── styles.css         # Main stylesheet
+├── scripts/               # TypeScript utilities
+│   ├── add_marker.ts      # TypeScript utility for adding markers
+│   ├── audit_geojson_numbers.ts # GeoJSON audit script
+│   └── batch_add_markers.ts # Batch marker addition utility
+├── tests/                 # Test files
+│   ├── *.spec.ts          # Playwright E2E tests
+│   ├── *.test.ts          # Unit tests
+│   └── fixtures/          # Test fixtures and helpers
+└── src/                   # Source code (TypeScript)
+    ├── main.ts            # Application entry point
+    ├── about.ts           # About page functionality
+    ├── app-controller.ts  # Main application controller
+    ├── map-view.ts        # Map rendering and interaction
+    ├── map-definitions.ts # Map configuration data
+    ├── collection-store.ts # Data persistence layer
+    ├── preferences-store.ts # User preferences storage
+    ├── filter-manager.ts  # Filter logic management
+    ├── filter-pane.ts     # Filter UI component
+    ├── search-panel.ts    # Search functionality
+    ├── url-state.ts       # URL state management
+    ├── icons.ts           # Icon creation utilities
+    ├── validation.ts      # Data validation utilities
+    ├── asset-path.ts      # Asset path utilities
+    ├── constants.ts       # Application constants
+    ├── styles.css         # Main stylesheet
+    ├── data/              # JSON data files
+    │   └── category-colors.json # Category color definitions
+    └── types/             # TypeScript type definitions
+        └── *.ts           # Type definition files
 ```
 
 ## Key Technical Concepts
@@ -61,19 +86,33 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 ### Marker System
 - Defined in GeoJSON format with properties: `id`, `name`, `category`
 - Custom colored icons using CSS mask technique
-- Colors defined in fluorescent palette in `src/constants.js`
+- Colors defined in fluorescent palette in `src/data/category-colors.json`
+- Icon creation handled by `src/icons.ts` module
 
 ### Data Persistence
 - localStorage keys format: `collect-map:v1:{mapId}`
 - Storage format: `{ markerId: true/false }` for collection status
-- Handled by `collection-store.js` module
+- Handled by `collection-store.ts` module
+- User preferences stored via `preferences-store.ts`
+- URL state management via `url-state.ts`
+
+### New Features
+- **Search Panel**: Text-based marker search with real-time filtering
+- **Filter System**: Category-based filtering with show/hide collected toggle
+- **Map Navigation**: Multi-map support (Forest, Desert, Mountains)
+- **URL State**: Shareable URLs for specific markers and map states
+- **Preferences**: Persistent user settings for filters and display options
+- **Mobile Support**: Responsive design optimized for touch devices
 
 ## Development Guidelines
 
 ### Code Style
-- Use vanilla JavaScript (ES6+)
+- Use TypeScript modules with ES2022 syntax
+- Prefer explicit types for public exports; allow inference for narrow-scope locals when it keeps intent clear
 - Console logging for debugging is standard practice
 - Use descriptive variable names in English
+- Keep shared type definitions in `src/types/` so modules can import stable contracts
+- Follow existing code style and patterns using Biome for formatting and linting
 
 ### Leaflet Usage
 - Always refer to [Leaflet documentation](https://leafletjs.com/reference.html) for API usage
@@ -94,6 +133,9 @@ This is an interactive web-based map application for the game "Daemon X Machina:
 - Development server: `pnpm dev` (Vite dev server)
 - Test marker interactions by clicking on map elements
 - Verify localStorage persistence manually via dev tools
+- **Unit Tests**: Run `pnpm test` (Vitest)
+- **E2E Tests**: Run `pnpm exec playwright test` (Playwright)
+- **Type Checking**: Run `pnpm typecheck` for TypeScript validation
 
 ### HTML Verification
 - To preview the application during development:
@@ -113,15 +155,20 @@ All code comments and in-app text must be written in English.
 ## Common Tasks
 
 ### Adding New Markers
-1. Add entry to `public/assets/data/markers/*.geojson`
-2. Ensure category exists in `colors` object in `src/icons.js`
+1. Add entry to appropriate `public/assets/data/markers/{map}.geojson` file
+2. Ensure category exists in `src/data/category-colors.json`
 3. Add corresponding SVG icon to `public/assets/icons/` if new category
+4. Use TypeScript script: `pnpm tsx scripts/add_marker.ts` for batch additions
 
 ### Adding New Maps
 1. Add image to `public/assets/maps/`
-2. Update bounds in main.js for image dimensions
-3. Implement map switching logic (currently single map)
-4. Update localStorage key structure for multiple maps
+2. Update `mapDefinitions` in `src/map-definitions.ts`
+3. Create corresponding GeoJSON file in `public/assets/data/markers/`
+4. Map switching is already implemented via dropdown
+
+### Auditing Markers
+- Use `pnpm audit-geojson` script to detect numbering gaps and export reports
+- Supports filtering by category and numeric range validation
 
 ### Icon Customization
 - Icons use CSS mask technique for recoloring
@@ -147,4 +194,7 @@ All code comments and in-app text must be written in English.
 
 - Run `pnpm fix` after implementation to apply safe automatic fixes
 - Run `pnpm check` and ensure there are no warnings or errors
+- Run `pnpm typecheck` for TypeScript type validation
+- Run `pnpm test` and `pnpm exec playwright test` to ensure all tests pass
+- Test changes across different browsers and ensure mobile compatibility
 - Verify no unnecessary diffs are introduced, then commit with conventional commits and open a PR
