@@ -696,7 +696,7 @@
         "id": "desert-051",
         "name": "Grausam",
         "category": "boss",
-        "description": "Required: Story progression"
+        "description": "Requires: Story progression"
       }
     },
     {
@@ -727,7 +727,7 @@
         "id": "desert-053",
         "name": "Lapis Lacrima",
         "category": "boss",
-        "description": "Required: Story progression"
+        "description": "Requires: Story progression"
       }
     },
     {
@@ -743,7 +743,7 @@
         "id": "desert-054",
         "name": "Gunfort",
         "category": "boss",
-        "description": "Changes each defeat: Normal → Alpha → Beta"
+        "description": "Changes each defeat: Normal -> Alpha -> Beta"
       }
     },
     {
@@ -1143,7 +1143,7 @@
         "id": "desert-079",
         "name": "No.042",
         "category": "log",
-        "description": "Required: Obtaining log No.041"
+        "description": "Requires: Obtaining log No.041"
       }
     },
     {
@@ -1159,7 +1159,7 @@
         "id": "desert-080",
         "name": "Ugly Envy",
         "category": "chest",
-        "description": "Required: Obtaining log No.041. Seven Deadly Sins series."
+        "description": "Requires: Obtaining log No.041. Seven Deadly Sins series."
       }
     },
     {
@@ -1727,6 +1727,22 @@
         "name": "No.079 Caution Request for Transport of Femto Survey Device",
         "category": "log",
         "description": "upper side"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          515,
+          454
+        ]
+      },
+      "properties": {
+        "id": "desert-117",
+        "name": "Zeruchroar",
+        "category": "boss",
+        "description": "Requires: Emergency Order acceptance or Gunfort RT: Beta appearing here"
       }
     }
   ]

@@ -1671,6 +1671,21 @@
         "category": "card",
         "description": "near two trucks"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          947,
+          299
+        ]
+      },
+      "properties": {
+        "id": "forest-113",
+        "name": "Cybele",
+        "category": "boss"
+      }
     }
   ]
 }

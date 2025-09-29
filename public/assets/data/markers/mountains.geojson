@@ -1094,7 +1094,7 @@
         "id": "mountains-077",
         "name": "Eclipse",
         "category": "boss",
-        "description": "Required: Story Completion"
+        "description": "Requires: Story Completion"
       }
     },
     {
@@ -1501,6 +1501,66 @@
         "id": "mountains-102",
         "name": "No.197 Lips",
         "category": "decal"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          452,
+          1045
+        ]
+      },
+      "properties": {
+        "id": "mountains-103",
+        "name": "Grausam RT: Beta",
+        "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          887,
+          589
+        ]
+      },
+      "properties": {
+        "id": "mountains-104",
+        "name": "Cybele RT: Beta",
+        "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          716,
+          926
+        ]
+      },
+      "properties": {
+        "id": "mountains-105",
+        "name": "Lapis Lacrima RT: Alpha",
+        "category": "boss"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          884,
+          308
+        ]
+      },
+      "properties": {
+        "id": "mountains-106",
+        "name": "Rebellion RT: Alpha",
+        "category": "boss"
       }
     }
   ]
