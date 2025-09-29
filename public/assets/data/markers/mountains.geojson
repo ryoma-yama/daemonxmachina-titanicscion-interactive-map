@@ -1163,7 +1163,7 @@
         "name": "Junior Card Champ",
         "category": "duelist",
         "items": [
-          "Card: Great Horn II",
+          "Card: No.043 Great Horn II",
           "Decal: Eight"
         ]
       }
@@ -1246,7 +1246,10 @@
         "id": "mountains-086",
         "name": "Colony Shop Owner",
         "category": "shop",
-        "description": "items: Memory Slot Expansions, Drill Enhancement Chips"
+        "items": [
+          "Memory Slot Expansions",
+          "Drill Enhancement Chips"
+        ]
       }
     },
     {
@@ -1308,7 +1311,7 @@
       },
       "properties": {
         "id": "mountains-090",
-        "name": "No.072 Anfang Arger",
+        "name": "No.005 Anfang Arger",
         "category": "card",
         "description": "1F of collapsed building"
       }

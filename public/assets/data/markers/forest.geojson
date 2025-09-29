@@ -499,7 +499,7 @@
         "name": "Card Keeper",
         "category": "duelist",
         "items": [
-          "Card: Bloodsucker",
+          "Card: No.076 Bloodsucker",
           "Decal: Six"
         ]
       }
@@ -533,7 +533,7 @@
         "name": "Enamored Card Player",
         "category": "duelist",
         "items": [
-          "Card: Avalon",
+          "Card: No.079 Avalon",
           "Decal: Seven"
         ]
       }
@@ -552,9 +552,9 @@
         "name": "Colony Shop Owner",
         "category": "shop",
         "items": [
-          "Card: Berserk (Vambrace)",
-          "Card: Futsunushi (Vambrace)",
-          "Card: Strider X"
+          "Card: No.121 Berserk (Vambrace)",
+          "Card: No.122 Futsunushi (Vambrace)",
+          "Card: No.008 Strider X"
         ]
       }
     },
@@ -634,11 +634,11 @@
         "name": "Colony Shop Owner",
         "category": "shop",
         "items": [
-          "Card: Hell Banshee",
-          "Card: Nightingale",
-          "Card: Raging Gluttony",
-          "Card: Flamberge (Cuirass)",
-          "Card: Glaive (Greaves)"
+          "Card: No.048 Hell Banshee",
+          "Card: No.057 Nightingale",
+          "Card: No.085 Raging Gluttony",
+          "Card: No.105 Flamberge (Cuirass)",
+          "Card: No.130 Glaive (Greaves)"
         ]
       }
     },
@@ -1436,7 +1436,7 @@
         "name": "Colony Shop Owner",
         "category": "shop",
         "items": [
-          "Card: No.107"
+          "Card: No.107 Acropolis (Cuirass)"
         ]
       }
     },

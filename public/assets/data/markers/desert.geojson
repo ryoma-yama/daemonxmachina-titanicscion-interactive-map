@@ -821,9 +821,9 @@
         "name": "Colony Shop Owner",
         "category": "shop",
         "items": [
-          "Card: Absolute Zero",
-          "Card: Futsunomitama",
-          "Card: Demolishing Edge"
+          "Card: No.006 Absolute Zero",
+          "Card: No.022 Futsunomitama",
+          "Card: No.033 Demolishing Edge"
         ]
       }
     },
@@ -1067,7 +1067,7 @@
         "name": "Card Addict Mechanic",
         "category": "duelist",
         "items": [
-          "Card: Fragarach",
+          "Card: No.036 Fragarach",
           "Decal: 4"
         ]
       }
@@ -1086,7 +1086,7 @@
         "name": "Card-Loving Youth",
         "category": "duelist",
         "items": [
-          "Card: Agneyastra",
+          "Card: No.082 Agneyastra",
           "Decal: 5"
         ]
       }
@@ -1105,7 +1105,7 @@
         "name": "Card Addict Lady",
         "category": "duelist",
         "items": [
-          "Card: Iris",
+          "Card: No.138 Iris",
           "Decal: 6"
         ]
       }
@@ -1124,7 +1124,7 @@
         "name": "Card Champion",
         "category": "duelist",
         "items": [
-          "Card: Osteo",
+          "Card: No.152 Osteo",
           "Decal: 8",
           "Decal: Best of the Best"
         ]
@@ -1743,6 +1743,86 @@
         "name": "Zeruchroar",
         "category": "boss",
         "description": "Requires: Emergency Order acceptance or Gunfort RT: Beta appearing here"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1093,
+          136
+        ]
+      },
+      "properties": {
+        "id": "desert-118",
+        "name": "No.019",
+        "category": "card",
+        "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1095,
+          121
+        ]
+      },
+      "properties": {
+        "id": "desert-119",
+        "name": "No.042 Great Horn",
+        "category": "card",
+        "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1116,
+          119
+        ]
+      },
+      "properties": {
+        "id": "desert-120",
+        "name": "No.056",
+        "category": "card",
+        "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1078,
+          120
+        ]
+      },
+      "properties": {
+        "id": "desert-121",
+        "name": "No.091 Iroas (Helm)",
+        "category": "card",
+        "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1112,
+          123
+        ]
+      },
+      "properties": {
+        "id": "desert-122",
+        "name": "No.101 Cratos (Cuirass)",
+        "category": "card",
+        "description": "Unconfirmed"
       }
     }
   ]
