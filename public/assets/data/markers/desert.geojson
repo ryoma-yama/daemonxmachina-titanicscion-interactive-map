@@ -52,7 +52,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          1134,
+          1130,
           629
         ]
       },
@@ -60,7 +60,7 @@
         "id": "desert-009",
         "name": "No.009 Fusion",
         "category": "music",
-        "description": "Axiom Facility B1F Small room at the bottom"
+        "description": "facility B1F, small room at the bottom"
       }
     },
     {
@@ -1167,8 +1167,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          990,
-          227
+          1006,
+          240
         ]
       },
       "properties": {
@@ -1183,8 +1183,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          815,
-          104
+          790,
+          59
         ]
       },
       "properties": {
@@ -1199,8 +1199,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          802,
-          472
+          788,
+          457
         ]
       },
       "properties": {
@@ -1823,6 +1823,22 @@
         "name": "No.101 Cratos (Cuirass)",
         "category": "card",
         "description": "Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1140,
+          629
+        ]
+      },
+      "properties": {
+        "id": "desert-123",
+        "name": "No.156 Nerve",
+        "category": "card",
+        "description": "facility B1F, left room of side-by-side small rooms"
       }
     }
   ]

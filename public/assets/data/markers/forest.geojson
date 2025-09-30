@@ -1686,6 +1686,38 @@
         "name": "Cybele",
         "category": "boss"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          626,
+          668
+        ]
+      },
+      "properties": {
+        "id": "forest-114",
+        "name": "No.96",
+        "category": "log",
+        "description": "lab B2F"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          636,
+          668
+        ]
+      },
+      "properties": {
+        "id": "forest-115",
+        "name": "No.104",
+        "category": "log",
+        "description": "lab B2F"
+      }
     }
   ]
 }
