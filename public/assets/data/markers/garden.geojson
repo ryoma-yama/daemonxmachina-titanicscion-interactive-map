@@ -1,4 +1,165 @@
 {
   "type": "FeatureCollection",
-  "features": []
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          824,
+          555
+        ]
+      },
+      "properties": {
+        "id": "garden-001",
+        "name": "No.153",
+        "category": "card",
+        "description": "Central Tower"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          829,
+          555
+        ]
+      },
+      "properties": {
+        "id": "garden-002",
+        "name": "No.154",
+        "category": "card",
+        "description": "Central Tower"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          550,
+          570
+        ]
+      },
+      "properties": {
+        "id": "garden-003",
+        "name": "No.155",
+        "category": "card",
+        "description": "Section 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          555,
+          570
+        ]
+      },
+      "properties": {
+        "id": "garden-004",
+        "name": "No.008 The Garden",
+        "category": "music",
+        "description": "Section 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          560,
+          570
+        ]
+      },
+      "properties": {
+        "id": "garden-005",
+        "name": "No.021",
+        "category": "log",
+        "description": "Section 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          565,
+          570
+        ]
+      },
+      "properties": {
+        "id": "garden-006",
+        "name": "No.022",
+        "category": "log",
+        "description": "Section 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          570,
+          570
+        ]
+      },
+      "properties": {
+        "id": "garden-007",
+        "name": "Neptune",
+        "category": "chest",
+        "description": "Section 3. Requires: security key found at orphanage in Forest, Asty Greenbelt"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          851,
+          547
+        ]
+      },
+      "properties": {
+        "id": "garden-008",
+        "name": "No.007",
+        "category": "card",
+        "description": "Lowest Level"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          856,
+          547
+        ]
+      },
+      "properties": {
+        "id": "garden-009",
+        "name": "No.020 Void",
+        "category": "music",
+        "description": "Core. Unconfirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          259,
+          587
+        ]
+      },
+      "properties": {
+        "id": "garden-010",
+        "name": "No.024",
+        "category": "card",
+        "description": "Section 1"
+      }
+    }
+  ]
 }
