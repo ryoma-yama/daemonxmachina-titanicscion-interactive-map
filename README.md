@@ -12,7 +12,7 @@ It helps players track collectible items (dungeons, logs, cards, etc.) across mu
 Detailed credits and support information are available on the [About page](./about.html).
 
 ## Features
-- Interactive maps for Forest, Desert, and Mountains areas
+- Interactive maps for Forest, Desert, Mountains, and Garden areas
 - Click markers to toggle collection status
 - Progress automatically saved to browser localStorage
 - Category-based marker icons (dungeons, logs, cards, chests, etc.)

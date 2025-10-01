@@ -32,6 +32,15 @@ export const mapDefinitions: MapDefinitions = {
 		],
 		markersPath: getAssetPath("/assets/data/markers/mountains.geojson"),
 	},
+	garden: {
+		name: "Garden Map",
+		imagePath: getAssetPath("/assets/maps/garden.jpg"),
+		bounds: [
+			[0, 0],
+			[1230, 1230],
+		],
+		markersPath: getAssetPath("/assets/data/markers/garden.geojson"),
+	},
 };
 
 export function getMapDefinition(mapId: MapId): MapDefinition | null {

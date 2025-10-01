@@ -1,6 +1,6 @@
 import type { Feature, FeatureCollection, Point } from "geojson";
 
-export type MapId = "forest" | "desert" | "mountains";
+export type MapId = "forest" | "desert" | "mountains" | "garden";
 
 export type MarkerCategory =
 	| "music"
