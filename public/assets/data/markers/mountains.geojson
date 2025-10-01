@@ -1265,7 +1265,11 @@
         "id": "mountains-087",
         "name": "Nereus RT: Alpha",
         "category": "enemy",
-        "description": "items: Dev. Data: Deadly Drive, SK1-SK2-SK4, SK2-SK3-SK4"
+        "items": [
+          "Dev. Data: Deadly Drive",
+          "SK1-SK2-SK4",
+          "SK2-SK3-SK4"
+        ]
       }
     },
     {
@@ -1281,7 +1285,10 @@
         "id": "mountains-088",
         "name": "Divison RT: Alpha",
         "category": "enemy",
-        "description": "items: SH2-Sh3, SH2-SH4"
+        "items": [
+          "SH2-SH3",
+          "SH2-SH4"
+        ]
       }
     },
     {

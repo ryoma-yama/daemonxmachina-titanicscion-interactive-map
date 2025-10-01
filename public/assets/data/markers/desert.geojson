@@ -1840,6 +1840,26 @@
         "category": "card",
         "description": "facility B1F, left room of side-by-side small rooms"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          220,
+          689
+        ]
+      },
+      "properties": {
+        "id": "desert-124",
+        "name": "Hypnos RT: Alpha",
+        "category": "enemy",
+        "description": "Sometimes Normal spawns instead",
+        "items": [
+          "SH1-SH2-SH4",
+          "SH2-SH3-SH4"
+        ]
+      }
     }
   ]
 }
